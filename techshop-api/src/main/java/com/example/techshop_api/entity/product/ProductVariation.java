@@ -1,6 +1,6 @@
 package com.example.techshop_api.entity.product;
 
-import com.example.techshop_api.entity.option.ChoiceValue;
+import com.example.techshop_api.entity.choice.ChoiceValue;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

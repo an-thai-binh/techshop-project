@@ -1,4 +1,4 @@
-package com.example.techshop_api.entity.option;
+package com.example.techshop_api.entity.choice;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
