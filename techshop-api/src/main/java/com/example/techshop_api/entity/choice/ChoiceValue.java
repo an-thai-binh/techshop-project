@@ -1,4 +1,4 @@
-package com.example.techshop_api.entity.option;
+package com.example.techshop_api.entity.choice;
 
 import com.example.techshop_api.entity.product.ProductVariation;
 import jakarta.persistence.*;
