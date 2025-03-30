@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Object>> handleAppException(AppException appException) {
         ApiResponse<Object> apiResponse = ApiResponse.builder()
                 .success(false)
-                .message(appException.getErrorMessage().getMessage())
+                .message(appException.getErrorCode().getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }

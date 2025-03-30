@@ -1,15 +1,19 @@
 package com.example.techshop_api.service;
 
+import com.example.techshop_api.dto.request.category.CategoryUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.request.category.CategoryCreationRequest;
-import com.example.techshop_api.dto.response.category.CategoryCreationResponse;
 import com.example.techshop_api.entity.category.Category;
+import com.example.techshop_api.enums.ErrorCode;
+import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.CategoryMapper;
 import com.example.techshop_api.repository.CategoryRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,12 +22,53 @@ public class CategoryService {
     CategoryRepository categoryRepository;
     CategoryMapper categoryMapper;
 
-    public ApiResponse<CategoryCreationResponse> insert(CategoryCreationRequest categoryCreationRequest) {
+    public ApiResponse<List<Category>> index() {
+        List<Category> categories = categoryRepository.findAll();
+        return ApiResponse.<List<Category>>builder()
+                .data(categories)
+                .build();
+    }
+
+    public ApiResponse<Category> show(Long id) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+        return ApiResponse.<Category>builder()
+                .data(category)
+                .build();
+    }
+
+    public ApiResponse<Category> store(CategoryCreationRequest categoryCreationRequest) {
         Category category = categoryMapper.toCategory(categoryCreationRequest);
-        CategoryCreationResponse categoryCreationResponse = categoryMapper.toCategoryCreationResponse(categoryRepository.save(category));
-        return ApiResponse.<CategoryCreationResponse>builder()
-                .success(true)
-                .data(categoryCreationResponse)
+        try {
+            category =  categoryRepository.save(category);
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.INSERT_FAILED);
+        }
+        return ApiResponse.<Category>builder()
+                .data(category)
+                .build();
+    }
+
+    public ApiResponse<Category> update(Long id, CategoryUpdateRequest categoryUpdateRequest) {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+        categoryMapper.updateCategory(category, categoryUpdateRequest);
+        try {
+            category = categoryRepository.save(category);
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.UPDATE_FAILED);
+        }
+        return ApiResponse.<Category>builder()
+                .data(category)
+                .build();
+    }
+
+    public ApiResponse<Object> destroy(Long id) {
+        try {
+            categoryRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.DELETE_FAILED);
+        }
+        return ApiResponse.builder()
+                .message("Delete Successful")
                 .build();
     }
 }
