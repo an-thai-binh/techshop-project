@@ -11,9 +11,9 @@ import com.example.techshop_api.repository.CategoryRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,9 +22,9 @@ public class CategoryService {
     CategoryRepository categoryRepository;
     CategoryMapper categoryMapper;
 
-    public ApiResponse<List<Category>> index() {
-        List<Category> categories = categoryRepository.findAll();
-        return ApiResponse.<List<Category>>builder()
+    public ApiResponse<Page<Category>> index(Pageable pageable) {
+        Page<Category> categories = categoryRepository.findAll(pageable);
+        return ApiResponse.<Page<Category>>builder()
                 .data(categories)
                 .build();
     }

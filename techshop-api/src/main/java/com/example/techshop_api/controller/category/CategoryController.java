@@ -3,17 +3,18 @@ package com.example.techshop_api.controller.category;
 import com.example.techshop_api.dto.request.category.CategoryUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.request.category.CategoryCreationRequest;
-import com.example.techshop_api.dto.response.category.CategoryCreationResponse;
 import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.service.CategoryService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -23,8 +24,16 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Category>>> index() {
-        ApiResponse<List<Category>> apiResponse = categoryService.index();
+    public ResponseEntity<ApiResponse<Page<Category>>> index(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "desc") String direction
+    ) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+        ApiResponse<Page<Category>> apiResponse = categoryService.index(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
