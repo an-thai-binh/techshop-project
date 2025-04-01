@@ -29,7 +29,7 @@ public class Product {
    String productDescription;
 
    @Column(nullable=false)
-   String productBasePrice;
+   double productBasePrice;
 
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
    List<ProductVariation> productVariantionList;
