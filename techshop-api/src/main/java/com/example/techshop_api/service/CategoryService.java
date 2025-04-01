@@ -3,6 +3,7 @@ package com.example.techshop_api.service;
 import com.example.techshop_api.dto.request.category.CategoryUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.request.category.CategoryCreationRequest;
+import com.example.techshop_api.dto.response.category.CategoryResponse;
 import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
@@ -22,33 +23,36 @@ public class CategoryService {
     CategoryRepository categoryRepository;
     CategoryMapper categoryMapper;
 
-    public ApiResponse<Page<Category>> index(Pageable pageable) {
+    public ApiResponse<Page<CategoryResponse>> index(Pageable pageable) {
         Page<Category> categories = categoryRepository.findAll(pageable);
-        return ApiResponse.<Page<Category>>builder()
-                .data(categories)
+        Page<CategoryResponse> categoryResponses = categories.map(categoryMapper::toCategoryResponse);
+        return ApiResponse.<Page<CategoryResponse>>builder()
+                .data(categoryResponses)
                 .build();
     }
 
-    public ApiResponse<Category> show(Long id) {
+    public ApiResponse<CategoryResponse> show(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
-        return ApiResponse.<Category>builder()
-                .data(category)
+        CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(category);
+        return ApiResponse.<CategoryResponse>builder()
+                .data(categoryResponse)
                 .build();
     }
 
-    public ApiResponse<Category> store(CategoryCreationRequest categoryCreationRequest) {
+    public ApiResponse<CategoryResponse> store(CategoryCreationRequest categoryCreationRequest) {
         Category category = categoryMapper.toCategory(categoryCreationRequest);
         try {
             category =  categoryRepository.save(category);
         } catch (Exception e) {
             throw new AppException(ErrorCode.INSERT_FAILED);
         }
-        return ApiResponse.<Category>builder()
-                .data(category)
+        CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(category);
+        return ApiResponse.<CategoryResponse>builder()
+                .data(categoryResponse)
                 .build();
     }
 
-    public ApiResponse<Category> update(Long id, CategoryUpdateRequest categoryUpdateRequest) {
+    public ApiResponse<CategoryResponse> update(Long id, CategoryUpdateRequest categoryUpdateRequest) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
         categoryMapper.updateCategory(category, categoryUpdateRequest);
         try {
@@ -56,8 +60,9 @@ public class CategoryService {
         } catch (Exception e) {
             throw new AppException(ErrorCode.UPDATE_FAILED);
         }
-        return ApiResponse.<Category>builder()
-                .data(category)
+        CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(category);
+        return ApiResponse.<CategoryResponse>builder()
+                .data(categoryResponse)
                 .build();
     }
 
