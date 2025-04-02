@@ -12,10 +12,12 @@ import com.example.techshop_api.repository.CategoryRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -27,6 +29,7 @@ public class CategoryService {
         Page<Category> categories = categoryRepository.findAll(pageable);
         Page<CategoryResponse> categoryResponses = categories.map(categoryMapper::toCategoryResponse);
         return ApiResponse.<Page<CategoryResponse>>builder()
+                .success(true)
                 .data(categoryResponses)
                 .build();
     }
@@ -35,6 +38,7 @@ public class CategoryService {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
         CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(category);
         return ApiResponse.<CategoryResponse>builder()
+                .success(true)
                 .data(categoryResponse)
                 .build();
     }
@@ -44,10 +48,12 @@ public class CategoryService {
         try {
             category =  categoryRepository.save(category);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new AppException(ErrorCode.INSERT_FAILED);
         }
         CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(category);
         return ApiResponse.<CategoryResponse>builder()
+                .success(true)
                 .data(categoryResponse)
                 .build();
     }
@@ -58,10 +64,12 @@ public class CategoryService {
         try {
             category = categoryRepository.save(category);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new AppException(ErrorCode.UPDATE_FAILED);
         }
         CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(category);
         return ApiResponse.<CategoryResponse>builder()
+                .success(true)
                 .data(categoryResponse)
                 .build();
     }
@@ -70,9 +78,11 @@ public class CategoryService {
         try {
             categoryRepository.deleteById(id);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new AppException(ErrorCode.DELETE_FAILED);
         }
         return ApiResponse.builder()
+                .success(true)
                 .message("Delete Successful")
                 .build();
     }
