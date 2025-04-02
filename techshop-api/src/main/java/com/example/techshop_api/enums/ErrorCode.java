@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatusCode;
 public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION("Uncategorized Exception", HttpStatus.INTERNAL_SERVER_ERROR),
     CATEGORY_NOT_FOUND("Category Not Found", HttpStatus.NOT_FOUND),
+    PRODUCT_NOT_FOUND("Product Not Found", HttpStatus.NOT_FOUND),
     INSERT_FAILED("Insert Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     UPDATE_FAILED("Update Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     DELETE_FAILED("Delete Failed", HttpStatus.INTERNAL_SERVER_ERROR),

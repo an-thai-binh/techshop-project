@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductUpdateRequest {
-    String categoryId;
+    Long categoryId;
     String productName;
     String productDescription;
     double productBasePrice;
