@@ -1,0 +1,35 @@
+[
+  {
+    "type": "text",
+    "content": "<h2>iPhone 15 Pro Max - Thiết kế titan</h2><p>Chất liệu titan siêu nhẹ giúp máy nhẹ hơn nhưng vẫn rất cứng cáp.</p>"
+  },
+  {
+    "type": "image",
+    "src": "https://pngimg.com/d/iphone16_PNG38.png",
+    "alt": "Mặt trước iPhone"
+  },
+  {
+    "type": "text",
+    "content": "<p>Màn hình Super Retina XDR với độ sáng cao và tần số quét 120Hz.</p>"
+  },
+  {
+    "type": "video",
+    "src": "https://www.youtube.com/embed/GDlkCkcIqTs"
+  },
+  {
+    "type": "text",
+    "content": "<p>Camera chính 48MP với khả năng quay ProRes, chụp đêm tốt hơn.</p>"
+  },
+  {
+    "type": "text",
+    "content": "<p>Pin sử dụng cả ngày, hỗ trợ sạc nhanh và sạc không dây MagSafe.</p>"
+  },
+  {
+    "type": "slider",
+    "images": [
+      "https://www.apple.com/newsroom/images/2024/09/apple-debuts-iphone-16-pro-and-iphone-16-pro-max/tile/Apple-iPhone-16-Pro-hero-geo-240909-lp.jpg.news_app_ed.jpg",
+      "https://vcdn1-sohoa.vnecdn.net/2024/09/10/top.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ytoRbRMuKD-2wBmSHp9mLw",
+      "https://cdn2.cellphones.com.vn/insecure/rs:fill:0:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/Phone/Apple/iPhone-16/iphone-16-pro-max-16.jpg"
+    ]
+  }
+]
