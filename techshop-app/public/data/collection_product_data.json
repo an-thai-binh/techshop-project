@@ -1,0 +1,95 @@
+{
+  "name": "Iphone",
+  "products": [
+    {
+      "id": "1",
+      "image": "",
+      "name": "iPhone 11",
+      "description": "iPhone 11 với chip A13 Bionic, màn hình 6.1 inch Liquid Retina HD, FaceID, camera kép 12MP.",
+      "old_price": 599,
+      "discount_percent": 20,
+      "new_price": 479.2
+    },
+    {
+      "id": "2",
+      "image": "",
+      "name": "iPhone 12",
+      "description": "iPhone 12 với chip A14 Bionic, màn hình Super Retina XDR OLED 6.1 inch, hỗ trợ 5G, camera kép.",
+      "old_price": 699,
+      "discount_percent": 15,
+      "new_price": 594.15
+    },
+    {
+      "id": "3",
+      "image": "",
+      "name": "iPhone 13",
+      "description": "iPhone 13 với chip A15 Bionic, pin lâu hơn, camera cải tiến, màn hình 6.1 inch Super Retina XDR.",
+      "old_price": 799,
+      "discount_percent": 10,
+      "new_price": 719.1
+    },
+    {
+      "id": "4",
+      "image": "",
+      "name": "iPhone 13 Pro",
+      "description": "iPhone 13 Pro với màn hình ProMotion 120Hz, chip A15 Bionic, ba camera sau chuyên nghiệp.",
+      "old_price": 999,
+      "discount_percent": 12,
+      "new_price": 879.12
+    },
+    {
+      "id": "5",
+      "image": "",
+      "name": "iPhone 14",
+      "description": "iPhone 14 với hiệu năng mạnh mẽ, camera tốt hơn, khả năng chụp ảnh thiếu sáng được cải thiện.",
+      "old_price": 799,
+      "discount_percent": 8,
+      "new_price": 735.08
+    },
+    {
+      "id": "6",
+      "image": "",
+      "name": "iPhone 14 Pro",
+      "description": "iPhone 14 Pro với Dynamic Island, chip A16 Bionic, camera 48MP và quay video chất lượng điện ảnh.",
+      "old_price": 999,
+      "discount_percent": 10,
+      "new_price": 899.1
+    },
+    {
+      "id": "7",
+      "image": "",
+      "name": "iPhone 15",
+      "description": "iPhone 15 mới nhất với USB-C, thiết kế nhẹ hơn, camera chất lượng cao và hiệu năng vượt trội.",
+      "old_price": 899,
+      "discount_percent": 5,
+      "new_price": 854.05
+    },
+    {
+      "id": "8",
+      "image": "",
+      "name": "iPhone 15 Pro",
+      "description": "iPhone 15 Pro với khung titan, chip A17 Pro, camera đỉnh cao và cổng USB-C siêu tốc.",
+      "old_price": 1199,
+      "discount_percent": 7,
+      "new_price": 1115.07
+    },
+    {
+      "id": "9",
+      "image": "",
+      "name": "iPhone 15 Pro Max",
+      "description": "iPhone 15 Pro Max bản cao cấp nhất với zoom quang 5x, chip A17 Pro, và thời lượng pin cực lâu.",
+      "old_price": 1299,
+      "discount_percent": 6,
+      "new_price": 1221.06
+    },
+    {
+      "id": "10",
+      "image": "",
+      "name": "iPhone 14 Plus",
+      "description": "iPhone 14 Plus với màn hình lớn 6.7 inch, pin lâu hơn, trải nghiệm giải trí vượt trội.",
+      "old_price": 899,
+      "discount_percent": 10,
+      "new_price": 809.1
+    }
+  ]
+}
