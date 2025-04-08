@@ -82,14 +82,14 @@ public class ProductVariationService {
                 .build();
     }
 
-    public ApiResponse<Object> destroy(Long id) {
+    public ApiResponse<Void> destroy(Long id) {
         try {
             productVariationRepository.deleteById(id);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.DELETE_FAILED);
         }
-        return ApiResponse.builder()
+        return ApiResponse.<Void>builder()
                 .success(true)
                 .message("Delete Successful")
                 .build();

@@ -79,8 +79,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Object>> destroy(@PathVariable Long id) {
-        ApiResponse<Object> apiResponse = productService.destroy(id);
+    public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
+        ApiResponse<Void> apiResponse = productService.destroy(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }

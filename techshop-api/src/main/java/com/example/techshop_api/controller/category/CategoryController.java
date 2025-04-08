@@ -57,8 +57,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Object>> destroy(@PathVariable(name = "id") Long id) {
-        ApiResponse<Object> apiResponse = categoryService.destroy(id);
+    public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable(name = "id") Long id) {
+        ApiResponse<Void> apiResponse = categoryService.destroy(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }
