@@ -3,11 +3,13 @@ package com.example.techshop_api.service;
 import com.example.techshop_api.dto.request.product.ProductVariationCreationRequest;
 import com.example.techshop_api.dto.request.product.ProductVariationUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.product.ProductResponse;
 import com.example.techshop_api.dto.response.product.ProductVariationResponse;
 import com.example.techshop_api.entity.product.Product;
 import com.example.techshop_api.entity.product.ProductVariation;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
+import com.example.techshop_api.mapper.ProductMapper;
 import com.example.techshop_api.mapper.ProductVariationMapper;
 import com.example.techshop_api.repository.ProductRepository;
 import com.example.techshop_api.repository.ProductVariationRepository;
@@ -27,11 +29,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductVariationService {
     ProductVariationRepository productVariationRepository;
     ProductRepository productRepository;
+    ProductMapper productMapper;
     ProductVariationMapper productVariationMapper;
 
     public ApiResponse<Page<ProductVariationResponse>> index(Pageable pageable) {
         Page<ProductVariation> productVariations = productVariationRepository.findAll(pageable);
-        Page<ProductVariationResponse> productVariationResponses = productVariations.map(productVariationMapper::toProductVariationResponse);
+        Page<ProductVariationResponse> productVariationResponses = productVariations.map((productVariation -> {
+            ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
+            return productVariationMapper.toProductVariationResponse(productResponse, productVariation);
+        }));
         return ApiResponse.<Page<ProductVariationResponse>>builder()
                 .success(true)
                 .data(productVariationResponses)
@@ -40,7 +46,8 @@ public class ProductVariationService {
 
     public ApiResponse<ProductVariationResponse> show(Long id) {
         ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
-        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productVariation);
+        ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
+        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productResponse, productVariation);
         return ApiResponse.<ProductVariationResponse>builder()
                 .success(true)
                 .data(productVariationResponse)
@@ -57,7 +64,8 @@ public class ProductVariationService {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.INSERT_FAILED);
         }
-        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productVariation);
+        ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
+        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productResponse, productVariation);
         return ApiResponse.<ProductVariationResponse>builder()
                 .success(true)
                 .data(productVariationResponse)
@@ -75,7 +83,8 @@ public class ProductVariationService {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.UPDATE_FAILED);
         }
-        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productVariation);
+        ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
+        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productResponse, productVariation);
         return ApiResponse.<ProductVariationResponse>builder()
                 .success(true)
                 .data(productVariationResponse)

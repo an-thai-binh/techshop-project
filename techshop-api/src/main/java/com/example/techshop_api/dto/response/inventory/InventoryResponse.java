@@ -1,6 +1,5 @@
 package com.example.techshop_api.dto.response.inventory;
 
-import com.example.techshop_api.entity.product.ProductVariation;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,6 +10,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InventoryResponse {
     Long id;
-    ProductVariation productVariation;
+    Long variationId;
     int quantity;
 }
