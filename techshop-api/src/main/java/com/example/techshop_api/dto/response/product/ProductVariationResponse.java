@@ -14,4 +14,5 @@ public class ProductVariationResponse {
     ProductResponse product;
     String sku;
     int variationPriceChange;
+    String variationImgUrl;
 }

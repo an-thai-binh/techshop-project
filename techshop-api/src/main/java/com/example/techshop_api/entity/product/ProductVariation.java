@@ -27,6 +27,8 @@ public class ProductVariation {
 
     int variationPriceChange;
 
+    String variationImgUrl;
+
     @ManyToMany
     @JoinTable(
             name = "variation_choice",

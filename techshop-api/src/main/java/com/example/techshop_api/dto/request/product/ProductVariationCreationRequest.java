@@ -12,4 +12,5 @@ public class ProductVariationCreationRequest {
     Long productId;
     String sku;
     int variationPriceChange;
+    String variationImgUrl;
 }

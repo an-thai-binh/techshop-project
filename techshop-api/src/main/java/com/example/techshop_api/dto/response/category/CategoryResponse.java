@@ -11,4 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class CategoryResponse {
     Long id;
     String categoryName;
+    String categoryImgUrl;
 }

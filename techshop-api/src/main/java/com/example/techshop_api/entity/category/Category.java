@@ -22,6 +22,8 @@ public class Category {
     @Column(nullable = false)
     String categoryName;
 
+    String categoryImgUrl;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Product> productList;
 }
