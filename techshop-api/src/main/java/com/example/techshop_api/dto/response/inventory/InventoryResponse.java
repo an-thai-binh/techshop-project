@@ -1,4 +1,4 @@
-package com.example.techshop_api.dto.request.category;
+package com.example.techshop_api.dto.response.inventory;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,7 +8,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CategoryUpdateRequest {
-    String categoryName;
-    String categoryImgUrl;
+public class InventoryResponse {
+    Long id;
+    Long variationId;
+    int quantity;
 }

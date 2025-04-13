@@ -56,8 +56,8 @@ public class ProductVariationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable Long id) {
-        ApiResponse<Object> apiResponse = productVariationService.destroy(id);
+    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
+        ApiResponse<Void> apiResponse = productVariationService.destroy(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }

@@ -25,10 +25,9 @@ public class ProductVariation {
 
     String sku;
 
-    @Column(nullable = false)
-    int variationQuantity;
-
     int variationPriceChange;
+
+    String variationImgUrl;
 
     @ManyToMany
     @JoinTable(

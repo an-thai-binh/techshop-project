@@ -11,8 +11,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductVariationResponse {
     Long id;
-    Product product;
+    ProductResponse product;
     String sku;
-    int variationQuantity;
     int variationPriceChange;
+    String variationImgUrl;
 }
