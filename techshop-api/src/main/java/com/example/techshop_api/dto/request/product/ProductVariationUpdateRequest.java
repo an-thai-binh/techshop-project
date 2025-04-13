@@ -11,6 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class ProductVariationUpdateRequest {
     Long productId;
     String sku;
-    int variationQuantity;
     int variationPriceChange;
 }

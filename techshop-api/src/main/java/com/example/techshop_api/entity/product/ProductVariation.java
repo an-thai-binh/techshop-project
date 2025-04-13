@@ -25,9 +25,6 @@ public class ProductVariation {
 
     String sku;
 
-    @Column(nullable = false)
-    int variationQuantity;
-
     int variationPriceChange;
 
     @ManyToMany

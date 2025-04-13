@@ -13,6 +13,5 @@ public class ProductVariationResponse {
     Long id;
     ProductResponse product;
     String sku;
-    int variationQuantity;
     int variationPriceChange;
 }
