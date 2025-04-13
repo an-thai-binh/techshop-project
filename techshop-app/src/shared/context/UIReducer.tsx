@@ -1,41 +1,94 @@
-export interface State {
-    isModalOpen: boolean;
-    isDropdownOpen: boolean;
-    isTooltipOpen: boolean;
-    isSidebarOpen: boolean;
-    isCatalogOpen: boolean;
-}
+import { Action, State } from '@/shared/types/ui'
 
-export type Action = | { type: "TOGGLE_MODAL"}
-                    | { type: "TOGGLE_DROPDOWN"}
-                    | { type: "TOGGLE_TOOLTIP"}
-                    | { type: "TOGGLE_SIDEBAR"}
-                    | { type: "TOGGLE_CATALOG"}
-                    | { type: "CLOSE_ALL"};
-
-export const initialState:State = {
-    isModalOpen: false,
-    isDropdownOpen: false,
-    isTooltipOpen: false,
-    isSidebarOpen: false,
-    isCatalogOpen: false
+export const initialState: State = {
+  isModalVisible: false,
+  isDropdownVisible: false,
+  isTooltipVisible: false,
+  isSidebarVisible: false,
+  isCatalogVisible: false,
+  isPopupVisible: false,
+  modalType: null,
+  dropdownType: null,
+  popupType: null,
+  isOverlayVisible: false,
 }
 
 export const UIReducer = (state: State, action: Action): State => {
-    switch (action.type) {
-        case "TOGGLE_MODAL":
-            return {...state, isModalOpen: !state.isModalOpen};
-        case "TOGGLE_DROPDOWN":
-            return {...state, isDropdownOpen: !state.isDropdownOpen};
-        case "TOGGLE_TOOLTIP":
-            return {...state, isTooltipOpen: !state.isTooltipOpen};
-        case "TOGGLE_SIDEBAR":
-            return {...state, isSidebarOpen: !state.isSidebarOpen};
-        case "TOGGLE_CATALOG":
-            return {...state, isCatalogOpen: !state.isCatalogOpen};
-        case "CLOSE_ALL":
-            return {...state, isModalOpen: false, isDropdownOpen: false, isTooltipOpen: false, isSidebarOpen: false, isCatalogOpen: false};
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case 'OPEN_MODAL':
+      return {
+        ...state,
+        isModalVisible: true,
+        modalType: action.payload.modalType,
+        isOverlayVisible: true,
+      }
+    case 'CLOSE_MODAL':
+      return {
+        ...state,
+        isModalVisible: false,
+        modalType: null,
+        isOverlayVisible: false,
+      }
+    case 'OPEN_DROPDOWN':
+      return {
+        ...state,
+        isDropdownVisible: true,
+        dropdownType: action.payload.dropdownType,
+        isOverlayVisible: true,
+      }
+    case 'CLOSE_DROPDOWN':
+      return {
+        ...state,
+        isDropdownVisible: false,
+        dropdownType: null,
+        isOverlayVisible: false,
+      }
+    case 'OPEN_POPUP':
+      return {
+        ...state,
+        isPopupVisible: true,
+        popupType: action.payload.popupType,
+        isOverlayVisible: true,
+      }
+    case 'CLOSE_POPUP':
+      return {
+        ...state,
+        isPopupVisible: false,
+        popupType: null,
+        isOverlayVisible: false,
+      }
+    case 'TOGGLE_TOOLTIP':
+      return { ...state, isTooltipVisible: !state.isTooltipVisible }
+    case 'TOGGLE_SIDEBAR':
+      const nextStateSidebar = !state.isSidebarVisible
+      return { ...state, isSidebarVisible: nextStateSidebar, isOverlayVisible: nextStateSidebar }
+    case 'TOGGLE_CATALOG':
+      return { ...state, isCatalogVisible: !state.isCatalogVisible }
+    case 'CLOSE_ALL':
+      return {
+        ...state,
+        isModalVisible: false,
+        isDropdownVisible: false,
+        isTooltipVisible: false,
+        isSidebarVisible: false,
+        isCatalogVisible: false,
+        isPopupVisible: false,
+        modalType: null,
+        dropdownType: null,
+        popupType: null,
+        isOverlayVisible: false,
+      }
+    case 'SHOW_OVERLAY':
+      return {
+        ...state,
+        isOverlayVisible: true,
+      }
+    case 'HIDE_OVERLAY':
+      return {
+        ...state,
+        isOverlayVisible: false,
+      }
+    default:
+      return state
+  }
 }
