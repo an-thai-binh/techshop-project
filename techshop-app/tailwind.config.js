@@ -13,5 +13,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [radioAspect, tailwindScrollbar,],
+  plugins: [radioAspect, tailwindScrollbar],
 }
