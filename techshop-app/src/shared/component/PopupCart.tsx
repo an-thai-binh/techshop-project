@@ -6,14 +6,12 @@ export default function PopupCart() {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, scaleY: 0 }}
-        animate={{ opacity: 1, scaleY: 1 }}
-        exit={{ opacity: 0, scaleY: 0 }}
-        transition={{ duration: 0.3, ease: 'easeOut' }}
-        style={{ transformOrigin: 'bottom' }}
-        className={
-          'absolute inset-0 top-0 h-[95%] w-full overflow-hidden rounded-md bg-gray-700 shadow-md'
-        }
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        style={{ transformOrigin: 'right' }}
+        className={'h-[93vh] w-full overflow-hidden shadow-md'}
       >
         <div className="flex size-full flex-col justify-center gap-2">
           <div className="flex items-center justify-center pt-2">

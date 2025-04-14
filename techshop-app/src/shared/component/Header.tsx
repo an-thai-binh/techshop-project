@@ -17,13 +17,13 @@ export default function Header() {
   const { state, dispatch } = useUIContext()
   return (
     <>
-      <header className="sticky top-0 z-40 flex size-full flex-col justify-center">
-        <div className="flex size-full flex-wrap items-center justify-between gap-5 bg-gray-950 p-2">
+      <header className="sticky top-0 z-30 flex size-full flex-col justify-center">
+        <div className="flex size-full flex-wrap items-center justify-between gap-1 bg-gray-950/90 p-2 shadow-md backdrop-blur-sm">
           <div className="order-1 flex items-center p-2">
             <h1 className="text-2xl font-extrabold text-blue-500">Techshop</h1>
           </div>
           <div
-            className={`relative order-3 flex w-full items-center justify-between gap-2 rounded-md ${state.dropdownType === 'search' ? 'z-50 rounded-b-none' : ''} bg-gray-800 transition-all duration-300 sm:order-2 sm:w-1/2 md:order-2 md:w-1/2 lg:order-2 lg:w-1/2`}
+            className={`relative order-3 flex w-full items-center justify-between gap-2 rounded-md ${state.dropdownType === 'search' ? 'rounded-b-none' : ''} bg-gray-800 transition-all duration-300 sm:order-2 sm:w-1/2 md:order-2 md:w-1/2 lg:order-2 lg:w-1/2`}
           >
             <div
               onClick={() =>
@@ -49,7 +49,7 @@ export default function Header() {
               'order-2 flex w-auto items-center justify-center gap-5 sm:order-3 sm:w-1/6 md:order-3 md:w-1/6 lg:order-3 lg:w-1/6'
             }
           >
-            <div className={`flex items-center ${state.dropdownType === 'cart' ? 'z-50' : ''}`}>
+            <div className={'hidden items-center sm:flex'}>
               <div className="relative flex flex-col items-center justify-center gap-2">
                 <button
                   className="relative rounded-full p-2 hover:bg-gray-700"
