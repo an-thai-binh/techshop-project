@@ -17,6 +17,7 @@ import java.util.List;
 @Table(name = "choice_value")
 public class ChoiceValue {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne
@@ -25,6 +26,8 @@ public class ChoiceValue {
 
     @Column(nullable = false)
     String choiceValue;
+
+    String skuValue;
 
     @ManyToMany(mappedBy = "choiceValueList")
     List<ProductVariation> variationList;

@@ -4,6 +4,7 @@ import com.example.techshop_api.entity.category.Category;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class Product {
    @Column(nullable=false)
    String productName;
 
+   @Lob
+   @Column(columnDefinition = "TEXT")
    String productDescription;
 
    @Column(nullable=false)
