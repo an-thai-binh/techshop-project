@@ -31,15 +31,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col`}>
-        <div className="flex w-full flex-col overflow-auto scrollbar-thin scrollbar-track-gray-950 scrollbar-thumb-gray-800 scrollbar-corner-inherit">
-          <UIProvider>
+        <UIProvider>
+          <div className="relative z-10 flex w-full flex-col overflow-auto scrollbar-thin scrollbar-track-gray-950 scrollbar-thumb-gray-800 scrollbar-corner-inherit">
+            <Overlay />
             <Header />
             <main className="flex-grow bg-gray-950">{children}</main>
-            <Navigation />
             <Footer />
-            <Overlay />
-          </UIProvider>
-        </div>
+          </div>
+          <div className={'absolute bottom-0 z-20 w-full'}>
+            <Navigation />
+          </div>
+        </UIProvider>
       </body>
     </html>
   )
