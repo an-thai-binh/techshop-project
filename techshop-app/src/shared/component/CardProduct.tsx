@@ -1,19 +1,20 @@
 import Image from 'next/image'
 import { ShoppingCartIcon } from '@heroicons/react/16/solid'
+import { Product } from '@/app/collection/[categoryId]/page'
 
-export interface ProductProps {
-  id: number
-  image: string
-  name: string
-  description: string
-  old_price: number
-  discount_percent: number
-  new_price: number
-}
+// export interface ProductProps {
+//   id: number
+//   image: string
+//   name: string
+//   description: string
+//   old_price: number
+//   discount_percent: number
+//   new_price: number
+// }
 
 export interface CartItemProps {
   backgroundColor?: string
-  productProps: ProductProps | null
+  productProps: Product | null
 }
 export default function CardProduct(_props: CartItemProps) {
   return (
@@ -29,23 +30,23 @@ export default function CardProduct(_props: CartItemProps) {
           />
         </div>
         <div className="flex flex-col justify-center gap-1">
-          <h1 className="text-center text-sm font-bold">{_props.productProps?.name}</h1>
+          <h1 className="text-center text-sm font-bold">{_props.productProps?.product_name}</h1>
           <p className="line-clamp-1 text-xs font-light sm:line-clamp-2">
-            {_props.productProps?.description}
+            {_props.productProps?.product_description}
           </p>
         </div>
         <div className="flex w-full justify-center gap-1 sm:w-full sm:flex-col-reverse sm:justify-between">
           <div className="flex w-full items-center justify-center">
             <h1 className="text-sm font-extrabold">
-              <span>{_props.productProps?.old_price}</span> $
+              <span>{_props.productProps?.product_base_price}</span> $
             </h1>
           </div>
           <div className="flex w-full items-center justify-center gap-2">
             <p className="text-xs font-light text-gray-500 line-through">
-              <span>{_props.productProps?.old_price}</span> $
+              <span>{_props.productProps?.product_base_price}</span> $
             </p>
             <p className="hidden rounded-sm bg-red-900 px-1 py-1 text-xs font-light sm:block">
-              -<span>{_props.productProps?.discount_percent}</span>%
+              -<span>{_props.productProps?.product_base_price}</span>%
             </p>
           </div>
         </div>

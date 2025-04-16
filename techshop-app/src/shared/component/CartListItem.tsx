@@ -4,10 +4,10 @@ import CartItem from '@/shared/component/CartItem'
 export default function CartListItem() {
   return (
     <div className="flex grow items-center justify-center overflow-hidden py-0 pl-1">
-      <div className="size-full overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-800 scrollbar-corner-amber-500">
+      <div className="size-full overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-800">
         <div className="mx-1 flex flex-col justify-start gap-4">
           {/* ItemCart */}
-          <CartItem />
+          {/*<CartItem />*/}
           <div className="flex w-full gap-2">
             <div className="size-20 rounded-sm bg-gray-500">ảnh</div>
             <div className="flex grow flex-col gap-2">

@@ -11,6 +11,7 @@ import { useUIContext } from '../context/UIContext'
 import DropdownCart from './DropdownCart'
 import ProductCatalog from './ProductCatalog'
 import DropdownSearch from '@/shared/component/DropdownSearch'
+import Link from 'next/link'
 
 export default function Header() {
   const refCatalog = useRef<HTMLDivElement>(null)
@@ -19,9 +20,11 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-30 flex size-full flex-col justify-center">
         <div className="flex size-full flex-wrap items-center justify-between gap-1 bg-gray-950/90 p-2 shadow-md backdrop-blur-sm">
-          <div className="order-1 flex items-center p-2">
-            <h1 className="text-2xl font-extrabold text-blue-500">Techshop</h1>
-          </div>
+          <Link href={`/`}>
+            <div className="order-1 flex items-center p-2">
+              <h1 className="text-2xl font-extrabold text-blue-500">Techshop</h1>
+            </div>
+          </Link>
           <div
             className={`relative order-3 flex w-full items-center justify-between gap-2 rounded-md ${state.dropdownType === 'search' ? 'rounded-b-none' : ''} bg-gray-800 transition-all duration-300 sm:order-2 sm:w-1/2 md:order-2 md:w-1/2 lg:order-2 lg:w-1/2`}
           >

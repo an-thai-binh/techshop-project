@@ -1,0 +1,147 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "category_name": "iPhone",
+      "category_img_url": "https://www.apple.com/v/iphone/home/ab/images/overview/hero_iphone_15.jpg"
+    },
+    {
+      "id": 2,
+      "category_name": "MacBook",
+      "category_img_url": "https://www.apple.com/v/macbook/home/ae/images/overview/hero_macbook_air_2023.jpg"
+    },
+    {
+      "id": 3,
+      "category_name": "iPad",
+      "category_img_url": "https://www.apple.com/v/ipad/home/k/images/overview/hero_ipad_air_2023.jpg"
+    },
+    {
+      "id": 4,
+      "category_name": "Apple Watch",
+      "category_img_url": "https://www.apple.com/v/apple-watch/home/ah/images/overview/hero_watch_8.jpg"
+    },
+    {
+      "id": 5,
+      "category_name": "AirPods",
+      "category_img_url": "https://www.apple.com/v/airpods/home/a/images/overview/hero_airpods_pro.jpg"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "product_name": "iPhone 15 Pro",
+      "product_description": "iPhone 15 Pro với chip A17 Bionic, camera Pro, và khung titan siêu nhẹ.",
+      "product_base_price": 999,
+      "product_img_url": "https://www.apple.com/v/iphone/home/ab/images/overview/hero_iphone_15.jpg"
+    },
+    {
+      "id": 2,
+      "category_id": 1,
+      "product_name": "iPhone 14",
+      "product_description": "iPhone 14 với camera sắc nét và hiệu năng vượt trội.",
+      "product_base_price": 799,
+      "product_img_url": "https://www.apple.com/v/iphone/home/ab/images/overview/hero_iphone_14.jpg"
+    },
+    {
+      "id": 3,
+      "category_id": 2,
+      "product_name": "MacBook Air M2",
+      "product_description": "MacBook Air M2 với chip Apple Silicon, màn hình Retina sắc nét.",
+      "product_base_price": 1199,
+      "product_img_url": "https://www.apple.com/v/macbook/home/ae/images/overview/hero_macbook_air_2023.jpg"
+    },
+    {
+      "id": 4,
+      "category_id": 3,
+      "product_name": "iPad Air 2023",
+      "product_description": "iPad Air 2023 với chip M1 mạnh mẽ và màn hình Liquid Retina.",
+      "product_base_price": 599,
+      "product_img_url": "https://www.apple.com/v/ipad/home/k/images/overview/hero_ipad_air_2023.jpg"
+    },
+    {
+      "id": 5,
+      "category_id": 4,
+      "product_name": "Apple Watch Series 8",
+      "product_description": "Apple Watch Series 8 với cảm biến đo nhịp tim và khả năng đo nhiệt độ cơ thể.",
+      "product_base_price": 399,
+      "product_img_url": "https://www.apple.com/v/apple-watch/home/ah/images/overview/hero_watch_8.jpg"
+    },
+    {
+      "id": 6,
+      "category_id": 5,
+      "product_name": "AirPods Pro 2",
+      "product_description": "AirPods Pro 2 với khả năng chống ồn và âm thanh chất lượng cao.",
+      "product_base_price": 249,
+      "product_img_url": "https://www.apple.com/v/airpods/home/a/images/overview/hero_airpods_pro.jpg"
+    }
+  ],
+  "product_variation": [
+    {
+      "id": 1,
+      "product_id": 1,
+      "sku": "IP15P-BLK-128",
+      "variation_price_change": 0,
+      "variation_img_url": "https://www.apple.com/v/iphone/home/ab/images/overview/hero_iphone_15_black.jpg"
+    },
+    {
+      "id": 2,
+      "product_id": 1,
+      "sku": "IP15P-SLV-256",
+      "variation_price_change": 100,
+      "variation_img_url": "https://www.apple.com/v/iphone/home/ab/images/overview/hero_iphone_15_silver.jpg"
+    },
+    {
+      "id": 3,
+      "product_id": 3,
+      "sku": "MBAIR-M2-SILVER",
+      "variation_price_change": 0,
+      "variation_img_url": "https://www.apple.com/v/macbook/home/ae/images/overview/hero_macbook_air_silver.jpg"
+    },
+    {
+      "id": 4,
+      "product_id": 5,
+      "sku": "AW8-BLK",
+      "variation_price_change": 0,
+      "variation_img_url": "https://www.apple.com/v/apple-watch/home/ah/images/overview/hero_watch_8_black.jpg"
+    }
+  ],
+  "inventory": [
+    {
+      "id": 1,
+      "variation_id": 1,
+      "quantity": 120
+    },
+    {
+      "id": 2,
+      "variation_id": 2,
+      "quantity": 80
+    },
+    {
+      "id": 3,
+      "variation_id": 3,
+      "quantity": 150
+    },
+    {
+      "id": 4,
+      "variation_id": 4,
+      "quantity": 100
+    }
+  ],
+  "choice": [
+    { "id": 1, "choice_name": "Color" },
+    { "id": 2, "choice_name": "Storage" }
+  ],
+  "choice_value": [
+    { "id": 1, "choice_id": 1, "choice_value": "Black", "sku_value": "BLK" },
+    { "id": 2, "choice_id": 1, "choice_value": "Silver", "sku_value": "SLV" },
+    { "id": 3, "choice_id": 2, "choice_value": "128GB", "sku_value": "128" },
+    { "id": 4, "choice_id": 2, "choice_value": "256GB", "sku_value": "256" }
+  ],
+  "variation_option": [
+    { "variation_id": 1, "choice_value_id": 1 },
+    { "variation_id": 1, "choice_value_id": 3 },
+    { "variation_id": 2, "choice_value_id": 2 },
+    { "variation_id": 2, "choice_value_id": 4 }
+  ]
+}

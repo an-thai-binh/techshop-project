@@ -7,6 +7,8 @@ import { UIProvider } from '@/shared/context/UIContext'
 import React from 'react'
 import Overlay from '@/shared/component/Overlay'
 import Navigation from '@/shared/component/Navigation'
+import { Provider } from 'react-redux'
+import { store } from '@/shared/redux/store'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,17 +33,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col`}>
-        <UIProvider>
-          <div className="relative z-10 flex w-full flex-col overflow-auto scrollbar-thin scrollbar-track-gray-950 scrollbar-thumb-gray-800 scrollbar-corner-inherit">
-            <Overlay />
-            <Header />
-            <main className="flex-grow bg-gray-950">{children}</main>
-            <Footer />
-          </div>
-          <div className={'absolute bottom-0 z-20 w-full'}>
-            <Navigation />
-          </div>
-        </UIProvider>
+        <Provider store={store}>
+          <UIProvider>
+            <div className="relative z-10 flex w-full flex-col overflow-auto scrollbar-thin scrollbar-track-gray-950 scrollbar-thumb-gray-800 scrollbar-corner-inherit">
+              <Overlay />
+              <Header />
+              <main className="flex-grow bg-gray-950">{children}</main>
+              <Footer />
+            </div>
+            <div className={'absolute bottom-0 z-20 w-full'}>
+              <Navigation />
+            </div>
+          </UIProvider>
+        </Provider>
       </body>
     </html>
   )
