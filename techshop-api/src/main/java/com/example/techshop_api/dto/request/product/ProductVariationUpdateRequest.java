@@ -12,5 +12,5 @@ public class ProductVariationUpdateRequest {
     Long productId;
     String sku;
     int variationPriceChange;
-    String variationImgUrl;
+    Long imageId;
 }

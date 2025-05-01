@@ -1,6 +1,7 @@
 package com.example.techshop_api.entity.product;
 
 import com.example.techshop_api.entity.category.Category;
+import com.example.techshop_api.entity.image.ProductImage;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -36,4 +37,7 @@ public class Product {
 
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
    List<ProductVariation> productVariantionList;
+
+   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+   List<ProductImage> productImageList;
 }
