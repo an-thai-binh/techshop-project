@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Xử lý app exception (các lỗi đã biết khi xử lý logic)
+     * Xử lý app exception (các lỗi đã biết khi xử lý logic thông thường)
      * @param appException AppException instance
      * @return ResponseEntity status code 400
      */
@@ -32,6 +32,20 @@ public class GlobalExceptionHandler {
         ApiResponse<Object> apiResponse = ApiResponse.builder()
                 .success(false)
                 .message(appException.getErrorCode().getMessage())
+                .build();
+        return ResponseEntity.status(appException.getErrorCode().getStatusCode()).body(apiResponse);
+    }
+
+    /**
+     * Xử lý file exception (các lỗi đã biết khi xử lý logic liên quan tới file)
+     * @param fileException
+     * @return ResponseEntity status code 400
+     */
+    @ExceptionHandler(FileException.class)
+    public ResponseEntity<ApiResponse<Object>> handleFileException(FileException fileException) {
+        ApiResponse<Object> apiResponse = ApiResponse.builder()
+                .success(false)
+                .message(fileException.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }

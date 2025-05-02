@@ -1,9 +1,11 @@
 package com.example.techshop_api.entity.product;
 
 import com.example.techshop_api.entity.category.Category;
+import com.example.techshop_api.entity.image.ProductImage;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class Product {
    @Column(nullable=false)
    String productName;
 
+   @Lob
+   @Column(columnDefinition = "TEXT")
    String productDescription;
 
    @Column(nullable=false)
@@ -33,4 +37,7 @@ public class Product {
 
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
    List<ProductVariation> productVariantionList;
+
+   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+   List<ProductImage> productImageList;
 }
