@@ -6,10 +6,12 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "api": "json-server --watch data/apple_product_full_data.json --port 5000"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@heroui/react": "^2.7.6",
     "@reduxjs/toolkit": "^2.6.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "aos": "^2.3.4",
@@ -31,6 +33,7 @@
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
+    "json-server": "^1.0.0-beta.3",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",

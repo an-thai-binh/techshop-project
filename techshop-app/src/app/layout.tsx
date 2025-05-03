@@ -1,14 +1,13 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import Header from '@/shared/component/Header'
-import Footer from '@/shared/component/Footer'
+import Header from '@/component/Header'
+import Footer from '@/component/Footer'
 import { UIProvider } from '@/shared/context/UIContext'
 import React from 'react'
-import Overlay from '@/shared/component/Overlay'
-import Navigation from '@/shared/component/Navigation'
-import { Provider } from 'react-redux'
-import { store } from '@/shared/redux/store'
+import Overlay from '@/component/Overlay'
+import Navigation from '@/component/Navigation'
+import ProviderRedux from '@/shared/redux/provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,8 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col`}>
-        <Provider store={store}>
+      <ProviderRedux>
+        <body className={`${geistSans.variable} ${geistMono.variable} flex min-h-full flex-col`}>
           <UIProvider>
             <div className="relative z-10 flex w-full flex-col overflow-auto scrollbar-thin scrollbar-track-gray-950 scrollbar-thumb-gray-800 scrollbar-corner-inherit">
               <Overlay />
@@ -45,8 +44,8 @@ export default function RootLayout({
               <Navigation />
             </div>
           </UIProvider>
-        </Provider>
-      </body>
+        </body>
+      </ProviderRedux>
     </html>
   )
 }
