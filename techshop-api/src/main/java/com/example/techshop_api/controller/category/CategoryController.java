@@ -4,7 +4,6 @@ import com.example.techshop_api.dto.request.category.CategoryUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.request.category.CategoryCreationRequest;
 import com.example.techshop_api.dto.response.category.CategoryResponse;
-import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.service.CategoryService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

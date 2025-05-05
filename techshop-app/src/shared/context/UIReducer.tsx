@@ -1,4 +1,4 @@
-import { Action, State } from '@/shared/types/ui'
+import { Action, State } from '@/types/ui'
 
 export const initialState: State = {
   isModalVisible: false,

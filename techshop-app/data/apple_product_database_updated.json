@@ -1,0 +1,4281 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "category_name": "iPhone",
+      "category_img_url": "https://www.apple.com/v/iphone/home/ab/images/meta/iphone__e4pyv7t4xqqa_og.png"
+    },
+    {
+      "id": 2,
+      "category_name": "MacBook",
+      "category_img_url": "https://www.apple.com/v/mac/home/bl/images/meta/mac__fexw5t0zkc2q_og.png"
+    },
+    {
+      "id": 3,
+      "category_name": "iPad",
+      "category_img_url": "https://www.apple.com/v/ipad/home/ci/images/meta/ipad__f7q7hlo6mqae_og.png"
+    },
+    {
+      "id": 4,
+      "category_name": "Apple Watch",
+      "category_img_url": "https://www.apple.com/v/watch/home/cc/images/meta/watch__e6p2y9vhevuq_og.png"
+    },
+    {
+      "id": 5,
+      "category_name": "AirPods",
+      "category_img_url": "https://www.apple.com/v/airpods/home/ap/images/meta/airpods__de9xcu2yepm6_og.png"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "category_id": 1,
+      "product_name": "iPhone 15 Pro",
+      "product_description": "iPhone 15 Pro with A17 Pro chip, titanium design, and Pro camera system.",
+      "product_base_price": 1899,
+      "product_img_url": "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-15-Pro-lineup-hero-230912.jpg.og.jpg"
+    },
+    {
+      "id": 2,
+      "category_id": 2,
+      "product_name": "MacBook Air M2",
+      "product_description": "MacBook Air with M2 chip, 13.6-inch Liquid Retina display, and up to 18 hours of battery life.",
+      "product_base_price": 838,
+      "product_img_url": "https://www.apple.com/v/macbook-air-m2/b/images/meta/macbook-air-m2_overview__fy0k6x6r2v2a_og.png"
+    },
+    {
+      "id": 3,
+      "category_id": 3,
+      "product_name": "iPad Pro M2",
+      "product_description": "iPad Pro with M2 chip, ProMotion, Liquid Retina XDR, and Apple Pencil hover.",
+      "product_base_price": 1156,
+      "product_img_url": "https://www.apple.com/v/ipad-pro/ag/images/meta/ipad-pro_overview__glcw458o35aa_og.png"
+    },
+    {
+      "id": 4,
+      "category_id": 4,
+      "product_name": "Apple Watch Series 9",
+      "product_description": "Apple Watch Series 9 with S9 SiP, double tap gesture, and carbon-neutral case options.",
+      "product_base_price": 717,
+      "product_img_url": "https://www.apple.com/newsroom/images/product/watch/standard/Apple-Watch-S9-hero-230912.jpg.og.jpg"
+    },
+    {
+      "id": 5,
+      "category_id": 5,
+      "product_name": "AirPods Pro (2nd Generation)",
+      "product_description": "AirPods Pro with H2 chip, Adaptive Audio, and MagSafe Charging Case (USB‑C).",
+      "product_base_price": 1459,
+      "product_img_url": "https://www.apple.com/v/airpods-pro/g/images/meta/airpods-pro_overview__gyqgk5tf47e6_og.png"
+    },
+    {
+      "id": 6,
+      "category_id": 1,
+      "product_name": "iPhone 15",
+      "product_description": "iPhone 15 with Dynamic Island, A16 Bionic, and new camera system.",
+      "product_base_price": 569,
+      "product_img_url": "https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-15-lineup-hero-230912_Full-Bleed-Image.jpg.large.jpg"
+    },
+    {
+      "id": 7,
+      "category_id": 1,
+      "product_name": "iPhone SE (3rd generation)",
+      "product_description": "iPhone SE with A15 Bionic chip and Touch ID in a compact design.",
+      "product_base_price": 1712,
+      "product_img_url": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-se-select-2022?wid=940&hei=1112&fmt=png-alpha&.v=1646415838921"
+    },
+    {
+      "id": 8,
+      "category_id": 2,
+      "product_name": "MacBook Pro 16” M3 Pro",
+      "product_description": "MacBook Pro with M3 Pro chip, extreme performance and battery life.",
+      "product_base_price": 529,
+      "product_img_url": "https://www.apple.com/newsroom/images/product/mac/standard/Apple-MacBook-Pro-14-16-in-M3-hero-231030_big.jpg.large.jpg"
+    },
+    {
+      "id": 9,
+      "category_id": 3,
+      "product_name": "iPad Air (5th generation)",
+      "product_description": "iPad Air with M1 chip, 10.9-inch Liquid Retina display and 5G.",
+      "product_base_price": 1897,
+      "product_img_url": "https://www.apple.com/newsroom/images/product/ipad/standard/Apple_iPad-Air_hero_04052022.jpg.large.jpg"
+    },
+    {
+      "id": 10,
+      "category_id": 4,
+      "product_name": "Apple Watch Ultra 2",
+      "product_description": "Apple Watch Ultra 2 with rugged titanium case, new S9 SiP and brighter display.",
+      "product_base_price": 1928,
+      "product_img_url": "https://www.apple.com/newsroom/images/product/watch/standard/Apple-Watch-Ultra-2-hero-230912.jpg.large.jpg"
+    },
+    {
+      "id": 11,
+      "category_id": 5,
+      "product_name": "AirPods Max",
+      "product_description": "AirPods Max with high-fidelity audio, Active Noise Cancellation and spatial audio.",
+      "product_base_price": 487,
+      "product_img_url": "https://www.apple.com/v/airpods-max/d/images/overview/airpods_max__f265q4g4ddym_large.jpg"
+    },
+    {
+      "id": 12,
+      "category_id": 1,
+      "product_name": "Iphone 15 Pro Max F589Ed5358",
+      "product_description": "Iphone 15 Pro Max F589Ed5358 - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_15_pro_max_f589ed5358.png"
+    },
+    {
+      "id": 13,
+      "category_id": 1,
+      "product_name": "Iphone 16 Pro Max Bda3030B4B",
+      "product_description": "Iphone 16 Pro Max Bda3030B4B - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/360x0/filters:quality(100)/iphone_16_pro_max_bda3030b4b.png"
+    },
+    {
+      "id": 14,
+      "category_id": 1,
+      "product_name": "Iphone 16 F27848B783",
+      "product_description": "Iphone 16 F27848B783 - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_16_f27848b783.png"
+    },
+    {
+      "id": 15,
+      "category_id": 1,
+      "product_name": "Iphone 15 A9308B6994",
+      "product_description": "Iphone 15 A9308B6994 - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_15_a9308b6994.png"
+    },
+    {
+      "id": 16,
+      "category_id": 1,
+      "product_name": "Iphone 16 Pro 37987B6Def",
+      "product_description": "Iphone 16 Pro 37987B6Def - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_16_pro_37987b6def.png"
+    },
+    {
+      "id": 17,
+      "category_id": 1,
+      "product_name": "Iphone 16 Plus C7B3Ef901B",
+      "product_description": "Iphone 16 Plus C7B3Ef901B - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_16_plus_c7b3ef901b.png"
+    },
+    {
+      "id": 18,
+      "category_id": 1,
+      "product_name": "Iphone 16E Dd 5D31Cf354B",
+      "product_description": "Iphone 16E Dd 5D31Cf354B - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_16e_dd_5d31cf354b.jpg"
+    },
+    {
+      "id": 19,
+      "category_id": 1,
+      "product_name": "Iphone 15 Plus 80A37Cdce5",
+      "product_description": "Iphone 15 Plus 80A37Cdce5 - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_15_plus_80a37cdce5.png"
+    },
+    {
+      "id": 20,
+      "category_id": 1,
+      "product_name": "Iphone 15 Pro Thumb 0900Bfe015",
+      "product_description": "Iphone 15 Pro Thumb 0900Bfe015 - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_15_pro_thumb_0900bfe015.png"
+    },
+    {
+      "id": 21,
+      "category_id": 1,
+      "product_name": "Iphone 14 48A46D1684",
+      "product_description": "Iphone 14 48A46D1684 - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_14_48a46d1684.png"
+    },
+    {
+      "id": 22,
+      "category_id": 1,
+      "product_name": "Iphone 14 Plus E0B62Eddcf",
+      "product_description": "Iphone 14 Plus E0B62Eddcf - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_14_plus_e0b62eddcf.png"
+    },
+    {
+      "id": 23,
+      "category_id": 1,
+      "product_name": "Iphone 13 B06D633F18",
+      "product_description": "Iphone 13 B06D633F18 - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_13_b06d633f18.png"
+    },
+    {
+      "id": 24,
+      "category_id": 1,
+      "product_name": "Iphone 11 3D0Cd738Fd",
+      "product_description": "Iphone 11 3D0Cd738Fd - Apple smartphone model",
+      "product_base_price": 999,
+      "product_img_url": "https://cdn2.fptshop.com.vn/unsafe/512x0/filters:quality(100)/iphone_11_3d0cd738fd.png"
+    }
+  ],
+  "product_variation": [
+    {
+      "id": 1,
+      "product_id": 1,
+      "sku": "SKU-1-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_1.jpg"
+    },
+    {
+      "id": 2,
+      "product_id": 1,
+      "sku": "SKU-1-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_2.jpg"
+    },
+    {
+      "id": 3,
+      "product_id": 2,
+      "sku": "SKU-2-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_3.jpg"
+    },
+    {
+      "id": 4,
+      "product_id": 2,
+      "sku": "SKU-2-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_4.jpg"
+    },
+    {
+      "id": 5,
+      "product_id": 3,
+      "sku": "SKU-3-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_5.jpg"
+    },
+    {
+      "id": 6,
+      "product_id": 3,
+      "sku": "SKU-3-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_6.jpg"
+    },
+    {
+      "id": 7,
+      "product_id": 4,
+      "sku": "SKU-4-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_7.jpg"
+    },
+    {
+      "id": 8,
+      "product_id": 4,
+      "sku": "SKU-4-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_8.jpg"
+    },
+    {
+      "id": 9,
+      "product_id": 5,
+      "sku": "SKU-5-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_9.jpg"
+    },
+    {
+      "id": 10,
+      "product_id": 5,
+      "sku": "SKU-5-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_10.jpg"
+    },
+    {
+      "id": 11,
+      "product_id": 6,
+      "sku": "SKU-6-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_11.jpg"
+    },
+    {
+      "id": 12,
+      "product_id": 6,
+      "sku": "SKU-6-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_12.jpg"
+    },
+    {
+      "id": 13,
+      "product_id": 7,
+      "sku": "SKU-7-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_13.jpg"
+    },
+    {
+      "id": 14,
+      "product_id": 7,
+      "sku": "SKU-7-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_14.jpg"
+    },
+    {
+      "id": 15,
+      "product_id": 8,
+      "sku": "SKU-8-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_15.jpg"
+    },
+    {
+      "id": 16,
+      "product_id": 8,
+      "sku": "SKU-8-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_16.jpg"
+    },
+    {
+      "id": 17,
+      "product_id": 9,
+      "sku": "SKU-9-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_17.jpg"
+    },
+    {
+      "id": 18,
+      "product_id": 9,
+      "sku": "SKU-9-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_18.jpg"
+    },
+    {
+      "id": 19,
+      "product_id": 10,
+      "sku": "SKU-10-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_19.jpg"
+    },
+    {
+      "id": 20,
+      "product_id": 10,
+      "sku": "SKU-10-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_20.jpg"
+    },
+    {
+      "id": 21,
+      "product_id": 11,
+      "sku": "SKU-11-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_21.jpg"
+    },
+    {
+      "id": 22,
+      "product_id": 11,
+      "sku": "SKU-11-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_22.jpg"
+    },
+    {
+      "id": 23,
+      "product_id": 12,
+      "sku": "SKU-12-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_23.jpg"
+    },
+    {
+      "id": 24,
+      "product_id": 12,
+      "sku": "SKU-12-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_24.jpg"
+    },
+    {
+      "id": 25,
+      "product_id": 13,
+      "sku": "SKU-13-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_25.jpg"
+    },
+    {
+      "id": 26,
+      "product_id": 13,
+      "sku": "SKU-13-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_26.jpg"
+    },
+    {
+      "id": 27,
+      "product_id": 14,
+      "sku": "SKU-14-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_27.jpg"
+    },
+    {
+      "id": 28,
+      "product_id": 14,
+      "sku": "SKU-14-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_28.jpg"
+    },
+    {
+      "id": 29,
+      "product_id": 15,
+      "sku": "SKU-15-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_29.jpg"
+    },
+    {
+      "id": 30,
+      "product_id": 15,
+      "sku": "SKU-15-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_30.jpg"
+    },
+    {
+      "id": 31,
+      "product_id": 16,
+      "sku": "SKU-16-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_31.jpg"
+    },
+    {
+      "id": 32,
+      "product_id": 16,
+      "sku": "SKU-16-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_32.jpg"
+    },
+    {
+      "id": 33,
+      "product_id": 17,
+      "sku": "SKU-17-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_33.jpg"
+    },
+    {
+      "id": 34,
+      "product_id": 17,
+      "sku": "SKU-17-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_34.jpg"
+    },
+    {
+      "id": 35,
+      "product_id": 18,
+      "sku": "SKU-18-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_35.jpg"
+    },
+    {
+      "id": 36,
+      "product_id": 18,
+      "sku": "SKU-18-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_36.jpg"
+    },
+    {
+      "id": 37,
+      "product_id": 19,
+      "sku": "SKU-19-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_37.jpg"
+    },
+    {
+      "id": 38,
+      "product_id": 19,
+      "sku": "SKU-19-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_38.jpg"
+    },
+    {
+      "id": 39,
+      "product_id": 20,
+      "sku": "SKU-20-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_39.jpg"
+    },
+    {
+      "id": 40,
+      "product_id": 20,
+      "sku": "SKU-20-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_40.jpg"
+    },
+    {
+      "id": 41,
+      "product_id": 21,
+      "sku": "SKU-21-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_41.jpg"
+    },
+    {
+      "id": 42,
+      "product_id": 21,
+      "sku": "SKU-21-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_42.jpg"
+    },
+    {
+      "id": 43,
+      "product_id": 22,
+      "sku": "SKU-22-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_43.jpg"
+    },
+    {
+      "id": 44,
+      "product_id": 22,
+      "sku": "SKU-22-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_44.jpg"
+    },
+    {
+      "id": 45,
+      "product_id": 23,
+      "sku": "SKU-23-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_45.jpg"
+    },
+    {
+      "id": 46,
+      "product_id": 23,
+      "sku": "SKU-23-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_46.jpg"
+    },
+    {
+      "id": 47,
+      "product_id": 24,
+      "sku": "SKU-24-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_47.jpg"
+    },
+    {
+      "id": 48,
+      "product_id": 24,
+      "sku": "SKU-24-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_48.jpg"
+    },
+    {
+      "id": 49,
+      "product_id": 25,
+      "sku": "SKU-25-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_49.jpg"
+    },
+    {
+      "id": 50,
+      "product_id": 25,
+      "sku": "SKU-25-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_50.jpg"
+    },
+    {
+      "id": 51,
+      "product_id": 26,
+      "sku": "SKU-26-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_51.jpg"
+    },
+    {
+      "id": 52,
+      "product_id": 26,
+      "sku": "SKU-26-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_52.jpg"
+    },
+    {
+      "id": 53,
+      "product_id": 27,
+      "sku": "SKU-27-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_53.jpg"
+    },
+    {
+      "id": 54,
+      "product_id": 27,
+      "sku": "SKU-27-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_54.jpg"
+    },
+    {
+      "id": 55,
+      "product_id": 28,
+      "sku": "SKU-28-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_55.jpg"
+    },
+    {
+      "id": 56,
+      "product_id": 28,
+      "sku": "SKU-28-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_56.jpg"
+    },
+    {
+      "id": 57,
+      "product_id": 29,
+      "sku": "SKU-29-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_57.jpg"
+    },
+    {
+      "id": 58,
+      "product_id": 29,
+      "sku": "SKU-29-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_58.jpg"
+    },
+    {
+      "id": 59,
+      "product_id": 30,
+      "sku": "SKU-30-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_59.jpg"
+    },
+    {
+      "id": 60,
+      "product_id": 30,
+      "sku": "SKU-30-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_60.jpg"
+    },
+    {
+      "id": 61,
+      "product_id": 31,
+      "sku": "SKU-31-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_61.jpg"
+    },
+    {
+      "id": 62,
+      "product_id": 31,
+      "sku": "SKU-31-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_62.jpg"
+    },
+    {
+      "id": 63,
+      "product_id": 32,
+      "sku": "SKU-32-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_63.jpg"
+    },
+    {
+      "id": 64,
+      "product_id": 32,
+      "sku": "SKU-32-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_64.jpg"
+    },
+    {
+      "id": 65,
+      "product_id": 33,
+      "sku": "SKU-33-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_65.jpg"
+    },
+    {
+      "id": 66,
+      "product_id": 33,
+      "sku": "SKU-33-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_66.jpg"
+    },
+    {
+      "id": 67,
+      "product_id": 34,
+      "sku": "SKU-34-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_67.jpg"
+    },
+    {
+      "id": 68,
+      "product_id": 34,
+      "sku": "SKU-34-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_68.jpg"
+    },
+    {
+      "id": 69,
+      "product_id": 35,
+      "sku": "SKU-35-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_69.jpg"
+    },
+    {
+      "id": 70,
+      "product_id": 35,
+      "sku": "SKU-35-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_70.jpg"
+    },
+    {
+      "id": 71,
+      "product_id": 36,
+      "sku": "SKU-36-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_71.jpg"
+    },
+    {
+      "id": 72,
+      "product_id": 36,
+      "sku": "SKU-36-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_72.jpg"
+    },
+    {
+      "id": 73,
+      "product_id": 37,
+      "sku": "SKU-37-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_73.jpg"
+    },
+    {
+      "id": 74,
+      "product_id": 37,
+      "sku": "SKU-37-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_74.jpg"
+    },
+    {
+      "id": 75,
+      "product_id": 38,
+      "sku": "SKU-38-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_75.jpg"
+    },
+    {
+      "id": 76,
+      "product_id": 38,
+      "sku": "SKU-38-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_76.jpg"
+    },
+    {
+      "id": 77,
+      "product_id": 39,
+      "sku": "SKU-39-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_77.jpg"
+    },
+    {
+      "id": 78,
+      "product_id": 39,
+      "sku": "SKU-39-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_78.jpg"
+    },
+    {
+      "id": 79,
+      "product_id": 40,
+      "sku": "SKU-40-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_79.jpg"
+    },
+    {
+      "id": 80,
+      "product_id": 40,
+      "sku": "SKU-40-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_80.jpg"
+    },
+    {
+      "id": 81,
+      "product_id": 41,
+      "sku": "SKU-41-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_81.jpg"
+    },
+    {
+      "id": 82,
+      "product_id": 41,
+      "sku": "SKU-41-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_82.jpg"
+    },
+    {
+      "id": 83,
+      "product_id": 42,
+      "sku": "SKU-42-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_83.jpg"
+    },
+    {
+      "id": 84,
+      "product_id": 42,
+      "sku": "SKU-42-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_84.jpg"
+    },
+    {
+      "id": 85,
+      "product_id": 43,
+      "sku": "SKU-43-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_85.jpg"
+    },
+    {
+      "id": 86,
+      "product_id": 43,
+      "sku": "SKU-43-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_86.jpg"
+    },
+    {
+      "id": 87,
+      "product_id": 44,
+      "sku": "SKU-44-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_87.jpg"
+    },
+    {
+      "id": 88,
+      "product_id": 44,
+      "sku": "SKU-44-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_88.jpg"
+    },
+    {
+      "id": 89,
+      "product_id": 45,
+      "sku": "SKU-45-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_89.jpg"
+    },
+    {
+      "id": 90,
+      "product_id": 45,
+      "sku": "SKU-45-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_90.jpg"
+    },
+    {
+      "id": 91,
+      "product_id": 46,
+      "sku": "SKU-46-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_91.jpg"
+    },
+    {
+      "id": 92,
+      "product_id": 46,
+      "sku": "SKU-46-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_92.jpg"
+    },
+    {
+      "id": 93,
+      "product_id": 47,
+      "sku": "SKU-47-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_93.jpg"
+    },
+    {
+      "id": 94,
+      "product_id": 47,
+      "sku": "SKU-47-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_94.jpg"
+    },
+    {
+      "id": 95,
+      "product_id": 48,
+      "sku": "SKU-48-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_95.jpg"
+    },
+    {
+      "id": 96,
+      "product_id": 48,
+      "sku": "SKU-48-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_96.jpg"
+    },
+    {
+      "id": 97,
+      "product_id": 49,
+      "sku": "SKU-49-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_97.jpg"
+    },
+    {
+      "id": 98,
+      "product_id": 49,
+      "sku": "SKU-49-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_98.jpg"
+    },
+    {
+      "id": 99,
+      "product_id": 50,
+      "sku": "SKU-50-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_99.jpg"
+    },
+    {
+      "id": 100,
+      "product_id": 50,
+      "sku": "SKU-50-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_100.jpg"
+    },
+    {
+      "id": 101,
+      "product_id": 51,
+      "sku": "SKU-51-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_101.jpg"
+    },
+    {
+      "id": 102,
+      "product_id": 51,
+      "sku": "SKU-51-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_102.jpg"
+    },
+    {
+      "id": 103,
+      "product_id": 52,
+      "sku": "SKU-52-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_103.jpg"
+    },
+    {
+      "id": 104,
+      "product_id": 52,
+      "sku": "SKU-52-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_104.jpg"
+    },
+    {
+      "id": 105,
+      "product_id": 53,
+      "sku": "SKU-53-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_105.jpg"
+    },
+    {
+      "id": 106,
+      "product_id": 53,
+      "sku": "SKU-53-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_106.jpg"
+    },
+    {
+      "id": 107,
+      "product_id": 54,
+      "sku": "SKU-54-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_107.jpg"
+    },
+    {
+      "id": 108,
+      "product_id": 54,
+      "sku": "SKU-54-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_108.jpg"
+    },
+    {
+      "id": 109,
+      "product_id": 55,
+      "sku": "SKU-55-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_109.jpg"
+    },
+    {
+      "id": 110,
+      "product_id": 55,
+      "sku": "SKU-55-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_110.jpg"
+    },
+    {
+      "id": 111,
+      "product_id": 56,
+      "sku": "SKU-56-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_111.jpg"
+    },
+    {
+      "id": 112,
+      "product_id": 56,
+      "sku": "SKU-56-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_112.jpg"
+    },
+    {
+      "id": 113,
+      "product_id": 57,
+      "sku": "SKU-57-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_113.jpg"
+    },
+    {
+      "id": 114,
+      "product_id": 57,
+      "sku": "SKU-57-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_114.jpg"
+    },
+    {
+      "id": 115,
+      "product_id": 58,
+      "sku": "SKU-58-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_115.jpg"
+    },
+    {
+      "id": 116,
+      "product_id": 58,
+      "sku": "SKU-58-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_116.jpg"
+    },
+    {
+      "id": 117,
+      "product_id": 59,
+      "sku": "SKU-59-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_117.jpg"
+    },
+    {
+      "id": 118,
+      "product_id": 59,
+      "sku": "SKU-59-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_118.jpg"
+    },
+    {
+      "id": 119,
+      "product_id": 60,
+      "sku": "SKU-60-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_119.jpg"
+    },
+    {
+      "id": 120,
+      "product_id": 60,
+      "sku": "SKU-60-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_120.jpg"
+    },
+    {
+      "id": 121,
+      "product_id": 61,
+      "sku": "SKU-61-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_121.jpg"
+    },
+    {
+      "id": 122,
+      "product_id": 61,
+      "sku": "SKU-61-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_122.jpg"
+    },
+    {
+      "id": 123,
+      "product_id": 62,
+      "sku": "SKU-62-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_123.jpg"
+    },
+    {
+      "id": 124,
+      "product_id": 62,
+      "sku": "SKU-62-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_124.jpg"
+    },
+    {
+      "id": 125,
+      "product_id": 63,
+      "sku": "SKU-63-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_125.jpg"
+    },
+    {
+      "id": 126,
+      "product_id": 63,
+      "sku": "SKU-63-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_126.jpg"
+    },
+    {
+      "id": 127,
+      "product_id": 64,
+      "sku": "SKU-64-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_127.jpg"
+    },
+    {
+      "id": 128,
+      "product_id": 64,
+      "sku": "SKU-64-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_128.jpg"
+    },
+    {
+      "id": 129,
+      "product_id": 65,
+      "sku": "SKU-65-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_129.jpg"
+    },
+    {
+      "id": 130,
+      "product_id": 65,
+      "sku": "SKU-65-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_130.jpg"
+    },
+    {
+      "id": 131,
+      "product_id": 66,
+      "sku": "SKU-66-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_131.jpg"
+    },
+    {
+      "id": 132,
+      "product_id": 66,
+      "sku": "SKU-66-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_132.jpg"
+    },
+    {
+      "id": 133,
+      "product_id": 67,
+      "sku": "SKU-67-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_133.jpg"
+    },
+    {
+      "id": 134,
+      "product_id": 67,
+      "sku": "SKU-67-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_134.jpg"
+    },
+    {
+      "id": 135,
+      "product_id": 68,
+      "sku": "SKU-68-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_135.jpg"
+    },
+    {
+      "id": 136,
+      "product_id": 68,
+      "sku": "SKU-68-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_136.jpg"
+    },
+    {
+      "id": 137,
+      "product_id": 69,
+      "sku": "SKU-69-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_137.jpg"
+    },
+    {
+      "id": 138,
+      "product_id": 69,
+      "sku": "SKU-69-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_138.jpg"
+    },
+    {
+      "id": 139,
+      "product_id": 70,
+      "sku": "SKU-70-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_139.jpg"
+    },
+    {
+      "id": 140,
+      "product_id": 70,
+      "sku": "SKU-70-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_140.jpg"
+    },
+    {
+      "id": 141,
+      "product_id": 71,
+      "sku": "SKU-71-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_141.jpg"
+    },
+    {
+      "id": 142,
+      "product_id": 71,
+      "sku": "SKU-71-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_142.jpg"
+    },
+    {
+      "id": 143,
+      "product_id": 72,
+      "sku": "SKU-72-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_143.jpg"
+    },
+    {
+      "id": 144,
+      "product_id": 72,
+      "sku": "SKU-72-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_144.jpg"
+    },
+    {
+      "id": 145,
+      "product_id": 73,
+      "sku": "SKU-73-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_145.jpg"
+    },
+    {
+      "id": 146,
+      "product_id": 73,
+      "sku": "SKU-73-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_146.jpg"
+    },
+    {
+      "id": 147,
+      "product_id": 74,
+      "sku": "SKU-74-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_147.jpg"
+    },
+    {
+      "id": 148,
+      "product_id": 74,
+      "sku": "SKU-74-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_148.jpg"
+    },
+    {
+      "id": 149,
+      "product_id": 75,
+      "sku": "SKU-75-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_149.jpg"
+    },
+    {
+      "id": 150,
+      "product_id": 75,
+      "sku": "SKU-75-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_150.jpg"
+    },
+    {
+      "id": 151,
+      "product_id": 76,
+      "sku": "SKU-76-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_151.jpg"
+    },
+    {
+      "id": 152,
+      "product_id": 76,
+      "sku": "SKU-76-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_152.jpg"
+    },
+    {
+      "id": 153,
+      "product_id": 77,
+      "sku": "SKU-77-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_153.jpg"
+    },
+    {
+      "id": 154,
+      "product_id": 77,
+      "sku": "SKU-77-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_154.jpg"
+    },
+    {
+      "id": 155,
+      "product_id": 78,
+      "sku": "SKU-78-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_155.jpg"
+    },
+    {
+      "id": 156,
+      "product_id": 78,
+      "sku": "SKU-78-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_156.jpg"
+    },
+    {
+      "id": 157,
+      "product_id": 79,
+      "sku": "SKU-79-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_157.jpg"
+    },
+    {
+      "id": 158,
+      "product_id": 79,
+      "sku": "SKU-79-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_158.jpg"
+    },
+    {
+      "id": 159,
+      "product_id": 80,
+      "sku": "SKU-80-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_159.jpg"
+    },
+    {
+      "id": 160,
+      "product_id": 80,
+      "sku": "SKU-80-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_160.jpg"
+    },
+    {
+      "id": 161,
+      "product_id": 81,
+      "sku": "SKU-81-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_161.jpg"
+    },
+    {
+      "id": 162,
+      "product_id": 81,
+      "sku": "SKU-81-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_162.jpg"
+    },
+    {
+      "id": 163,
+      "product_id": 82,
+      "sku": "SKU-82-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_163.jpg"
+    },
+    {
+      "id": 164,
+      "product_id": 82,
+      "sku": "SKU-82-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_164.jpg"
+    },
+    {
+      "id": 165,
+      "product_id": 83,
+      "sku": "SKU-83-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_165.jpg"
+    },
+    {
+      "id": 166,
+      "product_id": 83,
+      "sku": "SKU-83-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_166.jpg"
+    },
+    {
+      "id": 167,
+      "product_id": 84,
+      "sku": "SKU-84-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_167.jpg"
+    },
+    {
+      "id": 168,
+      "product_id": 84,
+      "sku": "SKU-84-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_168.jpg"
+    },
+    {
+      "id": 169,
+      "product_id": 85,
+      "sku": "SKU-85-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_169.jpg"
+    },
+    {
+      "id": 170,
+      "product_id": 85,
+      "sku": "SKU-85-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_170.jpg"
+    },
+    {
+      "id": 171,
+      "product_id": 86,
+      "sku": "SKU-86-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_171.jpg"
+    },
+    {
+      "id": 172,
+      "product_id": 86,
+      "sku": "SKU-86-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_172.jpg"
+    },
+    {
+      "id": 173,
+      "product_id": 87,
+      "sku": "SKU-87-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_173.jpg"
+    },
+    {
+      "id": 174,
+      "product_id": 87,
+      "sku": "SKU-87-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_174.jpg"
+    },
+    {
+      "id": 175,
+      "product_id": 88,
+      "sku": "SKU-88-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_175.jpg"
+    },
+    {
+      "id": 176,
+      "product_id": 88,
+      "sku": "SKU-88-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_176.jpg"
+    },
+    {
+      "id": 177,
+      "product_id": 89,
+      "sku": "SKU-89-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_177.jpg"
+    },
+    {
+      "id": 178,
+      "product_id": 89,
+      "sku": "SKU-89-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_178.jpg"
+    },
+    {
+      "id": 179,
+      "product_id": 90,
+      "sku": "SKU-90-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_179.jpg"
+    },
+    {
+      "id": 180,
+      "product_id": 90,
+      "sku": "SKU-90-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_180.jpg"
+    },
+    {
+      "id": 181,
+      "product_id": 91,
+      "sku": "SKU-91-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_181.jpg"
+    },
+    {
+      "id": 182,
+      "product_id": 91,
+      "sku": "SKU-91-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_182.jpg"
+    },
+    {
+      "id": 183,
+      "product_id": 92,
+      "sku": "SKU-92-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_183.jpg"
+    },
+    {
+      "id": 184,
+      "product_id": 92,
+      "sku": "SKU-92-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_184.jpg"
+    },
+    {
+      "id": 185,
+      "product_id": 93,
+      "sku": "SKU-93-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_185.jpg"
+    },
+    {
+      "id": 186,
+      "product_id": 93,
+      "sku": "SKU-93-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_186.jpg"
+    },
+    {
+      "id": 187,
+      "product_id": 94,
+      "sku": "SKU-94-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_187.jpg"
+    },
+    {
+      "id": 188,
+      "product_id": 94,
+      "sku": "SKU-94-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_188.jpg"
+    },
+    {
+      "id": 189,
+      "product_id": 95,
+      "sku": "SKU-95-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_189.jpg"
+    },
+    {
+      "id": 190,
+      "product_id": 95,
+      "sku": "SKU-95-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_190.jpg"
+    },
+    {
+      "id": 191,
+      "product_id": 96,
+      "sku": "SKU-96-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_191.jpg"
+    },
+    {
+      "id": 192,
+      "product_id": 96,
+      "sku": "SKU-96-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_192.jpg"
+    },
+    {
+      "id": 193,
+      "product_id": 97,
+      "sku": "SKU-97-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_193.jpg"
+    },
+    {
+      "id": 194,
+      "product_id": 97,
+      "sku": "SKU-97-1",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_194.jpg"
+    },
+    {
+      "id": 195,
+      "product_id": 98,
+      "sku": "SKU-98-0",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_195.jpg"
+    },
+    {
+      "id": 196,
+      "product_id": 98,
+      "sku": "SKU-98-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_196.jpg"
+    },
+    {
+      "id": 197,
+      "product_id": 99,
+      "sku": "SKU-99-0",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_197.jpg"
+    },
+    {
+      "id": 198,
+      "product_id": 99,
+      "sku": "SKU-99-1",
+      "variation_price_change": 0,
+      "variation_img_url": "https://example.com/variation_198.jpg"
+    },
+    {
+      "id": 199,
+      "product_id": 100,
+      "sku": "SKU-100-0",
+      "variation_price_change": 50,
+      "variation_img_url": "https://example.com/variation_199.jpg"
+    },
+    {
+      "id": 200,
+      "product_id": 100,
+      "sku": "SKU-100-1",
+      "variation_price_change": 100,
+      "variation_img_url": "https://example.com/variation_200.jpg"
+    }
+  ],
+  "inventory": [
+    {
+      "id": 1,
+      "variation_id": 1,
+      "quantity": 149
+    },
+    {
+      "id": 2,
+      "variation_id": 2,
+      "quantity": 112
+    },
+    {
+      "id": 3,
+      "variation_id": 3,
+      "quantity": 51
+    },
+    {
+      "id": 4,
+      "variation_id": 4,
+      "quantity": 141
+    },
+    {
+      "id": 5,
+      "variation_id": 5,
+      "quantity": 28
+    },
+    {
+      "id": 6,
+      "variation_id": 6,
+      "quantity": 132
+    },
+    {
+      "id": 7,
+      "variation_id": 7,
+      "quantity": 150
+    },
+    {
+      "id": 8,
+      "variation_id": 8,
+      "quantity": 99
+    },
+    {
+      "id": 9,
+      "variation_id": 9,
+      "quantity": 50
+    },
+    {
+      "id": 10,
+      "variation_id": 10,
+      "quantity": 49
+    },
+    {
+      "id": 11,
+      "variation_id": 11,
+      "quantity": 128
+    },
+    {
+      "id": 12,
+      "variation_id": 12,
+      "quantity": 31
+    },
+    {
+      "id": 13,
+      "variation_id": 13,
+      "quantity": 52
+    },
+    {
+      "id": 14,
+      "variation_id": 14,
+      "quantity": 113
+    },
+    {
+      "id": 15,
+      "variation_id": 15,
+      "quantity": 87
+    },
+    {
+      "id": 16,
+      "variation_id": 16,
+      "quantity": 52
+    },
+    {
+      "id": 17,
+      "variation_id": 17,
+      "quantity": 191
+    },
+    {
+      "id": 18,
+      "variation_id": 18,
+      "quantity": 191
+    },
+    {
+      "id": 19,
+      "variation_id": 19,
+      "quantity": 93
+    },
+    {
+      "id": 20,
+      "variation_id": 20,
+      "quantity": 44
+    },
+    {
+      "id": 21,
+      "variation_id": 21,
+      "quantity": 88
+    },
+    {
+      "id": 22,
+      "variation_id": 22,
+      "quantity": 52
+    },
+    {
+      "id": 23,
+      "variation_id": 23,
+      "quantity": 113
+    },
+    {
+      "id": 24,
+      "variation_id": 24,
+      "quantity": 146
+    },
+    {
+      "id": 25,
+      "variation_id": 25,
+      "quantity": 90
+    },
+    {
+      "id": 26,
+      "variation_id": 26,
+      "quantity": 96
+    },
+    {
+      "id": 27,
+      "variation_id": 27,
+      "quantity": 174
+    },
+    {
+      "id": 28,
+      "variation_id": 28,
+      "quantity": 90
+    },
+    {
+      "id": 29,
+      "variation_id": 29,
+      "quantity": 133
+    },
+    {
+      "id": 30,
+      "variation_id": 30,
+      "quantity": 133
+    },
+    {
+      "id": 31,
+      "variation_id": 31,
+      "quantity": 153
+    },
+    {
+      "id": 32,
+      "variation_id": 32,
+      "quantity": 198
+    },
+    {
+      "id": 33,
+      "variation_id": 33,
+      "quantity": 155
+    },
+    {
+      "id": 34,
+      "variation_id": 34,
+      "quantity": 19
+    },
+    {
+      "id": 35,
+      "variation_id": 35,
+      "quantity": 12
+    },
+    {
+      "id": 36,
+      "variation_id": 36,
+      "quantity": 84
+    },
+    {
+      "id": 37,
+      "variation_id": 37,
+      "quantity": 39
+    },
+    {
+      "id": 38,
+      "variation_id": 38,
+      "quantity": 59
+    },
+    {
+      "id": 39,
+      "variation_id": 39,
+      "quantity": 139
+    },
+    {
+      "id": 40,
+      "variation_id": 40,
+      "quantity": 18
+    },
+    {
+      "id": 41,
+      "variation_id": 41,
+      "quantity": 72
+    },
+    {
+      "id": 42,
+      "variation_id": 42,
+      "quantity": 200
+    },
+    {
+      "id": 43,
+      "variation_id": 43,
+      "quantity": 195
+    },
+    {
+      "id": 44,
+      "variation_id": 44,
+      "quantity": 159
+    },
+    {
+      "id": 45,
+      "variation_id": 45,
+      "quantity": 185
+    },
+    {
+      "id": 46,
+      "variation_id": 46,
+      "quantity": 34
+    },
+    {
+      "id": 47,
+      "variation_id": 47,
+      "quantity": 148
+    },
+    {
+      "id": 48,
+      "variation_id": 48,
+      "quantity": 130
+    },
+    {
+      "id": 49,
+      "variation_id": 49,
+      "quantity": 163
+    },
+    {
+      "id": 50,
+      "variation_id": 50,
+      "quantity": 130
+    },
+    {
+      "id": 51,
+      "variation_id": 51,
+      "quantity": 113
+    },
+    {
+      "id": 52,
+      "variation_id": 52,
+      "quantity": 48
+    },
+    {
+      "id": 53,
+      "variation_id": 53,
+      "quantity": 126
+    },
+    {
+      "id": 54,
+      "variation_id": 54,
+      "quantity": 138
+    },
+    {
+      "id": 55,
+      "variation_id": 55,
+      "quantity": 178
+    },
+    {
+      "id": 56,
+      "variation_id": 56,
+      "quantity": 43
+    },
+    {
+      "id": 57,
+      "variation_id": 57,
+      "quantity": 145
+    },
+    {
+      "id": 58,
+      "variation_id": 58,
+      "quantity": 117
+    },
+    {
+      "id": 59,
+      "variation_id": 59,
+      "quantity": 109
+    },
+    {
+      "id": 60,
+      "variation_id": 60,
+      "quantity": 21
+    },
+    {
+      "id": 61,
+      "variation_id": 61,
+      "quantity": 132
+    },
+    {
+      "id": 62,
+      "variation_id": 62,
+      "quantity": 44
+    },
+    {
+      "id": 63,
+      "variation_id": 63,
+      "quantity": 15
+    },
+    {
+      "id": 64,
+      "variation_id": 64,
+      "quantity": 181
+    },
+    {
+      "id": 65,
+      "variation_id": 65,
+      "quantity": 110
+    },
+    {
+      "id": 66,
+      "variation_id": 66,
+      "quantity": 162
+    },
+    {
+      "id": 67,
+      "variation_id": 67,
+      "quantity": 126
+    },
+    {
+      "id": 68,
+      "variation_id": 68,
+      "quantity": 15
+    },
+    {
+      "id": 69,
+      "variation_id": 69,
+      "quantity": 54
+    },
+    {
+      "id": 70,
+      "variation_id": 70,
+      "quantity": 199
+    },
+    {
+      "id": 71,
+      "variation_id": 71,
+      "quantity": 42
+    },
+    {
+      "id": 72,
+      "variation_id": 72,
+      "quantity": 11
+    },
+    {
+      "id": 73,
+      "variation_id": 73,
+      "quantity": 162
+    },
+    {
+      "id": 74,
+      "variation_id": 74,
+      "quantity": 152
+    },
+    {
+      "id": 75,
+      "variation_id": 75,
+      "quantity": 20
+    },
+    {
+      "id": 76,
+      "variation_id": 76,
+      "quantity": 18
+    },
+    {
+      "id": 77,
+      "variation_id": 77,
+      "quantity": 97
+    },
+    {
+      "id": 78,
+      "variation_id": 78,
+      "quantity": 150
+    },
+    {
+      "id": 79,
+      "variation_id": 79,
+      "quantity": 59
+    },
+    {
+      "id": 80,
+      "variation_id": 80,
+      "quantity": 55
+    },
+    {
+      "id": 81,
+      "variation_id": 81,
+      "quantity": 189
+    },
+    {
+      "id": 82,
+      "variation_id": 82,
+      "quantity": 166
+    },
+    {
+      "id": 83,
+      "variation_id": 83,
+      "quantity": 19
+    },
+    {
+      "id": 84,
+      "variation_id": 84,
+      "quantity": 110
+    },
+    {
+      "id": 85,
+      "variation_id": 85,
+      "quantity": 115
+    },
+    {
+      "id": 86,
+      "variation_id": 86,
+      "quantity": 122
+    },
+    {
+      "id": 87,
+      "variation_id": 87,
+      "quantity": 124
+    },
+    {
+      "id": 88,
+      "variation_id": 88,
+      "quantity": 151
+    },
+    {
+      "id": 89,
+      "variation_id": 89,
+      "quantity": 127
+    },
+    {
+      "id": 90,
+      "variation_id": 90,
+      "quantity": 76
+    },
+    {
+      "id": 91,
+      "variation_id": 91,
+      "quantity": 70
+    },
+    {
+      "id": 92,
+      "variation_id": 92,
+      "quantity": 60
+    },
+    {
+      "id": 93,
+      "variation_id": 93,
+      "quantity": 46
+    },
+    {
+      "id": 94,
+      "variation_id": 94,
+      "quantity": 33
+    },
+    {
+      "id": 95,
+      "variation_id": 95,
+      "quantity": 81
+    },
+    {
+      "id": 96,
+      "variation_id": 96,
+      "quantity": 47
+    },
+    {
+      "id": 97,
+      "variation_id": 97,
+      "quantity": 65
+    },
+    {
+      "id": 98,
+      "variation_id": 98,
+      "quantity": 135
+    },
+    {
+      "id": 99,
+      "variation_id": 99,
+      "quantity": 180
+    },
+    {
+      "id": 100,
+      "variation_id": 100,
+      "quantity": 87
+    },
+    {
+      "id": 101,
+      "variation_id": 101,
+      "quantity": 75
+    },
+    {
+      "id": 102,
+      "variation_id": 102,
+      "quantity": 65
+    },
+    {
+      "id": 103,
+      "variation_id": 103,
+      "quantity": 59
+    },
+    {
+      "id": 104,
+      "variation_id": 104,
+      "quantity": 194
+    },
+    {
+      "id": 105,
+      "variation_id": 105,
+      "quantity": 49
+    },
+    {
+      "id": 106,
+      "variation_id": 106,
+      "quantity": 116
+    },
+    {
+      "id": 107,
+      "variation_id": 107,
+      "quantity": 127
+    },
+    {
+      "id": 108,
+      "variation_id": 108,
+      "quantity": 198
+    },
+    {
+      "id": 109,
+      "variation_id": 109,
+      "quantity": 121
+    },
+    {
+      "id": 110,
+      "variation_id": 110,
+      "quantity": 135
+    },
+    {
+      "id": 111,
+      "variation_id": 111,
+      "quantity": 34
+    },
+    {
+      "id": 112,
+      "variation_id": 112,
+      "quantity": 54
+    },
+    {
+      "id": 113,
+      "variation_id": 113,
+      "quantity": 158
+    },
+    {
+      "id": 114,
+      "variation_id": 114,
+      "quantity": 49
+    },
+    {
+      "id": 115,
+      "variation_id": 115,
+      "quantity": 141
+    },
+    {
+      "id": 116,
+      "variation_id": 116,
+      "quantity": 33
+    },
+    {
+      "id": 117,
+      "variation_id": 117,
+      "quantity": 141
+    },
+    {
+      "id": 118,
+      "variation_id": 118,
+      "quantity": 112
+    },
+    {
+      "id": 119,
+      "variation_id": 119,
+      "quantity": 148
+    },
+    {
+      "id": 120,
+      "variation_id": 120,
+      "quantity": 126
+    },
+    {
+      "id": 121,
+      "variation_id": 121,
+      "quantity": 128
+    },
+    {
+      "id": 122,
+      "variation_id": 122,
+      "quantity": 55
+    },
+    {
+      "id": 123,
+      "variation_id": 123,
+      "quantity": 170
+    },
+    {
+      "id": 124,
+      "variation_id": 124,
+      "quantity": 11
+    },
+    {
+      "id": 125,
+      "variation_id": 125,
+      "quantity": 136
+    },
+    {
+      "id": 126,
+      "variation_id": 126,
+      "quantity": 48
+    },
+    {
+      "id": 127,
+      "variation_id": 127,
+      "quantity": 39
+    },
+    {
+      "id": 128,
+      "variation_id": 128,
+      "quantity": 69
+    },
+    {
+      "id": 129,
+      "variation_id": 129,
+      "quantity": 126
+    },
+    {
+      "id": 130,
+      "variation_id": 130,
+      "quantity": 144
+    },
+    {
+      "id": 131,
+      "variation_id": 131,
+      "quantity": 26
+    },
+    {
+      "id": 132,
+      "variation_id": 132,
+      "quantity": 130
+    },
+    {
+      "id": 133,
+      "variation_id": 133,
+      "quantity": 153
+    },
+    {
+      "id": 134,
+      "variation_id": 134,
+      "quantity": 33
+    },
+    {
+      "id": 135,
+      "variation_id": 135,
+      "quantity": 76
+    },
+    {
+      "id": 136,
+      "variation_id": 136,
+      "quantity": 20
+    },
+    {
+      "id": 137,
+      "variation_id": 137,
+      "quantity": 111
+    },
+    {
+      "id": 138,
+      "variation_id": 138,
+      "quantity": 151
+    },
+    {
+      "id": 139,
+      "variation_id": 139,
+      "quantity": 98
+    },
+    {
+      "id": 140,
+      "variation_id": 140,
+      "quantity": 77
+    },
+    {
+      "id": 141,
+      "variation_id": 141,
+      "quantity": 191
+    },
+    {
+      "id": 142,
+      "variation_id": 142,
+      "quantity": 176
+    },
+    {
+      "id": 143,
+      "variation_id": 143,
+      "quantity": 83
+    },
+    {
+      "id": 144,
+      "variation_id": 144,
+      "quantity": 111
+    },
+    {
+      "id": 145,
+      "variation_id": 145,
+      "quantity": 14
+    },
+    {
+      "id": 146,
+      "variation_id": 146,
+      "quantity": 153
+    },
+    {
+      "id": 147,
+      "variation_id": 147,
+      "quantity": 183
+    },
+    {
+      "id": 148,
+      "variation_id": 148,
+      "quantity": 93
+    },
+    {
+      "id": 149,
+      "variation_id": 149,
+      "quantity": 194
+    },
+    {
+      "id": 150,
+      "variation_id": 150,
+      "quantity": 24
+    },
+    {
+      "id": 151,
+      "variation_id": 151,
+      "quantity": 39
+    },
+    {
+      "id": 152,
+      "variation_id": 152,
+      "quantity": 73
+    },
+    {
+      "id": 153,
+      "variation_id": 153,
+      "quantity": 176
+    },
+    {
+      "id": 154,
+      "variation_id": 154,
+      "quantity": 132
+    },
+    {
+      "id": 155,
+      "variation_id": 155,
+      "quantity": 52
+    },
+    {
+      "id": 156,
+      "variation_id": 156,
+      "quantity": 65
+    },
+    {
+      "id": 157,
+      "variation_id": 157,
+      "quantity": 126
+    },
+    {
+      "id": 158,
+      "variation_id": 158,
+      "quantity": 127
+    },
+    {
+      "id": 159,
+      "variation_id": 159,
+      "quantity": 94
+    },
+    {
+      "id": 160,
+      "variation_id": 160,
+      "quantity": 91
+    },
+    {
+      "id": 161,
+      "variation_id": 161,
+      "quantity": 57
+    },
+    {
+      "id": 162,
+      "variation_id": 162,
+      "quantity": 97
+    },
+    {
+      "id": 163,
+      "variation_id": 163,
+      "quantity": 17
+    },
+    {
+      "id": 164,
+      "variation_id": 164,
+      "quantity": 30
+    },
+    {
+      "id": 165,
+      "variation_id": 165,
+      "quantity": 95
+    },
+    {
+      "id": 166,
+      "variation_id": 166,
+      "quantity": 114
+    },
+    {
+      "id": 167,
+      "variation_id": 167,
+      "quantity": 133
+    },
+    {
+      "id": 168,
+      "variation_id": 168,
+      "quantity": 129
+    },
+    {
+      "id": 169,
+      "variation_id": 169,
+      "quantity": 64
+    },
+    {
+      "id": 170,
+      "variation_id": 170,
+      "quantity": 27
+    },
+    {
+      "id": 171,
+      "variation_id": 171,
+      "quantity": 149
+    },
+    {
+      "id": 172,
+      "variation_id": 172,
+      "quantity": 55
+    },
+    {
+      "id": 173,
+      "variation_id": 173,
+      "quantity": 113
+    },
+    {
+      "id": 174,
+      "variation_id": 174,
+      "quantity": 163
+    },
+    {
+      "id": 175,
+      "variation_id": 175,
+      "quantity": 15
+    },
+    {
+      "id": 176,
+      "variation_id": 176,
+      "quantity": 93
+    },
+    {
+      "id": 177,
+      "variation_id": 177,
+      "quantity": 135
+    },
+    {
+      "id": 178,
+      "variation_id": 178,
+      "quantity": 23
+    },
+    {
+      "id": 179,
+      "variation_id": 179,
+      "quantity": 49
+    },
+    {
+      "id": 180,
+      "variation_id": 180,
+      "quantity": 149
+    },
+    {
+      "id": 181,
+      "variation_id": 181,
+      "quantity": 72
+    },
+    {
+      "id": 182,
+      "variation_id": 182,
+      "quantity": 66
+    },
+    {
+      "id": 183,
+      "variation_id": 183,
+      "quantity": 121
+    },
+    {
+      "id": 184,
+      "variation_id": 184,
+      "quantity": 32
+    },
+    {
+      "id": 185,
+      "variation_id": 185,
+      "quantity": 33
+    },
+    {
+      "id": 186,
+      "variation_id": 186,
+      "quantity": 76
+    },
+    {
+      "id": 187,
+      "variation_id": 187,
+      "quantity": 76
+    },
+    {
+      "id": 188,
+      "variation_id": 188,
+      "quantity": 90
+    },
+    {
+      "id": 189,
+      "variation_id": 189,
+      "quantity": 185
+    },
+    {
+      "id": 190,
+      "variation_id": 190,
+      "quantity": 191
+    },
+    {
+      "id": 191,
+      "variation_id": 191,
+      "quantity": 131
+    },
+    {
+      "id": 192,
+      "variation_id": 192,
+      "quantity": 54
+    },
+    {
+      "id": 193,
+      "variation_id": 193,
+      "quantity": 68
+    },
+    {
+      "id": 194,
+      "variation_id": 194,
+      "quantity": 36
+    },
+    {
+      "id": 195,
+      "variation_id": 195,
+      "quantity": 22
+    },
+    {
+      "id": 196,
+      "variation_id": 196,
+      "quantity": 66
+    },
+    {
+      "id": 197,
+      "variation_id": 197,
+      "quantity": 137
+    },
+    {
+      "id": 198,
+      "variation_id": 198,
+      "quantity": 48
+    },
+    {
+      "id": 199,
+      "variation_id": 199,
+      "quantity": 164
+    },
+    {
+      "id": 200,
+      "variation_id": 200,
+      "quantity": 166
+    }
+  ],
+  "choice": [
+    {
+      "id": 1,
+      "choice_name": "Color"
+    },
+    {
+      "id": 2,
+      "choice_name": "Storage"
+    },
+    {
+      "id": 3,
+      "choice_name": "Size"
+    }
+  ],
+  "choice_value": [
+    {
+      "id": 1,
+      "choice_id": 1,
+      "choice_value": "Black",
+      "sku_value": "BLK"
+    },
+    {
+      "id": 2,
+      "choice_id": 1,
+      "choice_value": "White",
+      "sku_value": "WHT"
+    },
+    {
+      "id": 3,
+      "choice_id": 2,
+      "choice_value": "128GB",
+      "sku_value": "128"
+    },
+    {
+      "id": 4,
+      "choice_id": 2,
+      "choice_value": "256GB",
+      "sku_value": "256"
+    },
+    {
+      "id": 5,
+      "choice_id": 3,
+      "choice_value": "Small",
+      "sku_value": "S"
+    },
+    {
+      "id": 6,
+      "choice_id": 3,
+      "choice_value": "Large",
+      "sku_value": "L"
+    }
+  ],
+  "variation_option": [
+    {
+      "variation_id": 1,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 1,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 2,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 2,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 3,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 3,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 4,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 4,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 5,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 5,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 6,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 6,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 7,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 7,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 8,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 8,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 9,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 9,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 10,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 10,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 11,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 11,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 12,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 12,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 13,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 13,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 14,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 14,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 15,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 15,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 16,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 16,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 17,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 17,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 18,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 18,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 19,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 19,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 20,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 20,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 21,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 21,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 22,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 22,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 23,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 23,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 24,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 24,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 25,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 25,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 26,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 26,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 27,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 27,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 28,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 28,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 29,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 29,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 30,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 30,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 31,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 31,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 32,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 32,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 33,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 33,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 34,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 34,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 35,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 35,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 36,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 36,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 37,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 37,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 38,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 38,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 39,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 39,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 40,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 40,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 41,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 41,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 42,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 42,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 43,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 43,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 44,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 44,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 45,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 45,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 46,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 46,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 47,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 47,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 48,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 48,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 49,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 49,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 50,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 50,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 51,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 51,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 52,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 52,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 53,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 53,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 54,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 54,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 55,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 55,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 56,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 56,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 57,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 57,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 58,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 58,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 59,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 59,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 60,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 60,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 61,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 61,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 62,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 62,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 63,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 63,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 64,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 64,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 65,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 65,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 66,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 66,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 67,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 67,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 68,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 68,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 69,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 69,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 70,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 70,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 71,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 71,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 72,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 72,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 73,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 73,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 74,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 74,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 75,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 75,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 76,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 76,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 77,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 77,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 78,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 78,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 79,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 79,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 80,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 80,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 81,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 81,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 82,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 82,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 83,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 83,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 84,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 84,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 85,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 85,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 86,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 86,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 87,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 87,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 88,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 88,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 89,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 89,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 90,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 90,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 91,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 91,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 92,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 92,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 93,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 93,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 94,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 94,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 95,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 95,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 96,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 96,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 97,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 97,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 98,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 98,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 99,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 99,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 100,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 100,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 101,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 101,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 102,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 102,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 103,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 103,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 104,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 104,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 105,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 105,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 106,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 106,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 107,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 107,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 108,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 108,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 109,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 109,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 110,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 110,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 111,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 111,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 112,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 112,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 113,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 113,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 114,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 114,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 115,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 115,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 116,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 116,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 117,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 117,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 118,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 118,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 119,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 119,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 120,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 120,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 121,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 121,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 122,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 122,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 123,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 123,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 124,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 124,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 125,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 125,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 126,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 126,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 127,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 127,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 128,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 128,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 129,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 129,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 130,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 130,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 131,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 131,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 132,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 132,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 133,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 133,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 134,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 134,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 135,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 135,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 136,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 136,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 137,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 137,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 138,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 138,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 139,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 139,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 140,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 140,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 141,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 141,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 142,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 142,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 143,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 143,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 144,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 144,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 145,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 145,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 146,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 146,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 147,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 147,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 148,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 148,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 149,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 149,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 150,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 150,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 151,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 151,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 152,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 152,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 153,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 153,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 154,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 154,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 155,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 155,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 156,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 156,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 157,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 157,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 158,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 158,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 159,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 159,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 160,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 160,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 161,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 161,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 162,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 162,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 163,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 163,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 164,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 164,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 165,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 165,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 166,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 166,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 167,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 167,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 168,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 168,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 169,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 169,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 170,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 170,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 171,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 171,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 172,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 172,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 173,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 173,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 174,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 174,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 175,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 175,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 176,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 176,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 177,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 177,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 178,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 178,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 179,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 179,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 180,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 180,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 181,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 181,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 182,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 182,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 183,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 183,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 184,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 184,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 185,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 185,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 186,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 186,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 187,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 187,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 188,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 188,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 189,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 189,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 190,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 190,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 191,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 191,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 192,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 192,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 193,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 193,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 194,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 194,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 195,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 195,
+      "choice_value_id": 5
+    },
+    {
+      "variation_id": 196,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 196,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 197,
+      "choice_value_id": 1
+    },
+    {
+      "variation_id": 197,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 198,
+      "choice_value_id": 3
+    },
+    {
+      "variation_id": 198,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 199,
+      "choice_value_id": 4
+    },
+    {
+      "variation_id": 199,
+      "choice_value_id": 6
+    },
+    {
+      "variation_id": 200,
+      "choice_value_id": 2
+    },
+    {
+      "variation_id": 200,
+      "choice_value_id": 1
+    }
+  ]
+}

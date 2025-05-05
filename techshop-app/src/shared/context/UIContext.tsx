@@ -2,7 +2,7 @@
 
 import React, { createContext, ReactNode, useContext, useReducer } from 'react'
 import { initialState, UIReducer } from './UIReducer'
-import { Action, State } from '@/shared/types/ui'
+import { Action, State } from '@/types/ui'
 
 const UIContext = createContext<{ state: State; dispatch: React.Dispatch<Action> } | undefined>(
   undefined,
