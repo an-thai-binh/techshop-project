@@ -308,7 +308,6 @@ export default function ProductDetail() {
                     </div>
                   </div>
                 </div>
-
                 <div className={'flex w-full items-center gap-2 px-2'}>
                   <div className={'flex w-[20%] items-center'}>
                     <h1 className={'text-md font-medium'}>Số lượng</h1>
