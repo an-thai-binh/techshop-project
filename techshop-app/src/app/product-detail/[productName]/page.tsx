@@ -6,28 +6,47 @@ import {
   ArrowPathRoundedSquareIcon,
   ArrowRightIcon,
   BanknotesIcon,
+  ChevronRightIcon,
   InboxIcon,
   InboxStackIcon,
   PhoneIcon,
 } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { ProductType } from '@/features/product/types/ProductType'
+import { fetchProductsByName } from '@/api/ProductAPI'
 
-export default function ProductDetail() {
+export default async function ProductDetail({ params }: { params: { productName: string } }) {
+  const { productName } = params
   const filePath = path.join(process.cwd(), 'data/product_block_test.json')
   const fileContent = fs.readFileSync(filePath, 'utf-8')
   const blocks = JSON.parse(fileContent)
+  const product: ProductType | undefined = await fetchProductsByName(
+    decodeURIComponent(productName),
+  )
+  console.log(decodeURIComponent(productName))
 
   return (
     <div className="flex h-full w-full flex-col items-center gap-4 bg-gray-900 px-0">
       <div className={'flex w-full items-center px-2 py-4'}>
-        <div className={'flex items-center gap-4'}>
+        <div className={'flex items-center gap-2'}>
+          <Link href={'/'}>
+            <div className={'flex items-center justify-center'}>
+              <h1 className={'text-xs font-bold'}>Trang chủ</h1>
+            </div>
+          </Link>
           <div className={'flex items-center justify-center'}>
-            <h1 className={'text-xs font-bold'}>Trang chủ</h1>
+            <ChevronRightIcon className={'size-3'} strokeWidth={2.5} />
+          </div>
+          <Link href={`/categories/${product?.category_id}`}>
+            <div className={'flex items-center justify-center'}>
+              <h1 className={'text-xs font-bold'}>Danh mục</h1>
+            </div>
+          </Link>
+          <div className={'flex items-center justify-center'}>
+            <ChevronRightIcon className={'size-3'} strokeWidth={2.5} />
           </div>
           <div className={'flex items-center justify-center'}>
-            <h1 className={'text-xs font-bold'}>Danh mục</h1>
-          </div>
-          <div className={'flex items-center justify-center'}>
-            <h1 className={'text-xs font-bold'}>Sản phẩm</h1>
+            <h1 className={'text-xs font-bold'}>Chi tiết</h1>
           </div>
         </div>
       </div>
@@ -338,7 +357,7 @@ export default function ProductDetail() {
                             'w-full scale-100 transform rounded-sm border-2 border-blue-500 px-4 py-2 text-center shadow shadow-gray-700 drop-shadow-md transition-all duration-500 active:scale-95'
                           }
                         >
-                          <h1 className={'text-xl font-bold'}>THÊM VÀO GIỎ</h1>
+                          `<h1 className={'text-xl font-bold'}>THÊM VÀO GIỎ</h1>
                         </button>
                       </div>
                     </div>

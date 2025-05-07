@@ -26,7 +26,7 @@ export default function HomePage(_props: HomeProps) {
         exit={{ height: 0, opacity: 0, y: -20 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         style={{ transformOrigin: 'top' }}
-        className={'flex size-full flex-col items-center gap-4 bg-gray-900 px-0'}
+        className={'flex size-full flex-col items-center gap-4 bg-gray-200 px-0 dark:bg-gray-900'}
       >
         <div className="flex h-[50vh] w-full justify-center gap-0 px-2 xl:justify-end">
           {/* Sidebar */}
@@ -36,7 +36,7 @@ export default function HomePage(_props: HomeProps) {
           <Introduce />
         </div>
         <div className="flex h-[20vh] w-full items-center justify-between gap-4 px-2 sm:h-[30vh] md:h-[50vh] lg:h-[70vh]">
-          <div className="flex size-full items-center justify-center shadow-2xl">
+          <div className="flex size-full items-center justify-center shadow-sm">
             <div className="relative size-full">
               <Image
                 src={'/image/img_5.jpg'}
@@ -47,7 +47,7 @@ export default function HomePage(_props: HomeProps) {
               />
             </div>
           </div>
-          <div className="flex size-full items-center justify-center shadow-2xl">
+          <div className="flex size-full items-center justify-center shadow-sm">
             <div className="relative size-full">
               <Image
                 src={'/image/img_6.jpg'}
@@ -58,7 +58,7 @@ export default function HomePage(_props: HomeProps) {
               />
             </div>
           </div>
-          <div className="flex size-full items-center justify-center shadow-2xl">
+          <div className="flex size-full items-center justify-center shadow-sm">
             <div className="relative size-full">
               <Image
                 src={'/image/img_7.jpg'}

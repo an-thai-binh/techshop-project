@@ -21,7 +21,7 @@ export default function HotProduct(_props: HotProductProps) {
   }
   return (
     <div className="flex w-full justify-center px-2">
-      <div className="flex h-full w-full flex-col rounded-md bg-blue-500 px-2 py-1 shadow-2xl">
+      <div className="flex h-full w-full flex-col rounded-md bg-blue-500 px-2 py-1 shadow-md">
         <div className="flex h-fit w-full items-center justify-between gap-2 py-2">
           <div className="flex h-fit gap-2">
             <div className="flex items-center justify-center">
@@ -53,15 +53,15 @@ export default function HotProduct(_props: HotProductProps) {
           <div className="mx-2 my-1 hidden justify-between sm:hidden md:flex lg:flex">
             <button
               onClick={handlePrev}
-              className="box-content scale-100 transform rounded-md p-2 transition-all hover:bg-blue-400 active:scale-95"
+              className="box-content scale-100 transform rounded-md p-2 transition-all hover:bg-white/50 active:scale-95"
             >
-              <ChevronLeftIcon className="size-8" fill="transparent" />
+              <ChevronLeftIcon className="size-6 text-white" fill="white" />
             </button>
             <button
               onClick={handleNext}
-              className="box-content scale-100 transform rounded-md p-2 transition-all hover:bg-blue-400 active:scale-95"
+              className="box-content scale-100 transform rounded-md p-2 transition-all hover:bg-white/50 active:scale-95"
             >
-              <ChevronRightIcon className="size-8" fill="transparent" />
+              <ChevronRightIcon className="size-6 text-white" fill="white" />
             </button>
           </div>
         </div>
@@ -71,10 +71,10 @@ export default function HotProduct(_props: HotProductProps) {
         <Link href={`/categories/${category?.id}`}>
           <div className="flex w-full items-center justify-center">
             <div className="flex items-center justify-center">
-              <button className="transition-scale my-2 flex scale-100 transform items-center gap-2 rounded-md bg-blue-400 p-2 shadow-sm duration-300 hover:bg-blue-300 active:scale-95">
-                <h1 className="text-sm">Xem tất cả HOT NHẤT TECHSHOP</h1>
+              <button className="transition-scale my-2 flex scale-100 transform items-center gap-2 rounded-md border border-blue-400/80 bg-blue-400 px-4 py-2 shadow-sm duration-300 hover:bg-blue-300 active:scale-95">
+                <h1 className="text-sm font-semibold">Xem tất cả HOT NHẤT TECHSHOP</h1>
                 <div className="rounded-full">
-                  <ArrowRightIcon className="size-4" fill="transparent" />
+                  <ArrowRightIcon className="size-4" fill="transparent" strokeWidth={2.5} />
                 </div>
               </button>
             </div>
