@@ -20,11 +20,11 @@ export default function ProductListSlider(_props: ProductListSlider) {
   }
   return (
     <div className="flex w-full justify-center px-2">
-      <div className="flex h-full w-full flex-col rounded-md px-2 py-1">
+      <div className="flex h-full w-full flex-col rounded-md border border-gray-500/10 bg-gray-300/90 px-2 py-1 shadow-md backdrop-blur-md dark:bg-gray-500/10">
         <div className="flex h-fit w-full items-center justify-between gap-2 py-2">
           <div className="flex h-fit gap-2">
             <div className="flex items-center justify-center">
-              <h1 className="sm:2xl md:2xl lg:2xl text-lg font-bold text-white">
+              <h1 className="sm:2xl md:2xl lg:2xl text-lg font-bold text-black dark:text-white">
                 {category && category?.category_name}
               </h1>
             </div>
@@ -52,28 +52,32 @@ export default function ProductListSlider(_props: ProductListSlider) {
           <div className="mx-2 my-1 hidden justify-between sm:hidden md:flex lg:flex">
             <button
               onMouseDown={handlePrev}
-              className="box-content rounded-md p-2 text-center font-bold text-white hover:bg-gray-700"
+              className="box-content rounded-md p-2 text-center font-bold hover:bg-white/50"
             >
-              <ChevronLeftIcon className="size-8" fill="transparent" />
+              <ChevronLeftIcon className="size-6 text-white" fill="white" />
             </button>
             <button
               onMouseDown={handleNext}
-              className="box-content rounded-md border-white p-2 text-center font-bold hover:bg-gray-700"
+              className="box-content rounded-md p-2 text-center font-bold hover:bg-white/50"
             >
-              <ChevronRightIcon className="size-8" fill="transparent" />
+              <ChevronRightIcon className="size-6 text-white" fill="white" />
             </button>
           </div>
         </div>
         <div className="flex w-full grow items-center justify-center">
-          <ProductSlider backgroundColor={'bg-gray-800'} ref={slideRef} items={_props.items} />
+          <ProductSlider
+            backgroundColor={'bg-gray-100 dark:bg-gray-800'}
+            ref={slideRef}
+            items={_props.items}
+          />
         </div>
         <Link href={`/categories/${category?.id}`}>
           <div className="flex w-full items-center justify-center">
             <div className="flex items-center justify-center">
-              <button className="transition-scale my-2 flex scale-100 transform items-center gap-2 rounded-md bg-blue-400 p-2 shadow-sm duration-300 hover:bg-blue-300 active:scale-95">
-                <h1 className="text-sm">{`Xem tất cả ${category && category.category_name}`}</h1>
+              <button className="transition-scale my-2 flex scale-100 transform items-center gap-2 rounded-md border border-blue-400/80 bg-blue-400 px-4 py-2 shadow-sm duration-300 hover:bg-blue-300 active:scale-95">
+                <h1 className="text-sm font-semibold">{`Xem tất cả ${category && category.category_name}`}</h1>
                 <div className="rounded-full">
-                  <ArrowRightIcon className="size-4" fill="transparent" />
+                  <ArrowRightIcon className="size-4" fill="transparent" strokeWidth={2.5} />
                 </div>
               </button>
             </div>

@@ -1,6 +1,7 @@
 import { Action, State } from '@/types/ui'
 
 export const initialState: State = {
+  theme: 'dark',
   isModalVisible: false,
   isDropdownVisible: false,
   isTooltipVisible: false,
@@ -15,6 +16,16 @@ export const initialState: State = {
 
 export const UIReducer = (state: State, action: Action): State => {
   switch (action.type) {
+    case 'SET_THEME':
+      return {
+        ...state,
+        theme: action.payload.theme,
+      }
+    case 'TOGGLE_THEME':
+      return {
+        ...state,
+        theme: state.theme === 'light' ? 'dark' : 'light',
+      }
     case 'OPEN_MODAL':
       return {
         ...state,
