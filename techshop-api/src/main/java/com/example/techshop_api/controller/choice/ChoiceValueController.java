@@ -2,6 +2,7 @@ package com.example.techshop_api.controller.choice;
 
 import com.example.techshop_api.dto.request.choice.ChoiceUpdateRequest;
 import com.example.techshop_api.dto.request.choice.ChoiceValueCreationRequest;
+import com.example.techshop_api.dto.request.choice.ChoiceValueUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.choice.ChoiceValueResponse;
 import com.example.techshop_api.service.ChoiceValueService;
@@ -43,7 +44,7 @@ public class ChoiceValueController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<ChoiceValueResponse>> update(@PathVariable Long id, @RequestBody ChoiceUpdateRequest request){
+    public ResponseEntity<ApiResponse<ChoiceValueResponse>> update(@PathVariable Long id, @RequestBody ChoiceValueUpdateRequest request){
         ApiResponse<ChoiceValueResponse> apiResponse = choiceValueService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }

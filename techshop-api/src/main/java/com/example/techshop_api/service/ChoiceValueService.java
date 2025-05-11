@@ -2,6 +2,7 @@ package com.example.techshop_api.service;
 
 import com.example.techshop_api.dto.request.choice.ChoiceUpdateRequest;
 import com.example.techshop_api.dto.request.choice.ChoiceValueCreationRequest;
+import com.example.techshop_api.dto.request.choice.ChoiceValueUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.choice.ChoiceValueResponse;
 import com.example.techshop_api.entity.choice.ChoiceValue;
@@ -49,7 +50,7 @@ public class ChoiceValueService {
         return ApiResponse.<ChoiceValueResponse>builder().success(true).data(choiceValueResponse).build();
     }
 
-    public ApiResponse<ChoiceValueResponse> update(Long id, ChoiceUpdateRequest choiceValueUpdateRequest){
+    public ApiResponse<ChoiceValueResponse> update(Long id, ChoiceValueUpdateRequest choiceValueUpdateRequest){
         ChoiceValue choiceValue = choiceValueRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.CHOICE_VALUE_NOT_FOUND));
         choiceValueMapper.updateChoiceValue(choiceValue, choiceValueUpdateRequest);
         try {
