@@ -13,11 +13,13 @@ public enum ErrorCode {
     INVENTORY_NOT_FOUND("Inventory Not Found", HttpStatus.NOT_FOUND),
     IMAGE_NOT_FOUND("Image Not Found", HttpStatus.NOT_FOUND),
     USER_NOT_FOUND("User Not Found", HttpStatus.NOT_FOUND),
-    USER_ALREADY_EXISTS("User Already Exists", HttpStatus.BAD_REQUEST),
-    EMAIL_ALREADY_BIND("Email Already Bind", HttpStatus.BAD_REQUEST),
     INSERT_FAILED("Insert Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     UPDATE_FAILED("Update Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     DELETE_FAILED("Delete Failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    USER_ALREADY_EXISTS("User Already Exists", HttpStatus.BAD_REQUEST),
+    EMAIL_ALREADY_BIND("Email Already Bind", HttpStatus.BAD_REQUEST),
+    WRONG_PASSWORD("Wrong Password", HttpStatus.BAD_REQUEST),
+    CREATE_TOKEN_FAILED("Create Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     REQUEST_EXTERNAL_FAILED("Request To External Resource Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     ;
 

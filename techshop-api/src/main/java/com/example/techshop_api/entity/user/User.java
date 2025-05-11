@@ -21,6 +21,8 @@ public class User {
     @Column(unique = true, nullable = false)
     String username;
 
+    @Lob
+    @Column(columnDefinition = "TEXT")
     String password;
 
     @Column(unique = true)
