@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatusCode;
 @Getter
 public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION("Uncategorized Exception", HttpStatus.INTERNAL_SERVER_ERROR),
+    CHOICE_NOT_FOUND("Choice Not Found", HttpStatus.NOT_FOUND),
+    CHOICE_VALUE_NOT_FOUND("Choice Value Not Found", HttpStatus.NOT_FOUND),
     CATEGORY_NOT_FOUND("Category Not Found", HttpStatus.NOT_FOUND),
     PRODUCT_NOT_FOUND("Product Not Found", HttpStatus.NOT_FOUND),
     PRODUCT_VARIATION_NOT_FOUND("Product Variation Not Found", HttpStatus.NOT_FOUND),

@@ -1,22 +1,18 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
-module.exports = {
+const nextConfig: NextConfig = {
   reactStrictMode: true,
+  images: {
+    domains: ['cdn2.fptshop.com.vn', 'www.apple.com', 'store.storeimages.cdn-apple.com'],
+  },
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "https://localhost:8080/:path*",
+        source: '/api/:path*',
+        destination: 'https://localhost:8080/:path*',
       },
-    ];
-  }
+    ]
+  },
 }
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  images: {
-    domains: ["img.freepik.com"],
-  },
-};
-
-export default nextConfig;
+export default nextConfig
