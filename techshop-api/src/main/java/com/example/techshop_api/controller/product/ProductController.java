@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<Page<ProductResponse>>> index(
             @RequestParam int page,
             @RequestParam int size,
@@ -40,18 +42,21 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<ProductResponse>> show(@PathVariable Long id) {
         ApiResponse<ProductResponse> apiResponse = productService.show(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @GetMapping("/searchList")
+    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<List<ProductResponse>>> searchList(@RequestParam String query) {
         ApiResponse<List<ProductResponse>> apiResponse = productService.searchList(query);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @GetMapping("/searchPage")
+    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<Page<ProductResponse>>> searchPage(
             @RequestParam String query,
             @RequestParam int page,
@@ -67,18 +72,21 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductResponse>> store(@RequestBody ProductCreationRequest request) {
         ApiResponse<ProductResponse> apiResponse = productService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:update')")
     public ResponseEntity<ApiResponse<ProductResponse>> update(@PathVariable Long id, @RequestBody ProductUpdateRequest request) {
         ApiResponse<ProductResponse> apiResponse = productService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:delete')")
     public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
         ApiResponse<Void> apiResponse = productService.destroy(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
