@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +25,7 @@ public class ProductVariationController {
     ProductVariationService productVariationService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<Page<ProductVariationResponse>>> index(
             @RequestParam int page,
             @RequestParam int size,
@@ -38,24 +40,28 @@ public class ProductVariationController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> show(@PathVariable Long id) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.show(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> store(@RequestBody ProductVariationCreationRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:update')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> update(@PathVariable Long id, @RequestBody ProductVariationUpdateRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:delete')")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         ApiResponse<Void> apiResponse = productVariationService.destroy(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);

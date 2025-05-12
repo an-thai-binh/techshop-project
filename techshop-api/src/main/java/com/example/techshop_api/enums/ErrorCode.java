@@ -23,6 +23,7 @@ public enum ErrorCode {
     WRONG_PASSWORD("Wrong Password", HttpStatus.BAD_REQUEST),
     CREATE_TOKEN_FAILED("Create Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     REQUEST_EXTERNAL_FAILED("Request To External Resource Failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    UNAUTHORIZED("Unauthorized", HttpStatus.UNAUTHORIZED),
     ;
 
     private String message;
