@@ -357,7 +357,7 @@ export default async function ProductDetail({ params }: { params: { productName:
                             'w-full scale-100 transform rounded-sm border-2 border-blue-500 px-4 py-2 text-center shadow shadow-gray-700 drop-shadow-md transition-all duration-500 active:scale-95'
                           }
                         >
-                          `<h1 className={'text-xl font-bold'}>THÊM VÀO GIỎ</h1>
+                          <h1 className={'text-xl font-bold'}>THÊM VÀO GIỎ</h1>
                         </button>
                       </div>
                     </div>
