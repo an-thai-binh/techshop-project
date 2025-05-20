@@ -3,6 +3,7 @@ package com.example.techshop_api.controller.product;
 import com.example.techshop_api.dto.request.product.ProductCreationRequest;
 import com.example.techshop_api.dto.request.product.ProductUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.product.ProductDisplayResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
 import com.example.techshop_api.service.ProductService;
 import lombok.AccessLevel;
@@ -38,6 +39,21 @@ public class ProductController {
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page, size, sortBy);
         ApiResponse<Page<ProductResponse>> apiResponse = productService.index(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/display")
+    @PreAuthorize("hasAuthority('product:view')")
+    public ResponseEntity<ApiResponse<Page<ProductDisplayResponse>>> indexDisplay(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "desc") String direction
+    ) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+        ApiResponse<Page<ProductDisplayResponse>> apiResponse = productService.indexDisplay(pageable);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
