@@ -3,6 +3,7 @@ package com.example.techshop_api.service;
 import com.example.techshop_api.dto.request.product.ProductCreationRequest;
 import com.example.techshop_api.dto.request.product.ProductUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.product.ProductDisplayResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
 import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.entity.product.Product;
@@ -37,6 +38,14 @@ public class ProductService {
         return ApiResponse.<Page<ProductResponse>>builder()
                 .success(true)
                 .data(productResponses)
+                .build();
+    }
+
+    public ApiResponse<Page<ProductDisplayResponse>> indexDisplay(Pageable pageable) {
+        Page<ProductDisplayResponse> productDisplayResponses = productRepository.findAllProductsDisplay(pageable);
+        return ApiResponse.<Page<ProductDisplayResponse>>builder()
+                .success(true)
+                .data(productDisplayResponses)
                 .build();
     }
 
