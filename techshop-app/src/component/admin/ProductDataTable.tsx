@@ -1,63 +1,132 @@
 'use client'
 
-import { DataGrid } from "@mui/x-data-grid"
-import { useState } from "react";
+import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Link from "next/link";
+import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
 
-const allRows = [
-    { id: 1, name: 'Sản phẩm A', price: 100000 },
-    { id: 2, name: 'Sản phẩm B', price: 200000 },
-    { id: 3, name: 'Sản phẩm C', price: 300000 },
-    { id: 4, name: 'Sản phẩm D', price: 400000 },
-    { id: 5, name: 'Sản phẩm E', price: 500000 },
-    { id: 6, name: 'Sản phẩm F', price: 600000 },
-    { id: 7, name: 'Sản phẩm G', price: 700000 },
-    { id: 8, name: 'Sản phẩm H', price: 800000 },
-    { id: 9, name: 'Sản phẩm A', price: 100000 },
-    { id: 10, name: 'Sản phẩm B', price: 200000 },
-    { id: 11, name: 'Sản phẩm C', price: 300000 },
-    { id: 12, name: 'Sản phẩm D', price: 400000 },
-    { id: 13, name: 'Sản phẩm E', price: 500000 },
-    { id: 14, name: 'Sản phẩm F', price: 600000 },
-    { id: 15, name: 'Sản phẩm G', price: 700000 },
-    { id: 16, name: 'Sản phẩm H', price: 800000 },
-    { id: 17, name: 'Sản phẩm A', price: 100000 },
-    { id: 18, name: 'Sản phẩm B', price: 200000 },
-    { id: 19, name: 'Sản phẩm C', price: 300000 },
-    { id: 20, name: 'Sản phẩm D', price: 400000 },
-    { id: 21, name: 'Sản phẩm E', price: 500000 },
-    { id: 22, name: 'Sản phẩm F', price: 600000 },
-    { id: 23, name: 'Sản phẩm G', price: 700000 },
-    { id: 24, name: 'Sản phẩm H', price: 800000 },
-    { id: 25, name: 'Sản phẩm A', price: 100000 },
-    { id: 26, name: 'Sản phẩm B', price: 200000 },
-    { id: 27, name: 'Sản phẩm C', price: 300000 },
-    { id: 28, name: 'Sản phẩm D', price: 400000 },
-    { id: 29, name: 'Sản phẩm E', price: 500000 },
-    { id: 30, name: 'Sản phẩm F', price: 600000 },
-    { id: 31, name: 'Sản phẩm G', price: 700000 },
-    { id: 32, name: 'Sản phẩm H', price: 800000 },
-];
+interface Product {
+    id: string;
+    categoryId: string;
+    categoryName: string;
+    productName: string;
+    productDescription: string;
+    productBasePrice: number;
+    productImgUrl: string;
+}
 
 export default function ProductDataTable() {
     const [page, setPage] = useState<number>(0);
-    const [size, setSize] = useState<number>(30);
+    const [size, setSize] = useState<number>(10);
+    const [sort, setSort] = useState<string>('id');
+    const [direction, setDirection] = useState<string>('desc');
+    const [products, setProducts] = useState<Product[]>([]);
+    const [totalItems, setTotalItems] = useState<number>(0);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/techshop/product/display', {
+            headers: {
+                'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzQ3ODMxOTM3LCJpYXQiOjE3NDc4MjgzMzcsInNjb3BlIjoiUk9MRV9VU0VSIHByb2R1Y3Q6dmlldyB1c2VyOnZpZXcgdXNlcjp1cGRhdGUgb3JkZXI6dmlldyBvcmRlcjpjcmVhdGUiLCJ1c2VybmFtZSI6ImJpbmhhbiJ9.dMJEWxgEcFzBFDgO_T6dBSOkHm738yp6EIJU4-JQs7gnA01T80rk78zZQyFrphmM-NkTzxY5PAOjeTFNOj65bw'
+            },
+            params: {
+                page: page,
+                size: size,
+                sort: sort,
+                direction: direction
+            }
+        })
+            .then(response => {
+                if (response.data.success) {
+                    setProducts(response.data.data.content);
+                    setTotalItems(response.data.data.page.totalElements);
+                }
+            })
+            .catch(error => {
+                if (error.response) {
+                    console.error('Error fetching products:', error.response.data.message);
+                } else {
+                    console.error('Error fetching products:', error.message);
+                }
+            });
+    }, [page, size, sort, direction]);
 
     const columns = [
-        { field: 'id', headerName: 'ID', flex: 2 },
-        { field: 'name', headerName: 'Tên sản phẩm', flex: 4 },
-        { field: 'price', headerName: 'Giá', flex: 3 },
-        { field: 'actions', headerName: 'Thao tác', flex: 1 }
+        { field: 'id', headerName: 'ID', flex: 1 },
+        { 
+            field: 'productImgUrl', 
+            headerName: 'Ảnh', 
+            flex: 1,
+            renderCell: (params: GridRenderCellParams) => {
+                return <img src={params.row.productImgUrl} alt={params.row.productName} className="w-16 h-16 object-contain" />
+            }
+        },
+        { field: 'categoryName', headerName: 'Danh mục', flex: 1 },
+        { field: 'productName', headerName: 'Tên sản phẩm', flex: 5 },
+        { 
+            field: 'productBasePrice', 
+            headerName: 'Giá ban đầu', 
+            flex: 1 ,
+            renderCell: (params: GridRenderCellParams) => {
+                return formatVietNamCurrency(params.row.productBasePrice);
+            }
+        },
+        { 
+            field: 'actions', 
+            headerName: 'Thao tác', 
+            flex: 1,
+            renderCell: (params: GridRenderCellParams) => {
+                return (
+                    <div>
+                        <Link href={`/admin/product/update/${params.row.id}`}>
+                            <button className="px-2 py-1 text-white font-bold bg-blue-400 hover:bg-blue-500 shadow-sm hover:shadow-lg">EDIT</button>
+                        </Link>
+                    </div>
+                );
+            }
+        }
     ]
-
-    const pageRows = allRows.slice(page * size, page * size + size);
 
     return (
         <DataGrid
             columns={columns}
-            rows={pageRows}
-            rowCount={allRows.length}
+            rows={products}
+            rowCount={totalItems}
+            pageSizeOptions={[10, 15, 20]}
             pagination
             paginationMode="server"
+            initialState={{
+                pagination: {
+                    paginationModel: {
+                        pageSize: size,
+                        page: page
+                    }
+                }
+            }}
+            onPaginationModelChange={(model) => {
+                console.log(model.page);
+                console.log(model.pageSize);
+                setPage(model.page);
+                setSize(model.pageSize);
+            }}
+            sortingMode="server"
+            onSortModelChange={(model) => { // [{field: 'fieldName', sort: 'asc'}]
+                setSort(model[0]?.field || 'id');
+                setDirection(model[0]?.sort || 'desc');
+            }}
+            getRowHeight={() => 'auto'}
+            sx={{
+                '& .MuiDataGrid-columnHeader': {
+                    fontFamily: 'Quicksand, sans-serif',
+                    fontSize: '16px'
+                },
+                '& .MuiDataGrid-cell': {
+                    fontFamily: 'Quicksand, sans-serif',
+                    fontSize: '16px',
+                    display: 'flex',
+                    alignItems: 'center'
+                }
+            }}
         />
     );
 }
