@@ -26,7 +26,7 @@ export default function UpdateProductPage() {
             <p className="font-bold">
               Danh mục<span className="ms-1 text-red-500">*</span>
             </p>
-            <CategoryComboBox />
+            {/* <CategoryComboBox /> */}
           </div>
         </div>
         <div className="flex justify-center">
