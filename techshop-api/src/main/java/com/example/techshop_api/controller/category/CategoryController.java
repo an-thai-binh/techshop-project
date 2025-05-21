@@ -18,12 +18,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/category")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CategoryController {
     CategoryService categoryService;
+
+    @GetMapping("/all")
+    @PreAuthorize("hasAuthority('product:view')")
+    public ResponseEntity<ApiResponse<List<CategoryResponse>>> index() {
+        ApiResponse<List<CategoryResponse>> apiResponse = categoryService.index();
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
 
     @GetMapping
     @PreAuthorize("hasAuthority('product:view')")
