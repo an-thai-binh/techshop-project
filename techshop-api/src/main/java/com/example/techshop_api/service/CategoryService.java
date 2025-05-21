@@ -17,6 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -24,6 +27,15 @@ import org.springframework.stereotype.Service;
 public class CategoryService {
     CategoryRepository categoryRepository;
     CategoryMapper categoryMapper;
+
+    public ApiResponse<List<CategoryResponse>> index() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryResponse> categoryResponses = categories.stream().map(categoryMapper::toCategoryResponse).toList();
+        return ApiResponse.<List<CategoryResponse>>builder()
+                .success(true)
+                .data(categoryResponses)
+                .build();
+    }
 
     public ApiResponse<Page<CategoryResponse>> index(Pageable pageable) {
         Page<Category> categories = categoryRepository.findAll(pageable);
