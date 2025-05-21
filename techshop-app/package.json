@@ -10,11 +10,16 @@
     "api": "json-server --watch data/apple_product_full_data.json --port 5000"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@heroicons/react": "^2.2.0",
     "@heroui/react": "^2.7.6",
+    "@mui/material": "^7.1.0",
+    "@mui/x-data-grid": "^8.3.1",
     "@reduxjs/toolkit": "^2.6.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "aos": "^2.3.4",
+    "axios": "^1.9.0",
     "framer-motion": "^12.6.0",
     "next": "15.2.2",
     "react": "^19.0.0",

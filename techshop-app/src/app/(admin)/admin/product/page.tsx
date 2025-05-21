@@ -42,8 +42,10 @@ export default function AdminProductPage() {
           </button>
         </div>
       </div>
-      <div className="mx-3 my-3 flex-1 bg-white shadow-md">
-        <div className="w-full">{/* <ProductDataTable /> */}</div>
+      <div className="mx-3 my-3 h-fit bg-white shadow-md">
+        <div className="w-full">
+          <ProductDataTable />
+        </div>
       </div>
       <AdditionFloatingButton url="/admin/product/add" />
     </div>
