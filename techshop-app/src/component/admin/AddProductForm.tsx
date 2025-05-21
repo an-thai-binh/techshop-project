@@ -1,7 +1,6 @@
 'use client'
 import CategoryComboBox from "./CategoryComboBox";
 import { ChangeEvent, useRef, useState } from "react";
-import RichTextEditor from "./RichTextEditor";
 
 export default function AddProductForm() {
     const [productName, setProductName] = useState<string>("");
