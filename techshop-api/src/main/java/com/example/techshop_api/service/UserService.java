@@ -4,10 +4,12 @@ import com.example.techshop_api.dto.request.user.UserCreationRequest;
 import com.example.techshop_api.dto.request.user.UserUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.user.UserResponse;
+import com.example.techshop_api.entity.user.Role;
 import com.example.techshop_api.entity.user.User;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.UserMapper;
+import com.example.techshop_api.repository.RoleRepository;
 import com.example.techshop_api.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +22,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserService {
     UserRepository userRepository;
+    RoleRepository roleRepository;
     UserMapper userMapper;
 
     public ApiResponse<Page<UserResponse>> index(Pageable pageable) {
@@ -55,6 +60,10 @@ public class UserService {
             throw new AppException(ErrorCode.EMAIL_ALREADY_BIND);
         }
         User user = userMapper.toUser(userCreationRequest);
+        Role role = roleRepository.findByRoleName("ROLE_USER");
+        if(role != null) {
+            user.setRoleList(List.of(role));
+        }
         try {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
             user.setPassword(passwordEncoder.encode(user.getPassword())); // hash password
