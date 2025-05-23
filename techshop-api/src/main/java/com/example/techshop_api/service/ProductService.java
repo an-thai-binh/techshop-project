@@ -121,8 +121,8 @@ public class ProductService {
                 .isFirst(true)
                 .build();
         try {
-            productImageRepository.save(productImage);
             product = productRepository.save(product);
+            productImageRepository.save(productImage);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.INSERT_FAILED);

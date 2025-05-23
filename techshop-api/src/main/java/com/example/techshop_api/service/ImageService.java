@@ -9,6 +9,8 @@ import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.exception.FileException;
 import com.example.techshop_api.mapper.ImageMapper;
 import com.example.techshop_api.repository.ImageRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -85,7 +88,7 @@ public class ImageService {
     }
 
     public ApiResponse<ImageResponse> store(MultipartFile file) {
-        if(file.isEmpty()) {
+        if (file.isEmpty()) {
             throw new FileException("File is empty");
         }
         // chuyển file thành dạng file cho phần body của request
@@ -121,12 +124,21 @@ public class ImageService {
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<Map> response = restTemplate.postForEntity(uploadUrl, request, Map.class);
             String message = response.getBody().get("message").toString();
-            if(response.getStatusCode().is2xxSuccessful()) {
-                return store(new ImageCreationRequest(message));
-            } else {
-                log.error(message);
+            return store(new ImageCreationRequest(message));
+        } catch (HttpStatusCodeException e) {
+            String responseBody = e.getResponseBodyAsString();
+            String message = null;
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String, Object> responseMap = mapper.readValue(responseBody, Map.class);
+                message = responseMap.get("message").toString();
+            } catch (JsonProcessingException ex) {
+                log.error(ex.getMessage());
+            }
+            if (message != null) {
                 throw new FileException(message);
             }
+            throw new AppException(ErrorCode.REQUEST_EXTERNAL_FAILED);
         } catch (RestClientException e) {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.REQUEST_EXTERNAL_FAILED);
