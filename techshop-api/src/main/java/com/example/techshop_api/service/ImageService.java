@@ -60,6 +60,15 @@ public class ImageService {
                 .build();
     }
 
+    public ApiResponse<ImageResponse> show(String url) {
+        Image image = imageRepository.findByImgUrl(url).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        ImageResponse imageResponse = imageMapper.toImageResponse(image);
+        return ApiResponse.<ImageResponse>builder()
+                .success(true)
+                .data(imageResponse)
+                .build();
+    }
+
     public ApiResponse<ImageResponse> store(ImageCreationRequest request) {
         Image image = imageMapper.toImage(request);
         try {
