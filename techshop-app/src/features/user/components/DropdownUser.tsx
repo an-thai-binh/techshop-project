@@ -3,8 +3,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { createPortal } from 'react-dom'
 import ToggleThemeButton from '@/component/button/ToggleThemeButton'
 import { BanknotesIcon, UserIcon } from '@heroicons/react/24/outline'
+import { useAppDispatch } from '@/shared/redux/hook'
+import { removeTokenFromCookie } from '@/features/auth/authThunks'
 
 export default function DropdownUser() {
+  const dispatch = useAppDispatch()
   return createPortal(
     <AnimatePresence>
       <motion.div
@@ -82,7 +85,10 @@ export default function DropdownUser() {
           </div>
           <div className="flex flex-col gap-2 px-2 pb-2">
             <div className="jsutify-center flex w-full items-center">
-              <button className="shadown-md group w-full scale-100 transform rounded-md bg-blue-700 p-1.5 transition-all duration-300 hover:bg-blue-700/80 active:scale-95">
+              <button
+                onClick={() => dispatch(removeTokenFromCookie())}
+                className="shadown-md group w-full scale-100 transform rounded-md bg-blue-700 p-1.5 transition-all duration-300 hover:bg-blue-700/80 active:scale-95"
+              >
                 <div
                   className={
                     'flex size-full items-center justify-center duration-300 group-hover:text-white/80'

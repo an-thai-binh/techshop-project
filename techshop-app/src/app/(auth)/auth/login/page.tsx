@@ -1,29 +1,12 @@
 'use client'
-
 import Link from 'next/link'
 import { login } from './action'
-import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
-import { fetchTokenFromCookie } from '@/features/auth/authThunks'
-import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '@/shared/redux/hook'
-import { selectToken } from '@/features/auth/authSelectors'
 
 export default function LoginPage() {
-  const router = useRouter()
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(fetchTokenFromCookie())
-  }, [dispatch])
-  const token = useAppSelector(selectToken)
-  console.log('token', token)
   async function handleLogin(formData: FormData) {
     const result = await login(formData)
-
     if (result) {
-      router.push('/')
-    } else {
-      console.log('Login failed')
+      window.location.href = '/'
     }
   }
   return (
