@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { TOKEN } from "@/utils/TokenTemp";
 
 interface Product {
     id: string;
@@ -27,7 +28,7 @@ export default function ProductDataTable() {
     useEffect(() => {
         axios.get('http://localhost:8080/techshop/product/display', {
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzQ3ODMxOTM3LCJpYXQiOjE3NDc4MjgzMzcsInNjb3BlIjoiUk9MRV9VU0VSIHByb2R1Y3Q6dmlldyB1c2VyOnZpZXcgdXNlcjp1cGRhdGUgb3JkZXI6dmlldyBvcmRlcjpjcmVhdGUiLCJ1c2VybmFtZSI6ImJpbmhhbiJ9.dMJEWxgEcFzBFDgO_T6dBSOkHm738yp6EIJU4-JQs7gnA01T80rk78zZQyFrphmM-NkTzxY5PAOjeTFNOj65bw'
+                'Authorization': 'Bearer ' + TOKEN
             },
             params: {
                 page: page,

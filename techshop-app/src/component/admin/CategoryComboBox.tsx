@@ -1,4 +1,5 @@
 'use client'
+import { TOKEN } from "@/utils/TokenTemp";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Select from "react-select";
@@ -8,12 +9,23 @@ interface Category {
     categoryName: string;
 }
 
-export default function CategoryComboBox({defaultId, onCategoryChange}: {defaultId: string, onCategoryChange: (categoryId: string) => void}) {
+interface Option {
+    value: string;
+    label: string;
+}
+
+type CategoryComboBoxProps = {
+    value: string;
+    onChange: (value: string) => void;
+}
+
+export default function CategoryComboBox({value, onChange}: CategoryComboBoxProps) {
     const [categories, setCategories] = useState<Category[]>([]);
+
     useEffect(() => {
         axios.get('http://localhost:8080/techshop/category/all', {
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzQ3ODQyNTQ0LCJpYXQiOjE3NDc4Mzg5NDQsInNjb3BlIjoiUk9MRV9VU0VSIHByb2R1Y3Q6dmlldyB1c2VyOnZpZXcgdXNlcjp1cGRhdGUgb3JkZXI6dmlldyBvcmRlcjpjcmVhdGUiLCJ1c2VybmFtZSI6ImJpbmhhbiJ9.OLEooWc-HI8AdQW3KTZFNl8i4l-pAQSamdU0ZEk9ASg_Tv_zIVO81nJlhCmM_s5xHbaOcIDLHqU_Y0co6AKacA'
+                'Authorization': 'Bearer ' + TOKEN
             }
         })
         .then(response => {
@@ -28,15 +40,16 @@ export default function CategoryComboBox({defaultId, onCategoryChange}: {default
         });
     }, []);
 
+    const options: Option[] = categories.map(category => ({value: category.id, label: category.categoryName}));
+
+    const selectedOption = options.find(option => option.value == value) || null;
+
     return (
         <Select 
             name="categoryId" 
-            options={categories.map(category => ({value: category.id, label: category.categoryName}))} 
-            value={categories.find(category => category.id == defaultId) ? 
-                {
-                    value: defaultId, 
-                    label: categories.find(category => category.id == defaultId)?.categoryName} 
-                : null}
-            onChange={(e) => onCategoryChange(e?.value || "1")} />
+            options={options}
+            value={selectedOption}
+            onChange={(e) => onChange(e?.value || value)}
+        />
     );
 }
