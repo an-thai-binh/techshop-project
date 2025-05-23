@@ -16,9 +16,12 @@ import {
 } from '@heroicons/react/24/outline'
 import { CategoriesType } from '@/features/categories/types/CategoriesType'
 import DropdownUser from '@/features/user/components/DropdownUser'
+import { useAppSelector } from '@/shared/redux/hook'
+import { selectToken } from '@/features/auth/authSelectors'
 
 export default function Header() {
   const [categories, setCategories] = useState<CategoriesType[]>([])
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
   useEffect(() => {
     fetch('http://localhost:5000/categories')
       .then((res) => res.json())
@@ -87,20 +90,43 @@ export default function Header() {
                 {state.isDropdownVisible && state.dropdownType === 'cart' && <DropdownCart />}
               </div>
             </div>
-            <div className="flex items-center rounded-full hover:bg-gray-500/50">
-              <button
-                onClick={() =>
-                  dispatch({ type: 'OPEN_DROPDOWN', payload: { dropdownType: 'user' } })
-                }
-                className="p-2"
-              >
-                <UserCircleIcon
-                  className="size-7 text-gray-950/50 dark:text-white"
-                  fill="transparent"
-                  strokeWidth={2.5}
-                />
-              </button>
-              {state.isDropdownVisible && state.dropdownType === 'user' && <DropdownUser />}
+            <div className="flex items-center">
+              {isAuthenticated ? (
+                <>
+                  <button
+                    onClick={() =>
+                      dispatch({ type: 'OPEN_DROPDOWN', payload: { dropdownType: 'user' } })
+                    }
+                    className="rounded-full p-2 hover:bg-gray-500/50"
+                  >
+                    <UserCircleIcon
+                      className="size-7 text-gray-950/50 dark:text-white"
+                      fill="transparent"
+                      strokeWidth={2.5}
+                    />
+                  </button>
+                  {state.isDropdownVisible && state.dropdownType === 'user' && <DropdownUser />}
+                </>
+              ) : (
+                <Link href={'/auth/login'}>
+                  <button className="rounded-md border hover:bg-gray-500/50">
+                    <div className={'flex items-center'}>
+                      <div className={'px-2 py-1'}>
+                        <UserCircleIcon
+                          className="size-7 text-gray-950/50 dark:text-white"
+                          fill="transparent"
+                          strokeWidth={2.5}
+                        />
+                      </div>
+                      <div className={'px-2 py-1'}>
+                        <h1 className={'font-semibold'}>Đăng nhập</h1>
+                      </div>
+                    </div>
+                  </button>
+                </Link>
+              )}
+
+              {/*{state.isDropdownVisible && state.dropdownType === 'user' && <DropdownUser />}*/}
             </div>
           </div>
         </div>

@@ -5,11 +5,15 @@ import { fetchTokenFromCookie } from '@/features/auth/authThunks'
 interface AuthState {
   isAuthenticated: boolean
   token: string | null
+  loading: boolean
+  error: null
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   token: null,
+  loading: false,
+  error: null,
 }
 
 const authSlice = createSlice({
@@ -21,14 +25,19 @@ const authSlice = createSlice({
       state.isAuthenticated = action.payload.isAuthenticated
     },
     clearToken(state) {
-      state.token = ''
+      state.token = null
       state.isAuthenticated = false
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchTokenFromCookie.pending, (state, action) => {
+      state.error = null
+      state.loading = true
+    })
     builder.addCase(fetchTokenFromCookie.fulfilled, (state, action) => {
       state.token = action.payload
       state.isAuthenticated = true
+      state.loading = false
     })
   },
 })
