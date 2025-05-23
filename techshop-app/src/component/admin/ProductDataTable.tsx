@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
-import { TOKEN } from "@/utils/TokenTemp";
+import { selectToken } from "@/features/auth/authSelectors";
+import { useAppSelector } from "@/shared/redux/hook";
 
 interface Product {
     id: string;
@@ -18,6 +19,7 @@ interface Product {
 }
 
 export default function ProductDataTable() {
+    const token = useAppSelector(selectToken);
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(10);
     const [sort, setSort] = useState<string>('id');
@@ -28,7 +30,7 @@ export default function ProductDataTable() {
     useEffect(() => {
         axios.get('http://localhost:8080/techshop/product/display', {
             headers: {
-                'Authorization': 'Bearer ' + TOKEN
+                'Authorization': 'Bearer ' + token
             },
             params: {
                 page: page,
@@ -50,7 +52,7 @@ export default function ProductDataTable() {
                     console.error('Error fetching products:', error.message);
                 }
             });
-    }, [page, size, sort, direction]);
+    }, [token, page, size, sort, direction]);
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1 },

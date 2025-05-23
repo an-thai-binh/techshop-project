@@ -43,7 +43,6 @@ public class ProductController {
     }
 
     @GetMapping("/display")
-    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<Page<ProductDisplayResponse>>> indexDisplay(
             @RequestParam int page,
             @RequestParam int size,

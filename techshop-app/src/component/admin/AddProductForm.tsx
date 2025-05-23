@@ -5,7 +5,8 @@ import { ChangeEvent, useRef, useState } from "react";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TOKEN } from "@/utils/TokenTemp";
+import { useAppSelector } from "@/shared/redux/hook";
+import { selectToken } from "@/features/auth/authSelectors";
 
 const formSchema = z.object({
   productName: z.string().min(1, { message: "Tên sản phẩm không được để trống" }),
@@ -17,6 +18,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function AddProductForm() {
+  const token = useAppSelector(selectToken);
   const { register, handleSubmit, formState: { errors }, control } = useForm<FormData>(
     {
       resolver: zodResolver(formSchema),
@@ -69,7 +71,7 @@ export default function AddProductForm() {
     try {
       const response = await axios.post("http://localhost:8080/techshop/image/file", formData, {
         headers: {
-          'Authorization': 'Bearer ' + TOKEN,
+          'Authorization': 'Bearer ' + token,
           'Content-Type': 'multipart/form-data'
         }
       });
@@ -92,7 +94,7 @@ export default function AddProductForm() {
     try {
       const response = await axios.get("http://localhost:8080/techshop/image/showByUrl", {
         headers: {
-          'Authorization': 'Bearer ' + TOKEN
+          'Authorization': 'Bearer ' + token
         },
         params: {
           url: uploadUrl
@@ -120,7 +122,7 @@ export default function AddProductForm() {
     try {
       const response = await axios.post("http://localhost:8080/techshop/product/storeWithImage", data, {
         headers: {
-          'Authorization': 'Bearer ' + TOKEN
+          'Authorization': 'Bearer ' + token
         },
         params: {
           imageId: imageId

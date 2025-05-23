@@ -1,5 +1,4 @@
 'use client'
-import { TOKEN } from "@/utils/TokenTemp";
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Select from 'react-select'
@@ -24,7 +23,6 @@ type CategoryComboBoxProps = {
 export default function CategoryComboBox({value, onChange}: CategoryComboBoxProps) {
     const token = useAppSelector(selectToken);
     const [categories, setCategories] = useState<Category[]>([]);
-    
 
     useEffect(() => {
         axios.get('http://localhost:8080/techshop/category/all', {
@@ -37,12 +35,12 @@ export default function CategoryComboBox({value, onChange}: CategoryComboBoxProp
         })
         .catch(error => {
             if(error.response) {
-                console.error('Error fetching categories:', error.response.message);
+                console.error('Error fetching categories:', error.response.data?.message);
             } else {
                 console.error('Error fetching categories:', error.message);
             } 
         });
-    }, []);
+    }, [token]);
 
     const options: Option[] = categories.map(category => ({value: category.id, label: category.categoryName}));
 
