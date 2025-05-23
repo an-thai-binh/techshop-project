@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function login(formData: FormData) {
-  const res = await fetch(`${process.env.API_URL}/auth/login`, {
+  const res = await fetch(`http://localhost:8080/techshop/auth/login`, {
     method: 'POST',
     body: JSON.stringify({
       identifier: formData.get('identifier'),

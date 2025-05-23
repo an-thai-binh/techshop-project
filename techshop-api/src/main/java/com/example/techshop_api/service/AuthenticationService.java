@@ -32,7 +32,7 @@ public class AuthenticationService {
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new AppException(ErrorCode.WRONG_PASSWORD);
         }
-        String token = jwtGenerator.generateToken(user);
+        String token = jwtGenerator.generateAccessToken(user);
         AuthenticationResponse authenticationResponse = AuthenticationResponse.builder()
                 .token(token)
                 .build();
@@ -41,4 +41,5 @@ public class AuthenticationService {
                 .data(authenticationResponse)
                 .build();
     }
+
 }
