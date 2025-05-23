@@ -1,5 +1,4 @@
 import AddProductForm from '@/component/admin/AddProductForm'
-import CategoryComboBox from '@/component/admin/CategoryComboBox'
 
 export const metadata = {
   title: 'Add Product',

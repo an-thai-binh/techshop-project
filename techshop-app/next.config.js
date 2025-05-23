@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ['cdn2.fptshop.com.vn', 'www.apple.com', 'store.storeimages.cdn-apple.com'],
   },
+  experimental: {
+    serverActions: true,
+  },
   async rewrites() {
     return [
       {
