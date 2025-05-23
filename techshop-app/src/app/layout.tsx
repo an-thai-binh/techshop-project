@@ -1,18 +1,8 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import React from 'react'
 import ProviderRedux from '@/shared/redux/provider'
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
+import AppInitializer from '@/component/AppInitializer'
 
 export const metadata: Metadata = {
   title: 'Techshop App',
@@ -27,7 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ProviderRedux>
-        <body className={`${geistSans.variable} ${geistMono.variable} flex max-h-full flex-col`}>
+        <body className={`flex max-h-full flex-col`}>
+          <AppInitializer />
           {children}
         </body>
       </ProviderRedux>

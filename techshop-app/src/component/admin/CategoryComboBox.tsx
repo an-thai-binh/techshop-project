@@ -1,12 +1,14 @@
 'use client'
 import { TOKEN } from "@/utils/TokenTemp";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Select from "react-select";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import Select from 'react-select'
+import { useAppSelector } from '@/shared/redux/hook'
+import { selectToken } from '@/features/auth/authSelectors'
 
 interface Category {
-    id: string;
-    categoryName: string;
+  id: string
+  categoryName: string
 }
 
 interface Option {
@@ -20,12 +22,14 @@ type CategoryComboBoxProps = {
 }
 
 export default function CategoryComboBox({value, onChange}: CategoryComboBoxProps) {
+    const token = useAppSelector(selectToken);
     const [categories, setCategories] = useState<Category[]>([]);
+    
 
     useEffect(() => {
         axios.get('http://localhost:8080/techshop/category/all', {
             headers: {
-                'Authorization': 'Bearer ' + TOKEN
+                'Authorization': 'Bearer ' + token
             }
         })
         .then(response => {

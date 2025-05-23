@@ -223,7 +223,7 @@ export default function AddProductForm() {
               </div>
               {!success && imageError && <p className="text-center text-sm font-medium text-red-500">{imageError}</p>}
             </div>
-            :
+          :
             <div>
               <input type="text" placeholder="Nhập đường dẫn ảnh đã tồn tại trong CSDL. VD: http://binhan.io.vn/img..." onChange={handleUploadUrlChange} className="p-1 w-full min-h-[38] bg-white border border-[#cccccc] focus-visible:outline-[#2684FF] rounded-[4]" />
               {!success && urlError && <p className="text-center text-sm font-medium text-red-500">{urlError}</p>}
