@@ -1,5 +1,6 @@
 'use server'
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 export async function login(formData: FormData) {
   const res = await fetch(`${process.env.API_URL}/auth/login`, {
