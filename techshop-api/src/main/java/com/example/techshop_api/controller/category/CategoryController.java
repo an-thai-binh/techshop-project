@@ -28,7 +28,6 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping("/all")
-    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<List<CategoryResponse>>> index() {
         ApiResponse<List<CategoryResponse>> apiResponse = categoryService.index();
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);

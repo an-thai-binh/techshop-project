@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { selectToken } from "@/features/auth/authSelectors";
+import { useAppSelector } from "@/shared/redux/hook";
 
 interface Product {
     id: string;
@@ -17,6 +19,7 @@ interface Product {
 }
 
 export default function ProductDataTable() {
+    const token = useAppSelector(selectToken);
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(10);
     const [sort, setSort] = useState<string>('id');
@@ -27,7 +30,7 @@ export default function ProductDataTable() {
     useEffect(() => {
         axios.get('http://localhost:8080/techshop/product/display', {
             headers: {
-                'Authorization': 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiZXhwIjoxNzQ3ODMxOTM3LCJpYXQiOjE3NDc4MjgzMzcsInNjb3BlIjoiUk9MRV9VU0VSIHByb2R1Y3Q6dmlldyB1c2VyOnZpZXcgdXNlcjp1cGRhdGUgb3JkZXI6dmlldyBvcmRlcjpjcmVhdGUiLCJ1c2VybmFtZSI6ImJpbmhhbiJ9.dMJEWxgEcFzBFDgO_T6dBSOkHm738yp6EIJU4-JQs7gnA01T80rk78zZQyFrphmM-NkTzxY5PAOjeTFNOj65bw'
+                'Authorization': 'Bearer ' + token
             },
             params: {
                 page: page,
@@ -49,7 +52,7 @@ export default function ProductDataTable() {
                     console.error('Error fetching products:', error.message);
                 }
             });
-    }, [page, size, sort, direction]);
+    }, [token, page, size, sort, direction]);
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1 },

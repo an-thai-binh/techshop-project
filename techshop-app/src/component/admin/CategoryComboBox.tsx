@@ -10,47 +10,48 @@ interface Category {
   categoryName: string
 }
 
-export default function CategoryComboBox({
-  defaultId,
-  onCategoryChange,
-}: {
-  defaultId: string
-  onCategoryChange: (categoryId: string) => void
-}) {
-  const [categories, setCategories] = useState<Category[]>([])
-  const token = useAppSelector(selectToken)
-  useEffect(() => {
-    axios
-      .get('http://localhost:8080/techshop/category/all', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setCategories(response.data.data)
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.error('Error fetching categories:', error.response.message)
-        } else {
-          console.error('Error fetching categories:', error.message)
-        }
-      })
-  }, [token])
+interface Option {
+    value: string;
+    label: string;
+}
 
-  return (
-    <Select
-      name="categoryId"
-      options={categories.map((category) => ({ value: category.id, label: category.categoryName }))}
-      value={
-        categories.find((category) => category.id == defaultId)
-          ? {
-              value: defaultId,
-              label: categories.find((category) => category.id == defaultId)?.categoryName,
+type CategoryComboBoxProps = {
+    value: string;
+    onChange: (value: string) => void;
+}
+
+export default function CategoryComboBox({value, onChange}: CategoryComboBoxProps) {
+    const token = useAppSelector(selectToken);
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/techshop/category/all', {
+            headers: {
+                'Authorization': 'Bearer ' + token
             }
-          : null
-      }
-      onChange={(e) => onCategoryChange(e?.value || '1')}
-    />
-  )
+        })
+        .then(response => {
+            setCategories(response.data.data);
+        })
+        .catch(error => {
+            if(error.response) {
+                console.error('Error fetching categories:', error.response.data?.message);
+            } else {
+                console.error('Error fetching categories:', error.message);
+            } 
+        });
+    }, [token]);
+
+    const options: Option[] = categories.map(category => ({value: category.id, label: category.categoryName}));
+
+    const selectedOption = options.find(option => option.value == value) || null;
+
+    return (
+        <Select 
+            name="categoryId" 
+            options={options}
+            value={selectedOption}
+            onChange={(e) => onChange(e?.value || value)}
+        />
+    );
 }
