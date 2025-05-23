@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -27,7 +28,7 @@ public class JwtGenerator {
     @Value("${jwt.secret-key}")
     String jwtSecretKey;
 
-    public String generateToken(User user) {
+    public String generateAccessToken(User user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
@@ -38,8 +39,23 @@ public class JwtGenerator {
                 .claim("scope", buildScope(user))
                 .build();
 
-        Payload payload = new Payload(jwtClaimsSet.toJSONObject());
+        return buildJWT(header, jwtClaimsSet); //access tooken
+    }
+    public String generateRefreshToken(User user){
+        JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
+        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
+                .subject(user.getId().toString()) // sub
+                .claim("username", user.getUsername())
+                .issueTime(new Date())  // iat
+                .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.DAYS).toEpochMilli()))   // exp
+                .claim("scope", buildScope(user))
+                .build();
+
+        return buildJWT(header, jwtClaimsSet); //refresh token
+    }
+    private String buildJWT(JWSHeader header, JWTClaimsSet jwtClaimsSet) {
+        Payload payload = new Payload(jwtClaimsSet.toJSONObject());
         JWSObject jwsObject = new JWSObject(header, payload);
 
         try {

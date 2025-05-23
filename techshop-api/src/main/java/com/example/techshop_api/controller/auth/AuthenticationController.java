@@ -7,6 +7,9 @@ import com.example.techshop_api.dto.response.auth.AuthenticationResponse;
 import com.example.techshop_api.dto.response.user.UserResponse;
 import com.example.techshop_api.service.AuthenticationService;
 import com.example.techshop_api.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -36,8 +39,20 @@ public class AuthenticationController {
         ApiResponse<UserResponse> apiResponse = userService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
-//    @PostMapping("/refresh-token")
-//    public ResponseEntity<?> refreshToken(@RequestBody TokenRefreshRequest request){
-//
-//    }
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
+        String token = extractRefreshToken(request);
+
+
+    }
+
+    private String extractRefreshToken(HttpServletRequest request) {
+        if(request.getCookies() != null) return null;
+        for(Cookie cookie : request.getCookies()) {
+            if(cookie.getName().equals("refresh_token")) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
 }
