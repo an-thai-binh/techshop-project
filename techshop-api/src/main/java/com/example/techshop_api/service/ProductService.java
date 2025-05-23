@@ -6,11 +6,15 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.product.ProductDisplayResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
 import com.example.techshop_api.entity.category.Category;
+import com.example.techshop_api.entity.image.Image;
+import com.example.techshop_api.entity.image.ProductImage;
 import com.example.techshop_api.entity.product.Product;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.ProductMapper;
 import com.example.techshop_api.repository.CategoryRepository;
+import com.example.techshop_api.repository.ImageRepository;
+import com.example.techshop_api.repository.ProductImageRepository;
 import com.example.techshop_api.repository.ProductRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +34,8 @@ import java.util.List;
 public class ProductService {
     CategoryRepository categoryRepository;
     ProductRepository productRepository;
+    ImageRepository imageRepository;
+    ProductImageRepository productImageRepository;
     ProductMapper productMapper;
 
     public ApiResponse<Page<ProductResponse>> index(Pageable pageable) {
@@ -93,6 +99,30 @@ public class ProductService {
         Product product = productMapper.toProduct(category, request);
         try {
             product = productRepository.save(product);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new AppException(ErrorCode.INSERT_FAILED);
+        }
+        ProductResponse productResponse = productMapper.toProductResponse(product);
+        return ApiResponse.<ProductResponse>builder()
+                .success(true)
+                .data(productResponse)
+                .build();
+    }
+
+    @Transactional
+    public ApiResponse<ProductResponse> storeWithImage(ProductCreationRequest request, Long imageId) {
+        Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+        Image image = imageRepository.findById(imageId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        Product product = productMapper.toProduct(category, request);
+        ProductImage productImage = ProductImage.builder()
+                .product(product)
+                .image(image)
+                .isFirst(true)
+                .build();
+        try {
+            product = productRepository.save(product);
+            productImageRepository.save(productImage);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.INSERT_FAILED);

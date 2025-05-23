@@ -88,9 +88,14 @@ public class ProductController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductResponse>> store(@RequestBody ProductCreationRequest request) {
         ApiResponse<ProductResponse> apiResponse = productService.store(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+    }
+
+    @PostMapping("/storeWithImage")
+    public ResponseEntity<ApiResponse<ProductResponse>> storeWithImage(@RequestBody ProductCreationRequest request, @RequestParam Long imageId) {
+        ApiResponse<ProductResponse> apiResponse = productService.storeWithImage(request, imageId);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 

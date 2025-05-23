@@ -37,6 +37,18 @@ public class ImageController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<ImageResponse>> show(@PathVariable Long id) {
+        ApiResponse<ImageResponse> apiResponse = imageService.show(id);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/showByUrl")
+    public ResponseEntity<ApiResponse<ImageResponse>> show(@RequestParam String url) {
+        ApiResponse<ImageResponse> apiResponse = imageService.show(url);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
     @PostMapping("/url")
     public ResponseEntity<ApiResponse<ImageResponse>> store(@RequestBody ImageCreationRequest request) {
         ApiResponse<ImageResponse> apiResponse = imageService.store(request);
