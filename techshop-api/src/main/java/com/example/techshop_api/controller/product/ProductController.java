@@ -3,6 +3,7 @@ package com.example.techshop_api.controller.product;
 import com.example.techshop_api.dto.request.product.ProductCreationRequest;
 import com.example.techshop_api.dto.request.product.ProductUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.product.ProductDetailResponse;
 import com.example.techshop_api.dto.response.product.ProductDisplayResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
 import com.example.techshop_api.service.ProductService;
@@ -60,6 +61,12 @@ public class ProductController {
     @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<ProductResponse>> show(@PathVariable Long id) {
         ApiResponse<ProductResponse> apiResponse = productService.show(id);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<ApiResponse<ProductDetailResponse>> showDetail(@PathVariable Long id) {
+        ApiResponse<ProductDetailResponse> apiResponse = productService.showDetail(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
