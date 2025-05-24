@@ -8,9 +8,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductVariationResponse {
+public class ProductVariationSimpleResponse {
     Long id;
-    ProductResponse product;
     String sku;
     int variationPriceChange;
     Long imageId;
