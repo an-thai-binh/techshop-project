@@ -17,7 +17,7 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "variation_id")
     ProductVariation productVariation;
 

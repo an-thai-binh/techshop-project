@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 @Data
 @Builder
@@ -39,4 +40,12 @@ public class ProductVariation {
             inverseJoinColumns = @JoinColumn(name = "choice_value_id")
     )
     List<ChoiceValue> choiceValueList;
+
+    public String getChoiceValueIds() {
+        StringJoiner joiner = new StringJoiner(" ");
+        for (ChoiceValue choiceValue : choiceValueList) {
+            joiner.add(choiceValue.getId().toString());
+        }
+        return joiner.toString();
+    }
 }

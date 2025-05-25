@@ -18,6 +18,6 @@ public class ProductDetailResponse {
     String productName;
     String productDescription;
     double productBasePrice;
-    List<ProductVariationSimpleResponse> productVariationList;
+    List<ProductVariationDetailResponse> productVariationList;
     List<ProductImageResponse> productImageList;
 }

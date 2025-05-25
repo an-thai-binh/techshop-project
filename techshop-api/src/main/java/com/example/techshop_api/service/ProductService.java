@@ -9,7 +9,7 @@ import com.example.techshop_api.dto.response.image.ProductImageResponse;
 import com.example.techshop_api.dto.response.product.ProductDetailResponse;
 import com.example.techshop_api.dto.response.product.ProductDisplayResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
-import com.example.techshop_api.dto.response.product.ProductVariationSimpleResponse;
+import com.example.techshop_api.dto.response.product.ProductVariationDetailResponse;
 import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.entity.image.Image;
 import com.example.techshop_api.entity.image.ProductImage;
@@ -17,10 +17,7 @@ import com.example.techshop_api.entity.product.Product;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.*;
-import com.example.techshop_api.repository.CategoryRepository;
-import com.example.techshop_api.repository.ImageRepository;
-import com.example.techshop_api.repository.ProductImageRepository;
-import com.example.techshop_api.repository.ProductRepository;
+import com.example.techshop_api.repository.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -41,6 +38,7 @@ public class ProductService {
     ProductRepository productRepository;
     ImageRepository imageRepository;
     ProductImageRepository productImageRepository;
+    InventoryRepository inventoryRepository;
     ProductMapper productMapper;
     CategoryMapper categoryMapper;
     ProductVariationMapper productVariationMapper;
@@ -77,15 +75,18 @@ public class ProductService {
     public ApiResponse<ProductDetailResponse> showDetail(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
         CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(product.getCategory());
-        List<ProductVariationSimpleResponse> productVariationSimpleResponseList = product.getProductVariationList()
-                .stream()
-                .map(productVariationMapper::toProductVariationSimpleResponse)
+        List<ProductVariationDetailResponse> productVariationDetailResponseList = product.getProductVariationList().stream()
+                .map(productVariation -> {
+                    int quantity = inventoryRepository.findByProductVariation(productVariation).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND))
+                            .getQuantity();
+                    return productVariationMapper.toProductVariationDetailResponse(productVariation, quantity);
+                })
                 .toList();
         List<ProductImageResponse> productImageList = product.getProductImageList().stream().map(productImage -> {
             ImageResponse imageResponse = imageMapper.toImageResponse(productImage.getImage());
             return productImageMapper.toProductImageResponse(imageResponse, productImage);
         }).toList();
-        ProductDetailResponse productDetailResponse = productMapper.toProductDetailResponse(product, categoryResponse, productVariationSimpleResponseList, productImageList);
+        ProductDetailResponse productDetailResponse = productMapper.toProductDetailResponse(product, categoryResponse, productVariationDetailResponseList, productImageList);
         return ApiResponse.<ProductDetailResponse>builder()
                 .success(true)
                 .data(productDetailResponse)
