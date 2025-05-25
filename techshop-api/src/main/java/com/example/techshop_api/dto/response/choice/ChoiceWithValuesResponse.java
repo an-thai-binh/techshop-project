@@ -13,6 +13,6 @@ import java.util.List;
 public class ChoiceWithValuesResponse {
     Long id;
     Long productId;
-    String choiceValue;
+    String choiceName;
     List<ChoiceValueResponse> choiceValueList;
 }
