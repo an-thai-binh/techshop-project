@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useUIContext } from '@/shared/context/UIContext'
 import DropdownCart from '../features/cart/components/DropdownCart'
 import ProductCatalog from './ProductCatalog'
@@ -17,7 +17,7 @@ import {
 import { CategoriesType } from '@/features/categories/types/CategoriesType'
 import DropdownUser from '@/features/user/components/DropdownUser'
 import { useAppSelector } from '@/shared/redux/hook'
-import { selectToken } from '@/features/auth/authSelectors'
+import AppInitializer from '@/component/AppInitializer'
 
 export default function Header() {
   const [categories, setCategories] = useState<CategoriesType[]>([])
@@ -32,6 +32,7 @@ export default function Header() {
   const { state, dispatch } = useUIContext()
   return (
     <>
+      <AppInitializer />
       <header className="sticky top-0 z-30 flex size-full flex-col justify-center">
         <div className="flex size-full flex-wrap items-center justify-between gap-1 bg-gray-200/80 p-2 shadow-md backdrop-blur-sm dark:bg-gray-950/80">
           <Link href={`/`}>
