@@ -3,11 +3,12 @@ package com.example.techshop_api.dto.request.choice;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChoiceCreationRequest {
+    Long productId;
     String choiceName;
 }

@@ -14,7 +14,6 @@ import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.entity.image.Image;
 import com.example.techshop_api.entity.image.ProductImage;
 import com.example.techshop_api.entity.product.Product;
-import com.example.techshop_api.entity.product.ProductVariation;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.*;
@@ -78,7 +77,7 @@ public class ProductService {
     public ApiResponse<ProductDetailResponse> showDetail(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
         CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(product.getCategory());
-        List<ProductVariationSimpleResponse> productVariationSimpleResponseList = product.getProductVariantionList()
+        List<ProductVariationSimpleResponse> productVariationSimpleResponseList = product.getProductVariationList()
                 .stream()
                 .map(productVariationMapper::toProductVariationSimpleResponse)
                 .toList();

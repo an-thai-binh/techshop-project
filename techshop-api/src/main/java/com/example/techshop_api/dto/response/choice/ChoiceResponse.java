@@ -1,6 +1,5 @@
 package com.example.techshop_api.dto.response.choice;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -11,5 +10,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ChoiceResponse {
     Long id;
+    Long productId;
     String choiceValue;
 }

@@ -12,6 +12,4 @@ public class ChoiceValueCreationRequest {
     Long choiceId;
     String choiceValue;
     String skuValue;
-
-
 }

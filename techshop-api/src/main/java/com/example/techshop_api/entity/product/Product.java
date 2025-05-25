@@ -1,11 +1,11 @@
 package com.example.techshop_api.entity.product;
 
 import com.example.techshop_api.entity.category.Category;
+import com.example.techshop_api.entity.choice.Choice;
 import com.example.techshop_api.entity.image.ProductImage;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Type;
 
 import java.util.List;
 
@@ -36,7 +36,10 @@ public class Product {
    double productBasePrice;
 
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-   List<ProductVariation> productVariantionList;
+   List<Choice> choiceList;
+
+   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+   List<ProductVariation> productVariationList;
 
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
    List<ProductImage> productImageList;
