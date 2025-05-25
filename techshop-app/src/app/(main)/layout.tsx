@@ -5,7 +5,6 @@ import Footer from '@/component/Footer'
 import Navigation from '@/component/Navigation'
 import { UIProvider } from '@/shared/context/UIContext'
 import React from 'react'
-import AppInitializer from '@/component/AppInitializer'
 
 export default function UserLayout({ children }: { children: React.ReactNode }) {
   return (

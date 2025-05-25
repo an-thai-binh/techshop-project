@@ -1,7 +1,7 @@
 import { Action, State } from '@/types/ui'
 
 export const initialState: State = {
-  theme: 'dark',
+  theme: 'light',
   isModalVisible: false,
   isDropdownVisible: false,
   isTooltipVisible: false,

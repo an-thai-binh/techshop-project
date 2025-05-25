@@ -7,6 +7,7 @@ export const fetchTokenFromCookie = createAsyncThunk<string>(
     if (typeof document === 'undefined') throw new Error('Not in browser')
     const token = document.cookie
       .split(';')
+      .map((r) => r.trim())
       .find((r) => r.startsWith('token'))
       ?.trim()
       .split('=')[1]

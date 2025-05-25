@@ -1,19 +1,24 @@
-'use client'
 import Link from 'next/link'
 import { login } from './action'
 
-export default function LoginPage() {
-  async function handleLogin(formData: FormData) {
-    const result = await login(formData)
-    if (result) {
-      window.location.href = '/'
-    }
-  }
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined }
+}) {
+  // async function handleLogin(formData: FormData) {
+  //   const result = await login(formData)
+  //   if (result) {
+  //     window.location.href = '/'
+  //   }
+  // }
+  const params = await searchParams
+  const next = params.next
   return (
     <div className="w-full max-w-md space-y-6 rounded-xl bg-white p-8 shadow-md">
       <h2 className="text-center text-2xl font-semibold text-gray-800">Đăng nhập</h2>
-
-      <form action={handleLogin} className="space-y-4">
+      <form action={login} className="space-y-4">
+        <input type="text" name={'next'} defaultValue={next} hidden={true} />
         <input
           name={'identifier'}
           type="text"
