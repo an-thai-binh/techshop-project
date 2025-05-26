@@ -1,5 +1,15 @@
 package com.example.techshop_api.dto.request.choice;
 
-public class ChoiceValueUpdateRequest {
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class ChoiceValueUpdateRequest {
+    Long choiceId;
+    String choiceValue;
+    String skuValue;
 }

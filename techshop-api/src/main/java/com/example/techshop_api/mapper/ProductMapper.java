@@ -6,7 +6,7 @@ import com.example.techshop_api.dto.response.category.CategoryResponse;
 import com.example.techshop_api.dto.response.image.ProductImageResponse;
 import com.example.techshop_api.dto.response.product.ProductDetailResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
-import com.example.techshop_api.dto.response.product.ProductVariationSimpleResponse;
+import com.example.techshop_api.dto.response.product.ProductVariationDetailResponse;
 import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.entity.product.Product;
 import org.mapstruct.Mapper;
@@ -26,12 +26,12 @@ public interface ProductMapper {
 
     @Mapping(target = "id", source = "product.id")
     @Mapping(target = "category", source = "categoryResponse")
-    @Mapping(target = "productVariationList", source = "productVariationSimpleResponseList")
+    @Mapping(target = "productVariationList", source = "productVariationDetailResponseList")
     @Mapping(target = "productImageList", source = "productImageResponseList")
     ProductDetailResponse toProductDetailResponse(
             Product product,
             CategoryResponse categoryResponse,
-            List<ProductVariationSimpleResponse> productVariationSimpleResponseList,
+            List<ProductVariationDetailResponse> productVariationDetailResponseList,
             List<ProductImageResponse> productImageResponseList);
 
     @Mapping(target = "id", ignore = true)
