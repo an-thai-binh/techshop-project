@@ -2,6 +2,7 @@
 import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
 
 interface ProductVariationItemProps {
     id: string;
@@ -14,7 +15,8 @@ interface ProductVariationItemProps {
 export default function ProductVariationItem({ id, sku, basePrice, priceChange, imgUrl }: ProductVariationItemProps) {
     return (
         <div className="py-3 flex items-center">
-            <img className="w-[120] h-[120] object-fill rounded-lg" src={imgUrl} />
+            {/* <img className="w-[120px] h-[120px] object-fill rounded-lg" src={imgUrl} /> */}
+            <Image src={imgUrl || "/image/default_img.png"} alt="product_variation" width={120} height={120} className="w-[120px] h-[120px] object-fill rounded-lg" />
             <div className="flex-1 pl-3">
                 <p>ID: <span className="font-semibold">{id}</span></p>
                 <p>Mã SKU: {sku}</p>
