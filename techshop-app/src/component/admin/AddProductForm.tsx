@@ -35,7 +35,7 @@ export default function AddProductForm() {
   const [imageUpload, setImageUpload] = useState<boolean>(false);
   const [uploadUrl, setUploadUrl] = useState<string>("");
   const [uploadFile, setUploadFile] = useState<File | null>(null);
-  const [previewImg, setPreviewImg] = useState<string>("https://endlessicons.com/wp-content/uploads/2012/11/image-holder-icon.png");
+  const [previewImg, setPreviewImg] = useState<string>("/image/default_img.png");
 
   // error attributes
   const [imageError, setImageError] = useState<string>("");
@@ -115,7 +115,7 @@ export default function AddProductForm() {
   const onSubmit = async (data: FormData) => {
     let imageId = imageUpload ? await handleAddProductWithImage() : await handleAddProductWithUrl();
 
-    if(!imageId) {
+    if (!imageId) {
       return;
     }
 
@@ -141,15 +141,15 @@ export default function AddProductForm() {
   return (
     <>
       <div className="grid grid-cols-1">
-        {success ? 
+        {success ?
           <div className="mt-3 py-1 px-2 bg-green-100 w-fit mx-auto rounded-sm">
             <p className="text-center font-bold text-green-500">Thêm sản phẩm thành công</p>
           </div>
-        :
-        formError && 
+          :
+          formError &&
           <div className="mt-3 py-1 px-2 bg-red-100 w-fit mx-auto rounded-sm">
             <p className="ext-center font-bold text-red-500">Lỗi khi thêm sản phẩm: {formError}</p>
-          </div>} 
+          </div>}
         <div className="m-3">
           <p className="font-bold">
             Tên sản phẩm<span className="ms-1 text-red-500">*</span>
@@ -225,7 +225,7 @@ export default function AddProductForm() {
               </div>
               {!success && imageError && <p className="text-center text-sm font-medium text-red-500">{imageError}</p>}
             </div>
-          :
+            :
             <div>
               <input type="text" placeholder="Nhập đường dẫn ảnh đã tồn tại trong CSDL. VD: http://binhan.io.vn/img..." onChange={handleUploadUrlChange} className="p-1 w-full min-h-[38] bg-white border border-[#cccccc] focus-visible:outline-[#2684FF] rounded-[4]" />
               {!success && urlError && <p className="text-center text-sm font-medium text-red-500">{urlError}</p>}
