@@ -71,14 +71,12 @@ public class ProductController {
     }
 
     @GetMapping("/searchList")
-    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<List<ProductResponse>>> searchList(@RequestParam String query) {
         ApiResponse<List<ProductResponse>> apiResponse = productService.searchList(query);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @GetMapping("/searchPage")
-    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<Page<ProductResponse>>> searchPage(
             @RequestParam String query,
             @RequestParam int page,
@@ -94,12 +92,14 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductResponse>> store(@RequestBody ProductCreationRequest request) {
         ApiResponse<ProductResponse> apiResponse = productService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PostMapping("/storeWithImage")
+    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductResponse>> storeWithImage(@RequestBody ProductCreationRequest request, @RequestParam Long imageId) {
         ApiResponse<ProductResponse> apiResponse = productService.storeWithImage(request, imageId);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
@@ -109,6 +109,13 @@ public class ProductController {
     @PreAuthorize("hasAuthority('product:update')")
     public ResponseEntity<ApiResponse<ProductResponse>> update(@PathVariable Long id, @RequestBody ProductUpdateRequest request) {
         ApiResponse<ProductResponse> apiResponse = productService.update(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @PutMapping("/updateWithImage/{id}")
+    @PreAuthorize("hasAuthority('product:update')")
+    public ResponseEntity<ApiResponse<ProductResponse>> updateWithImage(@PathVariable Long id, @RequestBody ProductUpdateRequest request, @RequestParam Long imageId) {
+        ApiResponse<ProductResponse> apiResponse = productService.updateWithImage(id, request, imageId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
