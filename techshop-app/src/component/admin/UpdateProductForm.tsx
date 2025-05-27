@@ -93,7 +93,7 @@ export default function UpdateProductForm({ id: productId, productName, category
         } catch (error: any) {
             const errorMessage = error.response.data?.message || error.message;
             setImageError("Lỗi khi tải ảnh lên: " + errorMessage);
-            throw new Error("Error uploading image: ", errorMessage);
+            throw new Error("Error uploading image: " + errorMessage);
         }
     }
 
@@ -118,7 +118,7 @@ export default function UpdateProductForm({ id: productId, productName, category
         } catch (error: any) {
             const errorMessage = error.response.data?.message || error.message;
             setUrlError("Lỗi khi lấy ảnh: " + errorMessage);
-            throw new Error("Error uploading image: ", errorMessage)
+            throw new Error("Error uploading image: " + errorMessage)
         }
     }
 

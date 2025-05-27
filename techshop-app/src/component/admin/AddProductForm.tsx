@@ -61,7 +61,7 @@ export default function AddProductForm() {
     }
   }
 
-  const handleAddProductWithImage = async () => {
+  const uploadImage = async () => {
     if (!uploadFile) {
       setImageError("Vui lòng tải file lên!");
       return;
@@ -81,12 +81,12 @@ export default function AddProductForm() {
       return;
     } catch (error: any) {
       const errorMessage = error.response.data?.message || error.message;
-      console.error("Error uploading image: ", errorMessage);
       setImageError("Lỗi khi tải ảnh lên: " + errorMessage);
+      throw new Error("Error uploading image: " + errorMessage);
     }
   }
 
-  const handleAddProductWithUrl = async () => {
+  const getExistsImageByUrl = async () => {
     if (uploadUrl.trim() === "") {
       setUrlError("Vui lòng nhập đường dẫn ảnh!");
       return;
@@ -106,14 +106,13 @@ export default function AddProductForm() {
       return;
     } catch (error: any) {
       const errorMessage = error.response.data?.message || error.message;
-      console.error("Error uploading image: ", errorMessage);
       setUrlError("Lỗi khi lấy ảnh: " + errorMessage);
-      return;
+      throw new Error("Error uploading image: " + errorMessage)
     }
   }
 
   const onSubmit = async (data: FormData) => {
-    let imageId = imageUpload ? await handleAddProductWithImage() : await handleAddProductWithUrl();
+    let imageId = imageUpload ? await uploadImage() : await getExistsImageByUrl();
 
     if (!imageId) {
       return;

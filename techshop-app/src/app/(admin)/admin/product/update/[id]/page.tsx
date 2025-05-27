@@ -6,6 +6,7 @@ import { selectToken } from '@/features/auth/authSelectors';
 import { useAppSelector } from '@/shared/redux/hook';
 import { ProductDetail } from '@/types/product';
 import axios from 'axios';
+import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react'
 
@@ -35,14 +36,9 @@ export default function UpdateProductPage() {
 
         }
       } catch (error: any) {
-        if (error.response?.status === 404) {
-          setErrorMessage(error.response.data.message);
-          throw new Error(error.response.data.message);
-
-        } else {
-          setErrorMessage(error.message);
-          throw new Error(error.message);
-        }
+        const message = error.response.data?.message || error.message;
+        setErrorMessage(message);
+        throw new Error("Error fetching product: " + message);
       }
     }
     fetchToken();
@@ -50,34 +46,36 @@ export default function UpdateProductPage() {
 
   return (
     <>
-      {productDetail ?
+      {errorMessage ? <AdminError message={errorMessage} />
+        : productDetail &&
         <div className="flex h-screen flex-col">
           <h3 className="my-3 text-center text-3xl font-bold uppercase">Cập nhật sản phẩm</h3>
           <div className="mx-3 bg-white shadow-md">
-            {productDetail &&
-              <UpdateProductForm
-                id={productDetail.id}
-                categoryId={productDetail.category.id}
-                productName={productDetail.productName}
-                productDescription={productDetail.productDescription}
-                productBasePrice={productDetail.productBasePrice}
-                imgUrl={productDetail.productImageList.find(productImage => productImage.first === true)?.image.imgUrl || ""}
-              />}
+            <UpdateProductForm
+              id={productDetail.id}
+              categoryId={productDetail.category.id}
+              productName={productDetail.productName}
+              productDescription={productDetail.productDescription}
+              productBasePrice={productDetail.productBasePrice}
+              imgUrl={productDetail.productImageList.find(productImage => productImage.first === true)?.image.imgUrl || ""}
+            />
           </div>
           <div className="mx-3 my-3 bg-white shadow-md">
             <div className="m-3">
               <div className="flex justify-between">
                 <div>
                   <p className="font-bold">Biến thể sản phẩm</p>
-                  <p className="text-sm">Sản phẩm đang có <b>{productDetail?.productVariationList.length || 0}</b> biến thể</p>
+                  <p className="text-sm">Sản phẩm đang có <b>{productDetail.productVariationList.length || 0}</b> biến thể</p>
                 </div>
-                <button className="bg-yellow-300 px-3 font-semibold shadow-lg hover:bg-yellow-400 hover:shadow-sm">
-                  Thêm biến thể
-                </button>
+                <Link href={`/admin/product/addVariation/${productDetail.id}`}>
+                  <button className="px-3 h-full font-semibold shadow-lg bg-yellow-300 hover:bg-yellow-400 hover:shadow-sm">
+                    Thêm biến thể
+                  </button>
+                </Link>
               </div>
               <hr className="mt-3 text-black" />
               <div className="max-h-[calc(100vh-400px)] divide-y divide-gray-200 overflow-y-auto lg:max-h-[calc(100vh-300px)]">
-                {productDetail?.productVariationList?.length ? (
+                {productDetail.productVariationList?.length ? (
                   productDetail.productVariationList.map(productVariation => {
                     const matchedImage = productDetail.productImageList.find(
                       image => image.image.id === productVariation.imageId
@@ -105,8 +103,6 @@ export default function UpdateProductPage() {
             </div>
           </div>
         </div>
-        :
-        <AdminError message={errorMessage} />
       }
     </>
   )
