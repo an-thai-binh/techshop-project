@@ -7,8 +7,6 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppSelector } from "@/shared/redux/hook";
 import { selectToken } from "@/features/auth/authSelectors";
-import { useParams, useRouter } from "next/navigation";
-import { Product } from "@/types/product";
 
 const formSchema = z.object({
     categoryId: z.coerce.string(),
@@ -30,9 +28,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function UpdateProductForm({ id: productId, productName, categoryId, productDescription, productBasePrice, imgUrl }: UpdateProductFormProps) {
     const token = useAppSelector(selectToken);
-    const params = useParams();
-    const id = params.id;
-    const { register, handleSubmit, formState: { errors }, control, reset } = useForm<FormData>(
+    const { register, handleSubmit, formState: { errors }, control } = useForm<FormData>(
         {
             resolver: zodResolver(formSchema),
             mode: "onChange",
@@ -50,7 +46,7 @@ export default function UpdateProductForm({ id: productId, productName, category
     const [imageUpload, setImageUpload] = useState<boolean>(false);
     const [uploadUrl, setUploadUrl] = useState<string>(imgUrl);
     const [uploadFile, setUploadFile] = useState<File | null>(null);
-    const [previewImg, setPreviewImg] = useState<string>("/image/default_img.png");
+    const [previewImg, setPreviewImg] = useState<string>(imgUrl);
 
     // error attributes
     const [imageError, setImageError] = useState<string>("");
@@ -76,7 +72,7 @@ export default function UpdateProductForm({ id: productId, productName, category
         }
     }
 
-    const handleAddProductWithImage = async () => {
+    const uploadImage = async () => {
         if (!uploadFile) {
             setImageError("Vui lòng tải file lên!");
             return;
@@ -96,12 +92,12 @@ export default function UpdateProductForm({ id: productId, productName, category
             return;
         } catch (error: any) {
             const errorMessage = error.response.data?.message || error.message;
-            console.error("Error uploading image: ", errorMessage);
             setImageError("Lỗi khi tải ảnh lên: " + errorMessage);
+            throw new Error("Error uploading image: " + errorMessage);
         }
     }
 
-    const handleAddProductWithUrl = async () => {
+    const getExistsImageByUrl = async () => {
         if (uploadUrl.trim() === "") {
             setUrlError("Vui lòng nhập đường dẫn ảnh!");
             return;
@@ -121,21 +117,20 @@ export default function UpdateProductForm({ id: productId, productName, category
             return;
         } catch (error: any) {
             const errorMessage = error.response.data?.message || error.message;
-            console.error("Error uploading image: ", errorMessage);
             setUrlError("Lỗi khi lấy ảnh: " + errorMessage);
-            return;
+            throw new Error("Error uploading image: " + errorMessage)
         }
     }
 
     const onSubmit = async (data: FormData) => {
-        let imageId = imageUpload ? await handleAddProductWithImage() : await handleAddProductWithUrl();
+        let imageId = imageUpload ? await uploadImage() : await getExistsImageByUrl();
 
         if (!imageId) {
-            return;
+            throw new Error("Không truy xuất được image ID");
         }
 
         try {
-            const response = await axios.post("http://localhost:8080/techshop/product/storeWithImage", data, {
+            const response = await axios.put(`http://localhost:8080/techshop/product/updateWithImage/${productId}`, data, {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
@@ -143,7 +138,6 @@ export default function UpdateProductForm({ id: productId, productName, category
                     imageId: imageId
                 }
             });
-
             if (response.data.success) {
                 setSuccess(true);
             }
@@ -158,12 +152,12 @@ export default function UpdateProductForm({ id: productId, productName, category
             <div className="grid grid-cols-1">
                 {success ?
                     <div className="mt-3 py-1 px-2 bg-green-100 w-fit mx-auto rounded-sm">
-                        <p className="text-center font-bold text-green-500">Thêm sản phẩm thành công</p>
+                        <p className="text-center font-bold text-green-500">Cập nhật sản phẩm thành công</p>
                     </div>
                     :
                     formError &&
                     <div className="mt-3 py-1 px-2 bg-red-100 w-fit mx-auto rounded-sm">
-                        <p className="ext-center font-bold text-red-500">Lỗi khi thêm sản phẩm: {formError}</p>
+                        <p className="ext-center font-bold text-red-500">Lỗi khi cập nhật sản phẩm: {formError}</p>
                     </div>}
                 <div className="m-3">
                     <p className="font-bold">
@@ -242,7 +236,7 @@ export default function UpdateProductForm({ id: productId, productName, category
                         </div>
                         :
                         <div>
-                            <input type="text" placeholder="Nhập đường dẫn ảnh đã tồn tại trong CSDL. VD: http://binhan.io.vn/img..." onChange={handleUploadUrlChange} value={imgUrl} className="p-1 w-full min-h-[38] bg-white border border-[#cccccc] focus-visible:outline-[#2684FF] rounded-[4]" />
+                            <input type="text" placeholder="Nhập đường dẫn ảnh đã tồn tại trong CSDL. VD: http://binhan.io.vn/img..." onChange={handleUploadUrlChange} value={uploadUrl} className="p-1 w-full min-h-[38] bg-white border border-[#cccccc] focus-visible:outline-[#2684FF] rounded-[4]" />
                             {!success && urlError && <p className="text-center text-sm font-medium text-red-500">{urlError}</p>}
                         </div>
                     }

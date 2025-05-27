@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class ChoiceResponse {
     Long id;
     Long productId;
-    String choiceValue;
+    String choiceName;
 }

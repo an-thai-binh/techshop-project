@@ -20,6 +20,7 @@ public interface ChoiceMapper {
     Choice toChoice(Product product, ChoiceCreationRequest request);
 
     @Mapping(target = "productId", source = "product.id")
+    @Mapping(target = "choiceName", source = "choiceName")
     ChoiceResponse toChoiceResponse(Choice choice);
 
     @Mapping(target = "productId", source = "choice.product.id")

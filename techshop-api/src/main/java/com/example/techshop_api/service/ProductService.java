@@ -181,6 +181,32 @@ public class ProductService {
                 .build();
     }
 
+    @Transactional
+    public ApiResponse<ProductResponse> updateWithImage(Long id, ProductUpdateRequest request, Long imageId) {
+        Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
+        Image image = imageRepository.findById(imageId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        Product product = productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        productImageRepository.deleteByProductAndIsFirstIsTrue(product);
+        ProductImage productImage = ProductImage.builder()
+                .product(product)
+                .image(image)
+                .isFirst(true)
+                .build();
+        productMapper.updateProduct(product, category, request);
+        try {
+            product = productRepository.save(product);
+            productImageRepository.save(productImage);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new AppException(ErrorCode.UPDATE_FAILED);
+        }
+        ProductResponse productResponse = productMapper.toProductResponse(product);
+        return ApiResponse.<ProductResponse>builder()
+                .success(true)
+                .data(productResponse)
+                .build();
+    }
+
     public ApiResponse<Void> destroy(Long id) {
         try {
             productRepository.deleteById(id);

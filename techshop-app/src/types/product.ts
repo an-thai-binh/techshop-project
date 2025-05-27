@@ -32,3 +32,17 @@ export interface ProductDetail {
     productVariationList: ProductVariation[];
     productImageList: ProductImage[];
 }
+
+export interface ChoiceValue {
+    id: string;
+    choiceId: string;
+    choiceValue: string;
+    skuValue: string;
+}
+
+export interface Choice {
+    id: string;
+    productId: string;
+    choiceName: string;
+    choiceValueList: ChoiceValue[];
+}
