@@ -234,6 +234,10 @@ export default function AddProductVariationPage() {
         }
     }
 
+
+    console.log(choices);
+    console.log(selectedChoiceValues);
+
     return (
         <>
             {errorMessage ? <AdminError message={errorMessage} />
