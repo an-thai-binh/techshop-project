@@ -20,7 +20,7 @@ export interface ProductVariation {
     variationPriceChange: number;
     imageId: string;
     quantity: number;
-    choiceValueIds: string;
+    choiceValueIds: number[];
 }
 
 export interface ProductDetail {

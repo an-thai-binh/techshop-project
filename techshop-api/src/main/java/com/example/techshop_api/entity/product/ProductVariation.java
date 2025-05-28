@@ -41,11 +41,7 @@ public class ProductVariation {
     )
     List<ChoiceValue> choiceValueList;
 
-    public String getChoiceValueIds() {
-        StringJoiner joiner = new StringJoiner(" ");
-        for (ChoiceValue choiceValue : choiceValueList) {
-            joiner.add(choiceValue.getId().toString());
-        }
-        return joiner.toString();
+    public Long[] getChoiceValueIds() {
+        return choiceValueList.stream().map(ChoiceValue::getId).toArray(Long[]::new);
     }
 }

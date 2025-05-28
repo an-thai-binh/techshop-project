@@ -14,5 +14,5 @@ public class ProductVariationDetailResponse {
     int variationPriceChange;
     Long imageId;
     int quantity;
-    String choiceValueIds;
+    Long[] choiceValueIds;
 }

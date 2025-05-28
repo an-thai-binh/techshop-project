@@ -28,8 +28,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -91,7 +94,8 @@ public class ProductVariationService {
     public ApiResponse<ProductVariationResponse> storeWithValues(ProductVariationWithValuesRequest request) {
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
         List<Long> choiceValueIdList = Arrays.asList(request.getChoiceValueIds()).stream().map(Long::parseLong).toList();
-        List<ChoiceValue> choiceValueList = choiceValueRepository.findAllById(choiceValueIdList);
+        List<ChoiceValue> unorderChoiceValueList = choiceValueRepository.findAllById(choiceValueIdList);
+        List<ChoiceValue> choiceValueList = getOrderedChoiceValueList(choiceValueIdList, unorderChoiceValueList);
         String sku = skuGenerator.generateSKU(product.getId(), choiceValueList);
         Image image = checkImageUpload(product, request.getImageId());
         ProductVariation productVariation = productVariationMapper.toProductVariation(product, image, choiceValueList, sku, request);
@@ -109,6 +113,26 @@ public class ProductVariationService {
                 .success(true)
                 .data(productVariationResponse)
                 .build();
+    }
+
+    /**
+     * sắp xếp lại danh sách trả về từ truy vấn theo thứ tự id được gửi từ request
+     * @param choiceValueIdList thứ tự id được gửi từ request
+     * @param unorderChoiceValueList danh sách chưa được sắp xếp
+     * @return danh sách đã được sắp xếp
+     */
+    private List<ChoiceValue> getOrderedChoiceValueList(List<Long> choiceValueIdList, List<ChoiceValue> unorderChoiceValueList) {
+        List<ChoiceValue> result = new ArrayList<>();
+        Map<Long, ChoiceValue> choiceValueMap = unorderChoiceValueList.stream()
+                .collect(Collectors.toMap(ChoiceValue::getId, v -> v));
+        for (Long choiceValueId : choiceValueIdList) {
+            ChoiceValue value = choiceValueMap.get(choiceValueId);
+            if (value == null) {
+                throw new AppException(ErrorCode.CHOICE_VALUE_NOT_FOUND);
+            }
+            result.add(value);
+        }
+        return result;
     }
 
     /**
