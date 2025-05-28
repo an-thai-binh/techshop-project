@@ -3,7 +3,7 @@
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { ChoiceValue } from "@/types/product";
-import { generateSkuValue } from "@/utils/SkuGenerator";
+import { generateSkuValue } from "@/utils/SKUGenerator";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CreatableSelect from 'react-select/creatable'
@@ -58,6 +58,10 @@ export default function ChoiceComboBox({ choiceId, choiceValueList, onChange }: 
             options={options}
             value={selectedOption}
             onCreateOption={handleCreate}
+            onChange={(e) => {
+                setSelectedOption(options.find(option => option.value === e?.value) || null);
+                onChange(e?.value || "");
+            }}
             placeholder="Chọn hoặc thêm mới giá trị..."
         />
     );
