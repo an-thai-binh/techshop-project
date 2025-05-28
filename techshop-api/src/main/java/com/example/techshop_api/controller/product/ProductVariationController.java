@@ -2,12 +2,14 @@ package com.example.techshop_api.controller.product;
 
 import com.example.techshop_api.dto.request.product.ProductVariationCreationRequest;
 import com.example.techshop_api.dto.request.product.ProductVariationUpdateRequest;
+import com.example.techshop_api.dto.request.product.ProductVariationWithValuesRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.product.ProductVariationResponse;
 import com.example.techshop_api.service.ProductVariationService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +52,12 @@ public class ProductVariationController {
     @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> store(@RequestBody ProductVariationCreationRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.store(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+    }
+
+    @PostMapping("/storeWithValues")
+    public ResponseEntity<ApiResponse<ProductVariationResponse>> storeWithValues(@RequestBody ProductVariationWithValuesRequest request) {
+        ApiResponse<ProductVariationResponse> apiResponse = productVariationService.storeWithValues(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
