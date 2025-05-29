@@ -44,8 +44,14 @@ public class ImageController {
     }
 
     @GetMapping("/showByUrl")
-    public ResponseEntity<ApiResponse<ImageResponse>> show(@RequestParam String url) {
-        ApiResponse<ImageResponse> apiResponse = imageService.show(url);
+    public ResponseEntity<ApiResponse<ImageResponse>> showByUrl(@RequestParam String url) {
+        ApiResponse<ImageResponse> apiResponse = imageService.showByUrl(url);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/showByProduct")
+    public ResponseEntity<ApiResponse<ImageResponse>> showByProduct(@RequestParam Long productId) {
+        ApiResponse<ImageResponse> apiResponse = imageService.showByProduct(productId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

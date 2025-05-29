@@ -6,9 +6,19 @@ import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { Choice, Product } from "@/types/product";
 import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const formSchema = z.object({
+    variationPriceChange: z.coerce.number(),
+    quantity: z.coerce.number().min(0, { message: "Số lượng tồn kho phải lớn hơn hoặc bằng 0" })
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function AddProductVariationPage() {
     // base
@@ -16,7 +26,7 @@ export default function AddProductVariationPage() {
     const token = useAppSelector(selectToken);
     const [product, setProduct] = useState<Product | null>(null);
     const [choices, setChoices] = useState<Choice[]>([]);
-    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [fetchingErrorMessage, setFetchingErrorMessage] = useState<string | null>(null);
     // element
     const addButtonRef = useRef<HTMLDivElement>(null);
     const addFormRef = useRef<HTMLDivElement>(null);
@@ -30,17 +40,26 @@ export default function AddProductVariationPage() {
     const [imageError, setImageError] = useState<string>("");
     const [urlError, setUrlError] = useState<string>("");
     // submit data
-    const [variationPriceChange, setVariationPriceChange] = useState<string>("");
-    const [quantity, setQuantity] = useState<string>("");
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>(
+        {
+            resolver: zodResolver(formSchema),
+            mode: "onChange",
+            defaultValues: {
+                quantity: 0
+            }
+        }
+    )
     const [selectedChoiceValues, setSelectedChoiceValues] = useState<string[]>([]);
     // message attributes
+    const [choiceErrorMessage, setChoiceErrorMessage] = useState<string>("");
     const [success, setSuccess] = useState<boolean>(false);
+    const [formErrorMessage, setFormErrorMessage] = useState<string>("");
 
     useEffect(() => {
         if (!id || !token) {
             return;
         }
-        const fetchProduct = async () => {
+        const fetchData = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/techshop/product/${id}`, {
                     headers: {
@@ -52,18 +71,9 @@ export default function AddProductVariationPage() {
                 }
             } catch (error: any) {
                 const message = error.response?.data.message || error.message;
-                setErrorMessage(message);
+                setFetchingErrorMessage(message);
                 throw new Error("Error fetching product: " + message);
             }
-        };
-        fetchProduct();
-    }, [id, token]);
-
-    useEffect(() => {
-        if (!id || !token) {
-            return;
-        }
-        const fetchChoices = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/techshop/choice/getByProduct?productId=${id}`, {
                     headers: {
@@ -71,15 +81,31 @@ export default function AddProductVariationPage() {
                     }
                 })
                 if (response.data.success) {
-                    setChoices(response.data.data);
-                    setSelectedChoiceValues(choices.map(() => ""));
+                    const choicesData = response.data.data;
+                    setChoices(choicesData);
+                    setSelectedChoiceValues(choicesData.map(() => ""));
                 }
             } catch (error: any) {
                 const message = error.response?.data.message || error.message;
                 throw new Error("Error fetching choices: " + message);
             }
+            try {
+                const response = await axios.get(`http://localhost:8080/techshop/image/showByProduct?productId=${id}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    }
+                })
+                if (response.data.success) {
+                    const imgUrl = response.data.data.imgUrl;
+                    setUploadUrl(imgUrl);
+                    setPreviewImg(imgUrl);
+                }
+            } catch (error: any) {
+                const message = error.response?.data.message || error.message;
+                throw new Error("Error fetching image: " + message);
+            }
         };
-        fetchChoices();
+        fetchData();
     }, [id, token]);
 
     const handleTypeChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -132,7 +158,6 @@ export default function AddProductVariationPage() {
                     choiceName: response.data.data.choiceName,
                     choiceValueList: []
                 }
-                console.log(latestAddedChoice);
                 setChoices(prev => [...prev, latestAddedChoice]);
             }
         } catch (error: any) {
@@ -199,27 +224,28 @@ export default function AddProductVariationPage() {
         }
     }
 
-    const onSubmit = async () => {
+    const onSubmit = async (data: FormData) => {
         let imageId = imageUpload ? await uploadImage() : await getExistsImageByUrl();
 
         if (!imageId) {
             return;
         }
 
-        if (selectedChoiceValues.find(value => value === "")) {
+        if (selectedChoiceValues.includes("")) {
+            setChoiceErrorMessage("Vui lòng chọn giá trị cho tất cả lựa chọn!");
             return;
         }
 
-        const data = {
+        const requestData = {
             productId: id,
-            variationPriceChange: variationPriceChange,
+            variationPriceChange: data.variationPriceChange,
             imageId: imageId,
-            quantity: quantity,
+            quantity: data.quantity,
             choiceValueIds: selectedChoiceValues
         }
 
         try {
-            const response = await axios.post("http://localhost:8080/techshop/productVariation/storeWithValues", data, {
+            const response = await axios.post("http://localhost:8080/techshop/productVariation/storeWithValues", requestData, {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 },
@@ -229,22 +255,27 @@ export default function AddProductVariationPage() {
             }
         } catch (error: any) {
             setSuccess(false);
-            // setFormError(error.response.data?.message || error.message);
+            setFormErrorMessage(error.response.data?.message || error.message);
             throw new Error(error.response?.data.message || error.message);
         }
     }
 
-
-    console.log(choices);
-    console.log(selectedChoiceValues);
-
     return (
         <>
-            {errorMessage ? <AdminError message={errorMessage} />
+            {fetchingErrorMessage ? <AdminError message={fetchingErrorMessage} />
                 : product &&
                 <div className="flex h-screen flex-col">
                     <h3 className="my-3 text-center text-3xl font-bold uppercase">Thêm biến thể sản phẩm</h3>
                     <div className="mx-3 p-3 bg-white shadow-md">
+                        {success ?
+                            <div className="py-1 px-2 bg-green-100 w-fit mx-auto rounded-sm">
+                                <p className="text-center font-bold text-green-500">Thêm biến thể thành công</p>
+                            </div>
+                            :
+                            formErrorMessage &&
+                            <div className="py-1 px-2 bg-red-100 w-fit mx-auto rounded-sm">
+                                <p className="ext-center font-bold text-red-500">Lỗi khi thêm biến thể: {formErrorMessage}</p>
+                            </div>}
                         <p><b>Tên sản phẩm:</b> {product.productName}</p>
                         <p className="mt-3"><b>Giá gốc:</b> {formatVietNamCurrency(product.productBasePrice)}</p>
                         <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
@@ -253,26 +284,22 @@ export default function AddProductVariationPage() {
                                     Thay đổi giá<span className="ms-1 text-red-500">*</span>
                                 </p>
                                 <input
-                                    type="number"
-                                    value={variationPriceChange}
-                                    onChange={(e) => setVariationPriceChange(e.target.value)}
+                                    {...register("variationPriceChange")}
                                     className="min-h-[38] w-full rounded-[4] border border-[#cccccc] bg-white p-1 focus-visible:outline-[#2684FF]"
                                     placeholder="VD: -10000 (giảm 10.000đ) hoặc 10000 (tăng 10.000đ)"
                                 />
-
+                                {errors.variationPriceChange && <span className="text-sm font-medium text-red-500">{errors.variationPriceChange.message}</span>}
                             </div>
                             <div className="mt-3">
                                 <p className=" font-bold">
                                     Số lượng tồn kho<span className="ms-1 text-red-500">*</span>
                                 </p>
                                 <input
-                                    type="number"
-                                    min={0}
-                                    value={quantity}
-                                    onChange={(e) => setQuantity(e.target.value)}
+                                    {...register("quantity")}
                                     className="min-h-[38] w-full rounded-[4] border border-[#cccccc] bg-white p-1 focus-visible:outline-[#2684FF]"
                                     placeholder="Nhập số lượng biến thể đang có trong kho..."
                                 />
+                                {errors.quantity && <span className="text-sm font-medium text-red-500">{errors.quantity.message}</span>}
                             </div>
                         </div>
                         <div className="mt-3">
@@ -299,7 +326,7 @@ export default function AddProductVariationPage() {
                                 </div>
                                 :
                                 <div>
-                                    <input type="text" placeholder="Nhập đường dẫn ảnh đã tồn tại trong CSDL. VD: http://binhan.io.vn/img..." onChange={handleUploadUrlChange} className="p-1 w-full min-h-[38] bg-white border border-[#cccccc] focus-visible:outline-[#2684FF] rounded-[4]" />
+                                    <input type="text" placeholder="Nhập đường dẫn ảnh đã tồn tại trong CSDL. VD: http://binhan.io.vn/img..." value={uploadUrl} onChange={handleUploadUrlChange} className="p-1 w-full min-h-[38] bg-white border border-[#cccccc] focus-visible:outline-[#2684FF] rounded-[4]" />
                                     {!success && urlError && <p className="text-center text-sm font-medium text-red-500">{urlError}</p>}
                                 </div>
                             }
@@ -310,6 +337,7 @@ export default function AddProductVariationPage() {
                         <p className="font-bold">Lựa chọn</p>
                         <div className="flex-1 h-[2px] mx-3 bg-gray-700" />
                     </div>
+                    <span className="text-center font-bold text-red-500">{choiceErrorMessage}</span>
                     {choices.map((choice, index) => {
                         return (
                             <div className="m-3 bg-white shadow-md" key={index}>
@@ -337,7 +365,7 @@ export default function AddProductVariationPage() {
                         <div className="flex-1 h-[2px] mx-3 bg-gray-700" />
                     </div>
                     <div className="m-3 max-w-fit mx-auto">
-                        <button className="p-3 font-semibold bg-green-300 hover:bg-green-400 rounded-lg" onClick={onSubmit}>
+                        <button className="p-3 font-semibold bg-green-300 hover:bg-green-400 rounded-lg" onClick={handleSubmit(onSubmit)}>
                             Thêm biến thể
                         </button>
                     </div>

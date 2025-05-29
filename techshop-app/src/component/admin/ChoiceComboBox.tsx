@@ -45,7 +45,6 @@ export default function ChoiceComboBox({ choiceId, choiceValueList, onChange }: 
                     label: response.data.data.choiceValue
                 }
                 setOptions(prev => [...prev, newOption]);
-                setSelectedOption(newOption);
             }
         } catch (error: any) {
             const message = error.response?.data.message || error.message;
