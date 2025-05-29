@@ -13,7 +13,9 @@ import com.example.techshop_api.dto.response.product.ProductVariationDetailRespo
 import com.example.techshop_api.entity.category.Category;
 import com.example.techshop_api.entity.image.Image;
 import com.example.techshop_api.entity.image.ProductImage;
+import com.example.techshop_api.entity.inventory.Inventory;
 import com.example.techshop_api.entity.product.Product;
+import com.example.techshop_api.entity.product.ProductVariation;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.*;
@@ -36,6 +38,7 @@ import java.util.List;
 public class ProductService {
     CategoryRepository categoryRepository;
     ProductRepository productRepository;
+    ProductVariationRepository productVariationRepository;
     ImageRepository imageRepository;
     ProductImageRepository productImageRepository;
     InventoryRepository inventoryRepository;
@@ -44,6 +47,7 @@ public class ProductService {
     ProductVariationMapper productVariationMapper;
     ProductImageMapper productImageMapper;
     ImageMapper imageMapper;
+    InventoryMapper inventoryMapper;
 
     public ApiResponse<Page<ProductResponse>> index(Pageable pageable) {
         Page<Product> products = productRepository.findAll(pageable);
@@ -149,9 +153,18 @@ public class ProductService {
                 .image(image)
                 .isFirst(true)
                 .build();
+        product.getProductImageList().add(productImage);
         try {
             product = productRepository.save(product);
-            productImageRepository.save(productImage);
+            ProductVariation productVariation = ProductVariation.builder()  // default
+                    .product(product)
+                    .sku(product.getId().toString())
+                    .variationPriceChange(0)
+                    .image(image)
+                    .build();
+            Inventory inventory = inventoryMapper.toInventory(productVariation, 0);
+            productVariationRepository.save(productVariation);
+            inventoryRepository.save(inventory);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.INSERT_FAILED);

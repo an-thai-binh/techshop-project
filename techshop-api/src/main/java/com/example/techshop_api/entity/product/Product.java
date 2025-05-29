@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -35,12 +36,15 @@ public class Product {
    @Column(nullable=false)
    double productBasePrice;
 
+   @Builder.Default
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-   List<Choice> choiceList;
+   List<Choice> choiceList = new ArrayList<>();
 
+   @Builder.Default
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-   List<ProductVariation> productVariationList;
+   List<ProductVariation> productVariationList = new ArrayList<>();
 
+   @Builder.Default
    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-   List<ProductImage> productImageList;
+   List<ProductImage> productImageList = new ArrayList<>();
 }

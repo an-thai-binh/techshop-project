@@ -1,11 +1,13 @@
 package com.example.techshop_api.exception;
 
 import com.example.techshop_api.dto.response.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
     /**
@@ -15,6 +17,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleException(Exception exception) {
+        log.error("Unhandled Exception:", exception);
         ApiResponse<Object> apiResponse = ApiResponse.builder()
                 .success(false)
                 .message(exception.getMessage())

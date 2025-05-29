@@ -4,11 +4,13 @@ import com.example.techshop_api.dto.request.image.ImageCreationRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.image.ImageResponse;
 import com.example.techshop_api.entity.image.Image;
+import com.example.techshop_api.entity.product.Product;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.exception.FileException;
 import com.example.techshop_api.mapper.ImageMapper;
 import com.example.techshop_api.repository.ImageRepository;
+import com.example.techshop_api.repository.ProductRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
@@ -40,6 +42,7 @@ import java.util.Map;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ImageService {
     final ImageRepository imageRepository;
+    final ProductRepository productRepository;
     final ImageMapper imageMapper;
 
     @Value("${external.upload-image-url}")
@@ -63,8 +66,17 @@ public class ImageService {
                 .build();
     }
 
-    public ApiResponse<ImageResponse> show(String url) {
+    public ApiResponse<ImageResponse> showByUrl(String url) {
         Image image = imageRepository.findByImgUrl(url).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        ImageResponse imageResponse = imageMapper.toImageResponse(image);
+        return ApiResponse.<ImageResponse>builder()
+                .success(true)
+                .data(imageResponse)
+                .build();
+    }
+
+    public ApiResponse<ImageResponse> showByProduct(Long productId) {
+        Image image = imageRepository.findByProductId(productId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
         ImageResponse imageResponse = imageMapper.toImageResponse(image);
         return ApiResponse.<ImageResponse>builder()
                 .success(true)

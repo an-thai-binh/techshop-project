@@ -9,6 +9,8 @@ import java.util.Optional;
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     Optional<InventoryQuantityView> findByProductVariation(ProductVariation productVariation);
 
+    void deleteByProductVariation(ProductVariation productVariation);
+
     interface InventoryQuantityView {   // giúp truy vấn chỉ 1 thuộc hoặc nhiều thuộc tính xác định
         int getQuantity();
     }

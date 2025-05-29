@@ -93,6 +93,7 @@ public class ProductVariationService {
     @Transactional
     public ApiResponse<ProductVariationResponse> storeWithValues(ProductVariationWithValuesRequest request) {
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        deleteDefaultVariation(product.getId());
         List<Long> choiceValueIdList = Arrays.asList(request.getChoiceValueIds()).stream().map(Long::parseLong).toList();
         List<ChoiceValue> unorderChoiceValueList = choiceValueRepository.findAllById(choiceValueIdList);
         List<ChoiceValue> choiceValueList = getOrderedChoiceValueList(choiceValueIdList, unorderChoiceValueList);
@@ -113,6 +114,17 @@ public class ProductVariationService {
                 .success(true)
                 .data(productVariationResponse)
                 .build();
+    }
+
+    /**
+     * xoá variation mặc định của product nếu có
+     * @param productId
+     */
+    private void deleteDefaultVariation(Long productId) {
+        ProductVariation defaultVariation = productVariationRepository.findDefaultByProduct(productId);
+        if(defaultVariation != null) {
+            inventoryRepository.deleteByProductVariation(defaultVariation);
+        }
     }
 
     /**
