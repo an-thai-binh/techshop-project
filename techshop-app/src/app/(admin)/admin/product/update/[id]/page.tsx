@@ -67,7 +67,7 @@ export default function UpdateProductPage() {
                   <p className="font-bold">Biến thể sản phẩm</p>
                   <p className="text-sm">Sản phẩm đang có <b>{productDetail.productVariationList.length || 0}</b> biến thể</p>
                 </div>
-                <Link href={`/admin/product/addVariation/${productDetail.id}`}>
+                <Link href={`/admin/product/variation/add/${productDetail.id}`}>
                   <button className="px-3 h-full font-semibold shadow-lg bg-yellow-300 hover:bg-yellow-400 hover:shadow-sm">
                     Thêm biến thể
                   </button>
