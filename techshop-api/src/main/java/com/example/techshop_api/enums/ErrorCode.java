@@ -16,6 +16,8 @@ public enum ErrorCode {
     IMAGE_NOT_FOUND("Image Not Found", HttpStatus.NOT_FOUND),
     PRODUCT_IMAGE_NOT_FOUND("Product Image Not Found", HttpStatus.NOT_FOUND),
     USER_NOT_FOUND("User Not Found", HttpStatus.NOT_FOUND),
+    CART_NOT_FOUND("Cart Not Found", HttpStatus.NOT_FOUND),
+    CART_ITEM_NOT_FOUND("Cart Item Not Found", HttpStatus.NOT_FOUND),
     INSERT_FAILED("Insert Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     UPDATE_FAILED("Update Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     DELETE_FAILED("Delete Failed", HttpStatus.INTERNAL_SERVER_ERROR),

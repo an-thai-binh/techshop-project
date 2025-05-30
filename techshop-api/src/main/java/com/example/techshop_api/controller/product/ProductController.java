@@ -57,6 +57,18 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
+    @GetMapping("/display/getByCategory")
+    public ResponseEntity<ApiResponse<Page<ProductDisplayResponse>>> index(@RequestParam Long categoryId, @RequestParam int page,
+                                                                    @RequestParam int size,
+                                                                    @RequestParam(defaultValue = "id") String sort,
+                                                                    @RequestParam(defaultValue = "desc") String direction) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+        ApiResponse<Page<ProductDisplayResponse>> apiResponse = productService.indexCategory(categoryId,pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<ProductResponse>> show(@PathVariable Long id) {
@@ -82,8 +94,7 @@ public class ProductController {
             @RequestParam int page,
             @RequestParam int size,
             @RequestParam(defaultValue = "id") String sort,
-            @RequestParam(defaultValue = "desc") String direction)
-    {
+            @RequestParam(defaultValue = "desc") String direction) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page, size, sortBy);

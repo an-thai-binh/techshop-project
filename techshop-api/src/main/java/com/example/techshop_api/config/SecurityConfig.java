@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,15 +34,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @EnableMethodSecurity
 public class SecurityConfig {
-    final String[] PUBLIC_ENDPOINTS = {"/auth/login", "/auth/register"};
-
+    final String[] POST_PUBLIC_ENDPOINTS = {"/auth/login", "/auth/register"};
+    final String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**"};
     @Value("${jwt.secret-key}")
     String jwtSecretKey;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(@NotNull HttpSecurity http) throws Exception {
         http.cors(withDefaults()).authorizeHttpRequests(request ->
-                request.requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                request.requestMatchers(HttpMethod.POST, POST_PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET, GET_PUBLIC_ENDPOINTS).permitAll()
                         .anyRequest().authenticated());
 
         http.oauth2ResourceServer(oauth2 ->

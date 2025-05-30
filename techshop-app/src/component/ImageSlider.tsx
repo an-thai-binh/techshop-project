@@ -1,11 +1,11 @@
-"use client"; // Nếu bạn đang dùng Next.js 13+
+'use client' // Nếu bạn đang dùng Next.js 13+
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import { Navigation, Pagination } from "swiper/modules";
-import Image from "next/image";
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import { Navigation, Pagination } from 'swiper/modules'
+import Image from 'next/image'
 
 const ImageSlider = () => {
   return (
@@ -32,30 +32,30 @@ const ImageSlider = () => {
       }}
       loop={true}
       centeredSlides={false}
-      className="w-full h-full cursor-pointer rounded-md"
+      className="h-full w-full cursor-pointer rounded-md"
     >
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={"/image/AppleiPhone.jpg"} alt="img_1" layout="fill" objectFit="cover"/>
+          <Image src={'/image/AppleiPhone.jpg'} alt="img_1" layout="fill" objectFit="cover" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={"/image/img_2.jpg"} alt="img_2" layout="fill" objectFit="cover"/>
+          <Image src={'/image/img_2.jpg'} alt="img_2" layout="fill" objectFit="cover" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={"/image/img_3.jpg"} alt="img_3" layout="fill" objectFit="cover"/>
+          <Image src={'/image/img_3.jpg'} alt="img_3" layout="fill" objectFit="cover" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={"/image/img_4.jpg"} alt="img_4" layout="fill" objectFit="cover"/>
+          <Image src={'/image/img_4.jpg'} alt="img_4" layout="fill" objectFit="cover" />
         </div>
       </SwiperSlide>
     </Swiper>
-  );
-};
+  )
+}
 
-export default ImageSlider;
+export default ImageSlider

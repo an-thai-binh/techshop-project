@@ -49,7 +49,6 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<CategoryResponse>> show(@PathVariable(name = "id") Long id) {
         ApiResponse<CategoryResponse> apiResponse = categoryService.show(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);

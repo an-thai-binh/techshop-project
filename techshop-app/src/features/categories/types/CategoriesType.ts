@@ -1,5 +1,5 @@
-export interface CategoriesType {
+export interface CategoryType {
   id: number
-  category_name: string
-  category_img_url: string
+  categoryName: string
+  categoryImgUrl: string
 }

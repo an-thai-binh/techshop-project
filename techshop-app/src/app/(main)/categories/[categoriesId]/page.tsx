@@ -2,11 +2,12 @@ import { fetchProductByCategoryId } from '@/api/ProductAPI'
 import { fetchCategoriesById } from '@/api/CategoriesAPI'
 import CategoriesPage from '@/view/CategoriesPage'
 
-export default async function CollectionProduct({ params }: { params: { categoriesId: string } }) {
-  const { categoriesId } = params
+export default async function CollectionProduct({ params }: { params: { categoriesId: number } }) {
+  const { categoriesId } = await params
   const [category, products] = await Promise.all([
     fetchCategoriesById(categoriesId),
-    fetchProductByCategoryId(categoriesId),
+    fetchProductByCategoryId(categoriesId, 0, 10),
   ])
-  return <CategoriesPage items={products} category={category} />
+  console.log(category)
+  return <CategoriesPage items={products.content} category={category} />
 }

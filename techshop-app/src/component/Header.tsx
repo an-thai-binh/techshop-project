@@ -14,27 +14,29 @@ import {
   ShoppingCartIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline'
-import { CategoriesType } from '@/features/categories/types/CategoriesType'
+import { CategoryType } from '@/features/categories/types/CategoriesType'
 import DropdownUser from '@/features/user/components/DropdownUser'
 import { useAppSelector } from '@/shared/redux/hook'
 import AppInitializer from '@/component/AppInitializer'
+import { selectCartTotalItems } from '@/features/cart/cartSelectors'
 
 export default function Header() {
-  const [categories, setCategories] = useState<CategoriesType[]>([])
+  const [categories, setCategories] = useState<CategoryType[]>([])
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
   useEffect(() => {
-    fetch('http://localhost:5000/categories')
+    fetch('http://localhost:8080/techshop/category/all')
       .then((res) => res.json())
-      .then((data) => setCategories(data))
+      .then((res) => setCategories(res.data))
       .catch(console.error)
   }, [])
   const refCatalog = useRef<HTMLDivElement>(null)
   const { state, dispatch } = useUIContext()
+  const totalItem = useAppSelector(selectCartTotalItems)
   return (
     <>
       <AppInitializer />
       <header className="sticky top-0 z-30 flex size-full flex-col justify-center">
-        <div className="flex size-full flex-wrap items-center justify-between gap-1 bg-gray-200/80 p-2 shadow-md backdrop-blur-sm dark:bg-gray-950/80">
+        <div className="flex size-full flex-wrap items-center justify-between gap-1 bg-white p-2 shadow-md backdrop-blur-sm dark:bg-gray-950/80">
           <Link href={`/`}>
             <div className="order-1 flex items-center p-2 shadow-white drop-shadow-md">
               <h1 className="text-2xl font-extrabold text-blue-500">Techshop</h1>
@@ -84,8 +86,8 @@ export default function Header() {
                     fill="transparent"
                     strokeWidth={2.5}
                   />
-                  <span className="absolute right-0 top-0 rounded-xl bg-blue-500 p-1 text-xs">
-                    12
+                  <span className="absolute right-0 top-1 size-4 rounded-full bg-blue-500 text-xs">
+                    {totalItem}
                   </span>
                 </button>
                 {state.isDropdownVisible && state.dropdownType === 'cart' && <DropdownCart />}
@@ -132,8 +134,8 @@ export default function Header() {
           </div>
         </div>
       </header>
-      <div className="w-full bg-gray-200/80 dark:bg-gray-950/80">
-        <div className="mx-2 flex items-center gap-8 bg-gray-300 px-2 py-4 text-black dark:bg-gray-800 dark:text-white">
+      <div className="w-full bg-white dark:bg-gray-950/80">
+        <div className="mx-2 flex items-center gap-8 bg-white px-2 py-4 text-black dark:bg-gray-800 dark:text-white">
           <div ref={refCatalog} className="relative flex w-[20vw] items-center gap-2">
             <button
               onMouseDown={() => dispatch({ type: 'TOGGLE_CATALOG' })}

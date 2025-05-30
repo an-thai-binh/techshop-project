@@ -1,18 +1,18 @@
 import { Middleware } from 'redux'
-import { RootState } from '@/shared/redux/types'
-
-const cartMiddleware: Middleware<object, RootState> = (storeAPI) => (next) => (action) => {
+const cartMiddleware: Middleware = (storeAPI) => (next) => (action) => {
   const result = next(action)
 
   if (
     typeof action === 'object' &&
     action !== null &&
     'type' in action &&
-    typeof action.type === 'string' &&
-    action.type.startsWith('cart/')
+    typeof action.type === 'string'
   ) {
-    const state = storeAPI.getState()
-    localStorage.setItem('cart', JSON.stringify(state.cart.items))
+    if (action.type.startsWith('cart/')) {
+      const state = storeAPI.getState()
+      // (storeAPI.dispatch as AppDispatch)(fetchCartFromApi())
+      localStorage.setItem('cart', JSON.stringify(state.cart.items))
+    }
   }
 
   return result

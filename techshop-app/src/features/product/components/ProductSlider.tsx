@@ -29,11 +29,12 @@ const ProductSlider = forwardRef<SlideRef, SlideProps>((_props, ref) => {
     <Swiper
       onSwiper={(swiper) => (swiperRef.current = swiper)}
       modules={[Navigation, Pagination]}
-      freeMode={true}
+      freeMode={false}
       spaceBetween={10}
-      slidesPerView={4}
+      slidesPerView={5}
       slidesPerGroup={1}
-      autoplay={true}
+      autoplay={false}
+      loop={false}
       breakpoints={{
         320: {
           navigation: true,
@@ -59,8 +60,7 @@ const ProductSlider = forwardRef<SlideRef, SlideProps>((_props, ref) => {
           spaceBetween: 5,
         },
       }}
-      loop={true}
-      centeredSlides={true}
+      centeredSlides={false}
       className="h-fit w-full cursor-pointer"
     >
       {_props.items?.map((item) => (

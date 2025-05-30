@@ -11,7 +11,7 @@ export default function Navigation() {
   return (
     <div
       className={
-        'sticky inset-0 bottom-0 z-50 w-full bg-gray-950/10 shadow-md shadow-gray-700 backdrop-blur-md sm:hidden'
+        'sticky inset-0 bottom-0 z-50 w-full bg-white/80 shadow-md shadow-gray-700 backdrop-blur-md sm:hidden'
       }
     >
       <div className={'flex h-fit flex-col justify-center'}>

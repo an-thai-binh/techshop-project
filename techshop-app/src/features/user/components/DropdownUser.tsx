@@ -17,7 +17,7 @@ export default function DropdownUser() {
         transition={{ duration: 0.3, ease: 'easeOut' }}
         style={{ transformOrigin: 'top' }}
         className={
-          'absolute right-10 top-16 z-40 h-fit w-[25vw] overflow-hidden rounded-md bg-gray-950/90 backdrop-blur-sm'
+          'absolute right-10 top-16 z-40 h-fit w-[25vw] overflow-hidden rounded-md bg-white/80 text-black backdrop-blur-sm dark:bg-gray-950/90 dark:text-white'
         }
       >
         <div className="flex size-full flex-col justify-center gap-2">
@@ -28,12 +28,12 @@ export default function DropdownUser() {
           <div className={'flex items-center bg-transparent px-2 py-1'}>
             <div
               className={
-                'flex size-full flex-col justify-center border border-gray-900/50 bg-gray-900/50'
+                'flex size-full flex-col justify-center border bg-white/50 dark:border-gray-900/50 dark:bg-gray-900/50'
               }
             >
               <div
                 className={
-                  'flex size-full items-center justify-between rounded-sm px-2 py-2 duration-300 hover:bg-gray-800'
+                  'flex size-full items-center justify-between rounded-sm px-2 py-2 duration-300 hover:bg-gray-300/80 dark:hover:bg-gray-800'
                 }
               >
                 <div className={'flex items-center'}>
@@ -43,7 +43,7 @@ export default function DropdownUser() {
               </div>
               <div
                 className={
-                  'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-800 active:scale-95'
+                  'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-300/80 active:scale-95 dark:hover:bg-gray-800'
                 }
               >
                 <div
@@ -63,7 +63,7 @@ export default function DropdownUser() {
               </div>
               <div
                 className={
-                  'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-800 active:scale-95'
+                  'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-300/80 active:scale-95 dark:hover:bg-gray-800'
                 }
               >
                 <div

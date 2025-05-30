@@ -11,6 +11,8 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
     void deleteByProductVariation(ProductVariation productVariation);
 
+    Optional<Inventory> findByProductVariationId(Long id);
+
     interface InventoryQuantityView {   // giúp truy vấn chỉ 1 thuộc hoặc nhiều thuộc tính xác định
         int getQuantity();
     }
