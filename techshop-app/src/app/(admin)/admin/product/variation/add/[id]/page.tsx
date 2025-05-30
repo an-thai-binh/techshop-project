@@ -268,12 +268,12 @@ export default function AddProductVariationPage() {
                     <h3 className="my-3 text-center text-3xl font-bold uppercase">Thêm biến thể sản phẩm</h3>
                     <div className="mx-3 p-3 bg-white shadow-md">
                         {success ?
-                            <div className="py-1 px-2 bg-green-100 w-fit mx-auto rounded-sm">
+                            <div className="mb-2 py-1 px-2 bg-green-100 w-fit mx-auto rounded-sm">
                                 <p className="text-center font-bold text-green-500">Thêm biến thể thành công</p>
                             </div>
                             :
                             formErrorMessage &&
-                            <div className="py-1 px-2 bg-red-100 w-fit mx-auto rounded-sm">
+                            <div className="mb-2 py-1 px-2 bg-red-100 w-fit mx-auto rounded-sm">
                                 <p className="ext-center font-bold text-red-500">Lỗi khi thêm biến thể: {formErrorMessage}</p>
                             </div>}
                         <p><b>Tên sản phẩm:</b> {product.productName}</p>
