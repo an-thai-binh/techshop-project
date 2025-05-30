@@ -7,7 +7,9 @@ import ProductListSlider from '@/features/product/components/ProductListSlider'
 import { ProductDataType } from '@/features/product/types/ProductType'
 import { CategoryType } from '@/features/categories/types/CategoriesType'
 import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAppDispatch } from '@/shared/redux/hook'
+import { setProducts } from '@/features/product/productSlice'
 
 type HomeProps = {
   categories: CategoryType[]
@@ -19,8 +21,11 @@ type HomeProps = {
   category?: []
 }
 export default function HomePage(_props: HomeProps) {
-  console.log(_props.products.gridProducts)
-  console.log(_props.categories)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(setProducts(_props.products.gridProducts.content))
+  })
+
   return (
     <AnimatePresence>
       <motion.div

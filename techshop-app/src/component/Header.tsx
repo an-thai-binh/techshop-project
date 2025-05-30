@@ -21,6 +21,7 @@ import AppInitializer from '@/component/AppInitializer'
 import { selectCartTotalItems } from '@/features/cart/cartSelectors'
 
 export default function Header() {
+  const [inputSearch, setInputSearch] = useState('')
   const [categories, setCategories] = useState<CategoryType[]>([])
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated)
   useEffect(() => {
@@ -55,6 +56,7 @@ export default function Header() {
                 type="text"
                 placeholder="Tìm kiếm sản phẩm"
                 className="peer w-full rounded-none bg-transparent px-2 py-1 font-semibold text-gray-950/50 outline-none placeholder:text-sm placeholder:font-semibold dark:text-white"
+                onChange={(e) => setInputSearch(e.target.value)}
               />
               <div className="flex items-center rounded-md peer-focus:animate-pulse hover:bg-gray-500/50">
                 <button className="p-2">
@@ -66,7 +68,9 @@ export default function Header() {
                 </button>
               </div>
             </div>
-            {state.isDropdownVisible && state.dropdownType === 'search' && <DropdownSearch />}
+            {state.isDropdownVisible && state.dropdownType === 'search' && (
+              <DropdownSearch inputSearch={inputSearch} />
+            )}
           </div>
           <div
             className={

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import { useUIContext } from '@/shared/context/UIContext'
 import { CategoryType } from '@/features/categories/types/CategoriesType'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/navigation'
 
 type ProductCatalogProps = {
   className?: string
@@ -11,6 +12,7 @@ type ProductCatalogProps = {
 
 export default function ProductCatalog(_props: ProductCatalogProps) {
   const { state, dispatch } = useUIContext()
+  const router = useRouter()
   const catalogRef = useRef<HTMLDivElement>(null)
   const handleClickOutside = (e: MouseEvent) => {
     if (
@@ -36,6 +38,7 @@ export default function ProductCatalog(_props: ProductCatalogProps) {
         <ul className="flex size-full flex-col gap-0 rounded-xl p-2">
           {_props.items?.map((category) => (
             <li
+              onClick={() => router.push(`/categories/${category.id}`)}
               key={category.id}
               className="group scale-100 transform cursor-pointer rounded-sm border-gray-500/10 p-2 transition-all ease-in-out hover:border-l-4 hover:bg-gray-500/10 active:scale-95"
             >

@@ -5,9 +5,11 @@ import ToggleThemeButton from '@/component/button/ToggleThemeButton'
 import { BanknotesIcon, UserIcon } from '@heroicons/react/24/outline'
 import { useAppDispatch } from '@/shared/redux/hook'
 import { removeTokenFromCookie } from '@/features/auth/authThunks'
+import { useRouter } from 'next/navigation'
 
 export default function DropdownUser() {
   const dispatch = useAppDispatch()
+  const router = useRouter()
   return createPortal(
     <AnimatePresence>
       <motion.div
@@ -42,6 +44,7 @@ export default function DropdownUser() {
                 <ToggleThemeButton />
               </div>
               <div
+                onClick={() => router.push('/auth/profile')}
                 className={
                   'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-300/80 active:scale-95 dark:hover:bg-gray-800'
                 }
