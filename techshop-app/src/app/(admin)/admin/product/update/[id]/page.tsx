@@ -87,6 +87,7 @@ export default function UpdateProductPage() {
                         sku={productVariation.sku}
                         basePrice={productDetail.productBasePrice}
                         priceChange={productVariation.variationPriceChange}
+                        quantity={productVariation.quantity}
                         imgUrl={matchedImage?.image.imgUrl || ""}
                       />
                     );
