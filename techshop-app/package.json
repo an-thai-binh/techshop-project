@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "api": "json-server --watch data/apple_product_full_data.json --port 5000"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
