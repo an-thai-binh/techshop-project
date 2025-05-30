@@ -1,5 +1,10 @@
 import React from 'react'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  return <div className={'flex h-screen items-center justify-center bg-gray-100'}>{children}</div>
+  return (
+    <div className="relative flex h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-blue-500 via-blue-200 to-gray-200">
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-white/30 via-white/5 to-transparent opacity-70 backdrop-blur-sm" />
+      <div className="relative z-10 w-full max-w-md">{children}</div>
+    </div>
+  )
 }

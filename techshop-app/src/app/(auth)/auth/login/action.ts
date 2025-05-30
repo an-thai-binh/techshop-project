@@ -39,7 +39,7 @@ export async function getUserProfile() {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    cache: 'no-store', // tránh cache auth
+    cache: 'no-store',
   })
 
   if (!res.ok) throw new Error('Failed to fetch')
