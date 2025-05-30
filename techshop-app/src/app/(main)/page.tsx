@@ -5,8 +5,8 @@ import { fetchAllProduct, fetchProductByCategoryId } from '@/api/ProductAPI'
 export default async function Home() {
   const [categories, hotProduct, sliderProduct, gridProduct] = await Promise.all([
     fetchCategories(),
-    fetchProductByCategoryId('1'),
-    fetchProductByCategoryId('2'),
+    fetchProductByCategoryId(1, 0, 10),
+    fetchProductByCategoryId(2, 0, 10),
     fetchAllProduct(),
   ])
   return (

@@ -1,8 +1,21 @@
 export interface ProductType {
   id: number
-  category_id: number
-  product_name: string
-  product_description: string
-  product_base_price: number
-  product_img_url: string
+  categoryName: string
+  productName: string
+  categoryId: number
+  productDescription: string
+  productBasePrice: number
+  productImgUrl: string
+}
+
+export interface ProductPageableType {
+  size: number
+  number: number
+  totalElements: number
+  totalPages: number
+}
+
+export interface ProductDataType {
+  content: ProductType[]
+  page: ProductPageableType
 }

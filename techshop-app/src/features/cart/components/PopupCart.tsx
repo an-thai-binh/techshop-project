@@ -3,9 +3,14 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 import { AnimatePresence, motion } from 'framer-motion'
 import CartListItem from '@/features/cart/components/CartListItem'
 import { useUIContext } from '@/shared/context/UIContext'
+import { useAppSelector } from '@/shared/redux/hook'
+import { selectCartTotalPrice } from '@/features/cart/cartSelectors'
+import { formatPrice } from '@/utils/CurrentyFormat'
 
 export default function PopupCart() {
   const { state, dispatch } = useUIContext()
+  const totalPrice = useAppSelector(selectCartTotalPrice)
+  console.log('totalPrice', totalPrice)
   return (
     <AnimatePresence>
       <motion.div
@@ -27,7 +32,9 @@ export default function PopupCart() {
               />
             </div>
             <div className={'flex items-center justify-center'}>
-              <h1 className="animate-bounce text-xl font-bold">GIỎ HÀNG</h1>
+              <h1 className="animate-bounce text-xl font-bold text-black dark:text-white">
+                GIỎ HÀNG
+              </h1>
             </div>
           </div>
           <hr className="mx-2" />
@@ -42,8 +49,10 @@ export default function PopupCart() {
           <hr className="mx-2" />
           <div className="flex flex-col gap-2 px-2 pb-2">
             <div className="flex justify-between">
-              <h1 className="text-md font-bold">TỔNG TIỀN</h1>
-              <span className="text-lg font-extrabold text-blue-700">0</span>
+              <h1 className="text-md font-bold text-black dark:text-white">TỔNG TIỀN</h1>
+              <span className="text-lg font-extrabold text-blue-700">
+                {formatPrice(totalPrice)}
+              </span>
             </div>
             <div className="jsutify-center flex w-full items-center">
               <button className="shadown-md w-full scale-100 transform rounded-md bg-blue-700/90 p-1.5 transition-all duration-300 hover:bg-red-600 active:scale-95">

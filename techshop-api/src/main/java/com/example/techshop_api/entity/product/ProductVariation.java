@@ -1,5 +1,6 @@
 package com.example.techshop_api.entity.product;
 
+import com.example.techshop_api.entity.cart.CartItem;
 import com.example.techshop_api.entity.choice.ChoiceValue;
 import com.example.techshop_api.entity.image.Image;
 import jakarta.persistence.*;

@@ -1,23 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchCartFromApi } from './cartThunks'
+import {
+  fetchAddItemCartFromApi,
+  fetchCartFromApi,
+  fetchDeleteAllItemCartFromApi,
+  fetchDeleteItemCartFromApi,
+  fetchRemoveItemCartFromApi,
+} from './cartThunks'
 import { CartItemType } from '@/features/cart/types/CartItemType'
 
 interface CartState {
   items: CartItemType[]
+  totalPriceCart: number
 }
 
 const initialState: CartState = {
   items: [],
+  totalPriceCart: 0,
 }
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<CartItemType>) {
-      const item = state.items.find((i) => i.productId === action.payload.productId)
-      if (item) item.quantity += action.payload.quantity
-      else state.items.push(action.payload)
+    addToCart(state, action: PayloadAction<number>) {
+      const item = state.items.find((i) => i.productId === action.payload)
+      if (item) {
+        item.quantity += 1
+      }
     },
     removeFromCart(state, action: PayloadAction<number>) {
       state.items = state.items.filter((i) => i.productId !== action.payload)
@@ -33,10 +42,26 @@ const cartSlice = createSlice({
       state.items = []
     },
   },
-  extraReducers: (builder) =>
-    builder.addCase(fetchCartFromApi.fulfilled, (state, action: PayloadAction<CartItemType[]>) => {
-      state.items = action.payload
-    }),
+  extraReducers: (builder) => {
+    builder.addCase(fetchCartFromApi.fulfilled, (state, action) => {
+      state.items = action.payload.items
+      state.totalPriceCart = action.payload.totalPriceCart
+    })
+
+    builder.addCase(fetchAddItemCartFromApi.fulfilled, (state, action) => {
+      console.log('Add item cart successful', action.payload)
+    })
+
+    builder.addCase(fetchRemoveItemCartFromApi.fulfilled, (state, action) => {
+      console.log('Remove item cart successful', action.payload)
+    })
+    builder.addCase(fetchDeleteItemCartFromApi.fulfilled, (state, action) => {
+      console.log('Delete item cart successful', action.payload)
+    })
+    builder.addCase(fetchDeleteAllItemCartFromApi.fulfilled, (state, action) => {
+      console.log('Delete all item cart successful', action.payload)
+    })
+  },
 })
 
 export const { addToCart, removeFromCart, updateQuantity, setCart, clearCart } = cartSlice.actions

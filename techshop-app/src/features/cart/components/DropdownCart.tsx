@@ -2,8 +2,12 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import CartListItem from '@/features/cart/components/CartListItem'
 import { createPortal } from 'react-dom'
+import { selectCartTotalPrice } from '@/features/cart/cartSelectors'
+import { useAppSelector } from '@/shared/redux/hook'
+import { formatPrice } from '@/utils/CurrentyFormat'
 
 export default function DropdownCart() {
+  const totalPrice = useAppSelector(selectCartTotalPrice)
   return createPortal(
     <AnimatePresence>
       <motion.div
@@ -13,24 +17,24 @@ export default function DropdownCart() {
         transition={{ duration: 0.3, ease: 'easeOut' }}
         style={{ transformOrigin: 'top' }}
         className={
-          'absolute right-10 top-16 z-40 h-[50vh] w-[50vw] overflow-hidden rounded-md bg-gray-950/90 backdrop-blur-sm'
+          'absolute right-10 top-16 z-40 hidden h-[50vh] w-[50vw] overflow-hidden rounded-md bg-white/90 backdrop-blur-sm dark:bg-gray-950/90 md:block'
         }
       >
         <div className="flex size-full flex-col justify-center gap-2">
           <div className="flex items-center justify-center pt-2">
-            <h1 className="text-xl font-bold">GIỎ HÀNG</h1>
+            <h1 className="text-xl font-bold text-black dark:text-white">GIỎ HÀNG</h1>
           </div>
           <hr className="mx-2" />
           <CartListItem />
           <hr className="mx-2" />
           <div className="flex flex-col gap-2 px-2 pb-2">
             <div className="flex justify-between">
-              <h1 className="text-md font-bold">TỔNG TIỀN</h1>
-              <span className="text-md font-bold text-red-700">0</span>
+              <h1 className="text-md font-bold text-black dark:text-white">TỔNG TIỀN</h1>
+              <span className="text-md font-bold text-blue-500">{formatPrice(totalPrice)}</span>
             </div>
             <div className="jsutify-center flex w-full items-center">
-              <button className="shadown-md w-full scale-100 transform rounded-md bg-red-700 p-1.5 transition-all duration-300 hover:bg-red-600 active:scale-95">
-                XEM GIỎ HÀNG
+              <button className="shadown-md w-full scale-100 transform rounded-md bg-blue-500 p-1.5 transition-all duration-300 hover:bg-blue-500/80 active:scale-95">
+                <h1 className={'font-semibold'}>XEM GIỎ HÀNG</h1>
               </button>
             </div>
           </div>

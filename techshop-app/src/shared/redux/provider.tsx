@@ -7,6 +7,5 @@ interface ProviderProps {
   children: React.ReactNode
 }
 export default function ProviderRedux({ children }: ProviderProps) {
-  console.log('Redux Render')
   return <Provider store={store}>{children}</Provider>
 }

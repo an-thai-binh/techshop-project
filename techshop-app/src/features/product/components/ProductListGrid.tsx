@@ -1,22 +1,22 @@
 'use client'
 import CardProduct from './CardProduct'
 import { ProductType } from '@/features/product/types/ProductType'
-import { CategoriesType } from '@/features/categories/types/CategoriesType'
+import { CategoryType } from '@/features/categories/types/CategoriesType'
 import { useEffect, useState } from 'react'
 import { ArrowDownCircleIcon, ArrowUpCircleIcon } from '@heroicons/react/24/outline'
 
 type ProductListGridProps = {
-  categories: CategoriesType[]
+  categories: CategoryType[]
   items: ProductType[]
 }
 
 export default function ProductListGrid(_props: ProductListGridProps) {
-  const [category, setCategory] = useState<CategoriesType | undefined>(_props.categories[0])
+  const [category, setCategory] = useState<CategoryType | undefined>(_props.categories[0])
   const [products, setProducts] = useState<ProductType[]>([])
   const [productsShow, setProductShow] = useState<ProductType[]>([])
   const [stateShow, setStateShow] = useState<boolean>(true)
   useEffect(() => {
-    const result = _props.items.filter((i) => category?.id == i.category_id)
+    const result = _props.items.filter((i) => category?.id == i.categoryId)
     setStateShow(true)
     setProducts(result)
   }, [_props.items, category?.id])
@@ -39,20 +39,22 @@ export default function ProductListGrid(_props: ProductListGridProps) {
         <div className="flex items-center justify-center rounded-md py-2">
           <div
             className={
-              'flex w-full items-center justify-between rounded-md bg-gray-300 dark:bg-gray-800'
+              'flex w-full items-center justify-between rounded-md bg-white dark:bg-gray-800'
             }
           >
             <div className={'flex items-center justify-center px-4 py-2'}>
-              <h1 className={'text-md text-gray-950 dark:text-white'}>{category?.category_name}</h1>
+              <h1 className={'text-md font-semibold text-gray-950 dark:text-white'}>
+                {category?.categoryName}
+              </h1>
             </div>
             <div className="flex justify-center gap-2 rounded-md px-4 py-2">
               {_props.categories?.map((c) => (
                 <div onClick={() => handleSetCategory(c.id)} key={c.id} className="w-full">
                   <input type="radio" name="category" className={'peer hidden'} />
                   <button
-                    className={`text-nowrap rounded-md px-2 py-1 duration-300 ${category?.id === c.id ? 'bg-blue-500/50' : 'bg-gray-700'}`}
+                    className={`text-nowrap rounded-md px-2 py-1 duration-300 ${category?.id === c.id ? 'bg-blue-500/90' : 'bg-gray-700'}`}
                   >
-                    {c.category_name}
+                    {c.categoryName}
                   </button>
                 </div>
               ))}
@@ -61,7 +63,7 @@ export default function ProductListGrid(_props: ProductListGridProps) {
         </div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {productsShow.map((item) => (
-            <CardProduct key={item.id} backgroundColor="bg-gray-100 dark:bg-gray-800" item={item} />
+            <CardProduct key={item.id} backgroundColor="bg-white dark:bg-gray-800" item={item} />
           ))}
         </div>
         <div className={'mt-2 flex items-center justify-center'}>

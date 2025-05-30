@@ -1,5 +1,6 @@
 package com.example.techshop_api.entity.user;
 
+import com.example.techshop_api.entity.cart.Cart;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -43,4 +44,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     List<Role> roleList;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    Cart cart;
 }

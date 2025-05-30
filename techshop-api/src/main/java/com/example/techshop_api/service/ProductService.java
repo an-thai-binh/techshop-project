@@ -65,6 +65,10 @@ public class ProductService {
                 .data(productDisplayResponses)
                 .build();
     }
+    public ApiResponse<Page<ProductDisplayResponse>> indexCategory(Long categoryId, Pageable pageable){
+        Page<ProductDisplayResponse> productDisplayResponses  = productRepository.findByCategoryId(categoryId, pageable);
+        return ApiResponse.<Page<ProductDisplayResponse>>builder().success(true).data(productDisplayResponses).build();
+    }
 
     public ApiResponse<ProductResponse> show(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
@@ -96,6 +100,8 @@ public class ProductService {
                 .data(productDetailResponse)
                 .build();
     }
+
+
 
     /**
      * tìm kiếm danh sách sản phẩm theo tên (sử dụng MATCH AGAINST với FULLTEXT index)
