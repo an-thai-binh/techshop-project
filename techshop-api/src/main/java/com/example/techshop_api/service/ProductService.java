@@ -226,8 +226,11 @@ public class ProductService {
                 .build();
     }
 
+    @Transactional
     public ApiResponse<Void> destroy(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
         try {
+            inventoryRepository.deleteByProductVariationIn(product.getProductVariationList());
             productRepository.deleteById(id);
         } catch (Exception e) {
             log.error(e.getMessage());

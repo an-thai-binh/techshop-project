@@ -7,6 +7,9 @@ import Link from "next/link";
 import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
+import ActionConfirmDialog from "./ActionConfirmDialog";
+import { headers } from "next/headers";
+import toast from "react-hot-toast";
 
 interface Product {
     id: string;
@@ -24,8 +27,11 @@ export default function ProductDataTable() {
     const [size, setSize] = useState<number>(10);
     const [sort, setSort] = useState<string>('id');
     const [direction, setDirection] = useState<string>('desc');
+    const [reload, setReload] = useState<boolean>(false);
     const [products, setProducts] = useState<Product[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
+    const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
+    const [deleteId, setDeleteId] = useState<string>("");
 
     useEffect(() => {
         axios.get('http://localhost:8080/techshop/product/display', {
@@ -52,13 +58,36 @@ export default function ProductDataTable() {
                     console.error('Error fetching products:', error.message);
                 }
             });
-    }, [token, page, size, sort, direction]);
+    }, [token, page, size, sort, direction, reload]);
+
+    const handleOnClickDeleteButton = (id: string) => {
+        setDeleteId(id);
+        setShowConfirmDialog(true);
+    }
+
+    const handleDeleteAction = async () => {
+        setShowConfirmDialog(false);
+        try {
+            const response = await axios.delete(`http://localhost:8080/techshop/product/${deleteId}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            if (response.data.success) {
+                setReload(prev => !prev);
+            }
+        } catch (error: any) {
+            const message = error.response?.data.message || error.message;
+            toast.error("Error deleting product: " + message);
+            throw new Error(message);
+        }
+    }
 
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1 },
-        { 
-            field: 'productImgUrl', 
-            headerName: 'Ảnh', 
+        {
+            field: 'productImgUrl',
+            headerName: 'Ảnh',
             flex: 1,
             renderCell: (params: GridRenderCellParams) => {
                 return <img src={params.row.productImgUrl} alt={params.row.productName} className="w-16 h-16 object-contain" />
@@ -66,24 +95,25 @@ export default function ProductDataTable() {
         },
         { field: 'categoryName', headerName: 'Danh mục', flex: 1 },
         { field: 'productName', headerName: 'Tên sản phẩm', flex: 5 },
-        { 
-            field: 'productBasePrice', 
-            headerName: 'Giá ban đầu', 
-            flex: 1 ,
+        {
+            field: 'productBasePrice',
+            headerName: 'Giá ban đầu',
+            flex: 1,
             renderCell: (params: GridRenderCellParams) => {
                 return formatVietNamCurrency(params.row.productBasePrice);
             }
         },
-        { 
-            field: 'actions', 
-            headerName: 'Thao tác', 
+        {
+            field: 'actions',
+            headerName: 'Thao tác',
             flex: 1,
             renderCell: (params: GridRenderCellParams) => {
                 return (
-                    <div>
+                    <div className="py-2 grid grid-cols-1 gap-1">
                         <Link href={`/admin/product/update/${params.row.id}`}>
-                            <button className="px-2 py-1 text-white font-bold bg-blue-400 hover:bg-blue-500 shadow-sm hover:shadow-lg">EDIT</button>
+                            <button className="px-2 py-1 min-w-[50px] text-white uppercase font-bold bg-blue-400 hover:bg-blue-500 shadow-sm hover:shadow-lg">Sửa</button>
                         </Link>
+                        <button onClick={() => handleOnClickDeleteButton(params.row.id)} className="px-2 py-1 min-w-[50px] text-white uppercase font-bold bg-red-400 hover:bg-red-500 shadow-sm hover:shadow-lg">Xoá</button>
                     </div>
                 );
             }
@@ -91,45 +121,53 @@ export default function ProductDataTable() {
     ]
 
     return (
-        <DataGrid
-            columns={columns}
-            rows={products}
-            rowCount={totalItems}
-            pageSizeOptions={[10, 15, 20]}
-            pagination
-            paginationMode="server"
-            initialState={{
-                pagination: {
-                    paginationModel: {
-                        pageSize: size,
-                        page: page
+        <>
+            <DataGrid
+                columns={columns}
+                rows={products}
+                rowCount={totalItems}
+                pageSizeOptions={[10, 15, 20]}
+                pagination
+                paginationMode="server"
+                initialState={{
+                    pagination: {
+                        paginationModel: {
+                            pageSize: size,
+                            page: page
+                        }
                     }
-                }
-            }}
-            onPaginationModelChange={(model) => {
-                console.log(model.page);
-                console.log(model.pageSize);
-                setPage(model.page);
-                setSize(model.pageSize);
-            }}
-            sortingMode="server"
-            onSortModelChange={(model) => { // [{field: 'fieldName', sort: 'asc'}]
-                setSort(model[0]?.field || 'id');
-                setDirection(model[0]?.sort || 'desc');
-            }}
-            getRowHeight={() => 'auto'}
-            sx={{
-                '& .MuiDataGrid-columnHeader': {
-                    fontFamily: 'Quicksand, sans-serif',
-                    fontSize: '16px'
-                },
-                '& .MuiDataGrid-cell': {
-                    fontFamily: 'Quicksand, sans-serif',
-                    fontSize: '16px',
-                    display: 'flex',
-                    alignItems: 'center'
-                }
-            }}
-        />
+                }}
+                onPaginationModelChange={(model) => {
+                    console.log(model.page);
+                    console.log(model.pageSize);
+                    setPage(model.page);
+                    setSize(model.pageSize);
+                }}
+                sortingMode="server"
+                onSortModelChange={(model) => { // [{field: 'fieldName', sort: 'asc'}]
+                    setSort(model[0]?.field || 'id');
+                    setDirection(model[0]?.sort || 'desc');
+                }}
+                getRowHeight={() => 'auto'}
+                sx={{
+                    '& .MuiDataGrid-columnHeader': {
+                        fontFamily: 'Quicksand, sans-serif',
+                        fontSize: '16px'
+                    },
+                    '& .MuiDataGrid-cell': {
+                        fontFamily: 'Quicksand, sans-serif',
+                        fontSize: '16px',
+                        display: 'flex',
+                        alignItems: 'center'
+                    }
+                }}
+            />
+            <ActionConfirmDialog
+                display={showConfirmDialog}
+                onClose={() => setShowConfirmDialog(false)}
+                onConfirm={handleDeleteAction}
+                description={`DELETE PRODUCT ID = ${deleteId}`}
+            />
+        </>
     );
 }
