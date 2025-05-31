@@ -190,8 +190,11 @@ public class ProductVariationService {
                 .build();
     }
 
+    @Transactional
     public ApiResponse<Void> destroy(Long id) {
+        ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
         try {
+            inventoryRepository.deleteByProductVariation(productVariation);
             productVariationRepository.deleteById(id);
         } catch (Exception e) {
             log.error(e.getMessage());

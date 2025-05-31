@@ -9,10 +9,12 @@ import {
 import Link from 'next/link'
 import AppInitializer from '@/component/AppInitializer'
 import React from 'react'
+import { Toaster } from 'react-hot-toast'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="flex h-screen flex-col-reverse lg:flex-row">
         <div className="basis-1/12 bg-gray-800 md:h-full lg:basis-2/12">
           <div className="flex w-full flex-row items-center lg:flex-col">

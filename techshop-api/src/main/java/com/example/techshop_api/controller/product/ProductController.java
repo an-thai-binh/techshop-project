@@ -82,14 +82,14 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
-    @GetMapping("/searchList")
-    public ResponseEntity<ApiResponse<List<ProductResponse>>> searchList(@RequestParam String query) {
-        ApiResponse<List<ProductResponse>> apiResponse = productService.searchList(query);
+    @GetMapping("/display/searchList")
+    public ResponseEntity<ApiResponse<List<ProductDisplayResponse>>> searchList(@RequestParam String query) {
+        ApiResponse<List<ProductDisplayResponse>> apiResponse = productService.searchList(query);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
-    @GetMapping("/searchPage")
-    public ResponseEntity<ApiResponse<Page<ProductResponse>>> searchPage(
+    @GetMapping("/display/searchPage")
+    public ResponseEntity<ApiResponse<Page<ProductDisplayResponse>>> searchPage(
             @RequestParam String query,
             @RequestParam int page,
             @RequestParam int size,
@@ -98,7 +98,7 @@ public class ProductController {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page, size, sortBy);
-        ApiResponse<Page<ProductResponse>> apiResponse = productService.searchPage(query, pageable);
+        ApiResponse<Page<ProductDisplayResponse>> apiResponse = productService.searchPage(query, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

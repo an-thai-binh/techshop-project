@@ -17,17 +17,15 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             value = "SELECT p.id AS id, c.id AS categoryId, c.category_name AS categoryName, p.product_name AS productName, " +
                     "p.product_description AS productDescription, p.product_base_price AS productBasePrice, i.img_url AS productImgUrl" +
                     " FROM product p " +
-                    " JOIN product_image pi ON p.id = pi.product_id" +
-                    " JOIN image i ON pi.image_id = i.id  " +
-                    " JOIN category c ON p.category_id = c.id" +
-                    " WHERE pi.is_first = TRUE"
+                    " LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE" +
+                    " LEFT JOIN image i ON pi.image_id = i.id  " +
+                    " JOIN category c ON p.category_id = c.id"
             ,
             countQuery = "SELECT COUNT(*)" +
                     " FROM product p " +
-                    " JOIN product_image pi ON p.id = pi.product_id" +
-                    " JOIN image i ON pi.image_id = i.id  " +
-                    " JOIN category c ON p.category_id = c.id" +
-                    " WHERE pi.is_first = TRUE"
+                    " LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE" +
+                    " LEFT JOIN image i ON pi.image_id = i.id  " +
+                    " JOIN category c ON p.category_id = c.id"
             ,
             nativeQuery = true)
     Page<ProductDisplayResponse> findAllProductsDisplay(Pageable pageable);
@@ -43,19 +41,18 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                 i.img_url AS productImgUrl
             FROM product p
             JOIN category c ON p.category_id = c.id
-            JOIN product_image pi ON p.id = pi.product_id
-            JOIN image i ON pi.image_id = i.id
-            WHERE pi.is_first = TRUE
-              AND c.id = :categoryId
+            LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE
+            JOIN image i ON pi.image_id = i.id                      
+            WHERE c.id = :categoryId
             """,
             countQuery = """
-                    SELECT COUNT(*) FROM product p
-                    JOIN category c ON p.category_id = c.id
-                    JOIN product_image pi ON p.id = pi.product_id
-                    JOIN image i ON pi.image_id = i.id
-                    WHERE pi.is_first = TRUE
-                      AND c.id = :categoryId
-                    """,
+            SELECT COUNT(*) 
+            FROM product p
+            LEFT JOIN category c ON p.category_id = c.id
+            LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE
+            JOIN image i ON pi.image_id = i.id
+            WHERE c.id = :categoryId
+            """,
             nativeQuery = true)
     Page<ProductDisplayResponse> findByCategoryId(Long categoryId, Pageable pageable);
 
@@ -65,8 +62,17 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * @param query từ khoá
      * @return List<Product>
      */
-    @Query(value = "SELECT * FROM product WHERE MATCH(product_name) AGAINST (?1 IN NATURAL LANGUAGE MODE)", nativeQuery = true)
-    List<Product> searchByProductName(String query);
+    @Query(
+            value = """
+            SELECT p.id AS id, c.id AS categoryId, c.category_name AS categoryName, p.product_name AS productName, p.product_description AS productDescription, p.product_base_price AS productBasePrice, i.img_url AS productImgUrl
+            FROM product p
+            LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE
+            LEFT JOIN image i ON pi.image_id = i.id
+            JOIN category c ON p.category_id = c.id
+            WHERE MATCH(p.product_name) AGAINST (?1 IN NATURAL LANGUAGE MODE)
+            """,
+            nativeQuery = true)
+    List<ProductDisplayResponse> searchByProductName(String query);
 
     /**
      * Tìm kiếm danh sách sản phẩm theo tên (với fulltext index)
@@ -75,7 +81,24 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
      * @param pageable Pageable instance
      * @return Page<Product><
      */
-    @Query(value = "SELECT * FROM product WHERE MATCH(product_name) AGAINST (?1 IN NATURAL LANGUAGE MODE)", nativeQuery = true)
-    Page<Product> searchByProductName(String query, Pageable pageable);
+    @Query(
+            value = """
+            SELECT p.id AS id, c.id AS categoryId, c.category_name AS categoryName, p.product_name AS productName, p.product_description AS productDescription, p.product_base_price AS productBasePrice, i.img_url AS productImgUrl
+            FROM product p
+            LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE
+            LEFT JOIN image i ON pi.image_id = i.id
+            JOIN category c ON p.category_id = c.id
+            WHERE MATCH(p.product_name) AGAINST (?1 IN NATURAL LANGUAGE MODE)
+            """,
+            countQuery = """
+            SELECT COUNT(*)
+            FROM product p
+            LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE
+            LEFT JOIN image i ON pi.image_id = i.id
+            JOIN category c ON p.category_id = c.id
+            WHERE MATCH(p.product_name) AGAINST (?1 IN NATURAL LANGUAGE MODE)
+            """,
+            nativeQuery = true)
+    Page<ProductDisplayResponse> searchByProductName(String query, Pageable pageable);
 
 }

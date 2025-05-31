@@ -106,14 +106,13 @@ public class ProductService {
     /**
      * tìm kiếm danh sách sản phẩm theo tên (sử dụng MATCH AGAINST với FULLTEXT index)
      * @param query từ khoá tìm kiếm
-     * @return List<ProductResponse>
+     * @return List<ProductDisplayResponse>
      */
-    public ApiResponse<List<ProductResponse>> searchList(String query) {
-        List<Product> products = productRepository.searchByProductName(query);
-        List<ProductResponse> productResponses = products.stream().map(productMapper::toProductResponse).toList();
-        return ApiResponse.<List<ProductResponse>>builder()
+    public ApiResponse<List<ProductDisplayResponse>> searchList(String query) {
+        List<ProductDisplayResponse> products = productRepository.searchByProductName(query);
+        return ApiResponse.<List<ProductDisplayResponse>>builder()
                 .success(true)
-                .data(productResponses)
+                .data(products)
                 .build();
     }
 
@@ -121,14 +120,13 @@ public class ProductService {
      * tìm kiếm danh sách sản phẩm theo tên (sử dụng MATCH AGAINST với FULLTEXT index)
      * @param query từ khoá tìm kiếm
      * @param pageable Pageable instance
-     * @return Page<ProductResponse>
+     * @return List<ProductDisplayResponse>
      */
-    public ApiResponse<Page<ProductResponse>> searchPage(String query, Pageable pageable) {
-        Page<Product> products = productRepository.searchByProductName(query, pageable);
-        Page<ProductResponse> productResponses = products.map(productMapper::toProductResponse);
-        return ApiResponse.<Page<ProductResponse>>builder()
+    public ApiResponse<Page<ProductDisplayResponse>> searchPage(String query, Pageable pageable) {
+        Page<ProductDisplayResponse> products = productRepository.searchByProductName(query, pageable);
+        return ApiResponse.<Page<ProductDisplayResponse>>builder()
                 .success(true)
-                .data(productResponses)
+                .data(products)
                 .build();
     }
 
@@ -226,8 +224,11 @@ public class ProductService {
                 .build();
     }
 
+    @Transactional
     public ApiResponse<Void> destroy(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
         try {
+            inventoryRepository.deleteByProductVariationIn(product.getProductVariationList());
             productRepository.deleteById(id);
         } catch (Exception e) {
             log.error(e.getMessage());
