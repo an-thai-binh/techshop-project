@@ -44,6 +44,18 @@ export default function UpdateProductPage() {
     fetchToken();
   }, [id, token]);
 
+  const onDeleteVariationSuccess = (deletedId: string) => {
+    setProductDetail(prev => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        productVariationList: prev.productVariationList.filter(
+          variation => variation.id !== deletedId
+        )
+      };
+    });
+  };
+
   return (
     <>
       {errorMessage ? <AdminError message={errorMessage} />
@@ -89,6 +101,7 @@ export default function UpdateProductPage() {
                         priceChange={productVariation.variationPriceChange}
                         quantity={productVariation.quantity}
                         imgUrl={matchedImage?.image.imgUrl || ""}
+                        onDeleteVariationSuccess={onDeleteVariationSuccess}
                       />
                     );
                   })

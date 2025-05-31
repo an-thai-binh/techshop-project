@@ -10,6 +10,7 @@ import { useAppSelector } from "@/shared/redux/hook";
 import ActionConfirmDialog from "./ActionConfirmDialog";
 import { headers } from "next/headers";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 interface Product {
     id: string;
@@ -90,7 +91,7 @@ export default function ProductDataTable() {
             headerName: 'Ảnh',
             flex: 1,
             renderCell: (params: GridRenderCellParams) => {
-                return <img src={params.row.productImgUrl} alt={params.row.productName} className="w-16 h-16 object-contain" />
+                return <Image src={params.row.productImgUrl} alt={params.row.productName} width={64} height={64} className="w-16 h-16 object-contain" />
             }
         },
         { field: 'categoryName', headerName: 'Danh mục', flex: 1 },
