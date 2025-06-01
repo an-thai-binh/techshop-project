@@ -1,10 +1,14 @@
+'use client'
 import AdditionFloatingButton from '@/component/admin/AdditionFloatingButton'
-import ProductDataTable from '@/component/admin/ProductDataTable'
+const ProductDataTable = dynamic(() => import('@/component/admin/ProductDataTable'), {
+  ssr: false,
+})
 import { FunnelIcon } from '@heroicons/react/20/solid'
+import dynamic from 'next/dynamic'
 
-export const metadata = {
-  title: 'Product Manager',
-}
+// export const metadata = {
+//   title: 'Product Manager',
+// }
 
 export default function AdminProductPage() {
   return (

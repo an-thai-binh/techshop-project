@@ -19,15 +19,14 @@ export default function CardProduct(_props: CartItemProps) {
       <div
         className={`sm:h[40vh] xl:[50vh] relative flex h-[35vh] shadow-md ring-2 ring-white/10 duration-300 hover:ring-white lg:h-[45vh] ${_props.className} cursor-pointer rounded-md text-black dark:text-white`}
       >
-        <div className="flex size-full flex-col items-center justify-between gap-2 p-2">
-          <div className="relative flex h-[20vh] w-full items-center justify-center overflow-hidden rounded-md bg-white sm:h-[20vh] md:h-[30vh] lg:h-[30vh]">
+        <div className="flex w-full flex-col items-center justify-between gap-2 p-2">
+          <div className="relative flex aspect-[3/4] w-full items-center justify-center overflow-hidden rounded-md bg-white">
             <Image
               src={_props.item.productImgUrl}
-              layout="fill"
-              sizes={'auto'}
-              objectFit="contain"
+              fill
+              sizes={'100%'}
               alt={`Hình ảnh ${_props.item.productName}`}
-              className="scale-100 transform rounded-md transition duration-500 hover:scale-110"
+              className="scale-100 transform rounded-md object-contain transition duration-500 hover:scale-110"
             />
           </div>
           <div className="flex flex-col justify-center gap-1">

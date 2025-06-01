@@ -6,13 +6,17 @@ import { useActionState, useEffect, useRef } from 'react'
 import { toast } from 'sonner'
 import { register } from '@/app/(auth)/auth/action'
 
-interface Props {
-  searchParams: {
-    [key: string]: string | undefined
-  }
-}
+// interface RegisterPageProps {
+//   searchParams: {
+//     [key: string]: string | undefined
+//   }
+// }
 
-export default function RegisterPage({ searchParams }: Props) {
+export default function RegisterPage({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined }
+}) {
   const next = searchParams?.next || '/auth/login'
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)

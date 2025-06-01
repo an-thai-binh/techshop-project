@@ -36,22 +36,46 @@ const ImageSlider = () => {
     >
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={'/image/AppleiPhone.jpg'} alt="img_1" layout="fill" objectFit="cover" />
+          <Image
+            src={'/image/AppleiPhone.jpg'}
+            sizes={'100%'}
+            alt="img_1"
+            fill
+            className={'object-cover'}
+          />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={'/image/img_2.jpg'} alt="img_2" layout="fill" objectFit="cover" />
+          <Image
+            src={'/image/img_2.jpg'}
+            alt="img_2"
+            sizes={'100%'}
+            fill
+            className={'object-cover'}
+          />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={'/image/img_3.jpg'} alt="img_3" layout="fill" objectFit="cover" />
+          <Image
+            src={'/image/img_3.jpg'}
+            alt="img_3"
+            sizes={'100%'}
+            fill
+            className={'object-cover'}
+          />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="relative size-full">
-          <Image src={'/image/img_4.jpg'} alt="img_4" layout="fill" objectFit="cover" />
+          <Image
+            src={'/image/img_4.jpg'}
+            alt="img_4"
+            sizes={'100%'}
+            fill
+            className={'object-cover'}
+          />
         </div>
       </SwiperSlide>
     </Swiper>
