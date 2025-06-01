@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
-    Optional<InventoryQuantityView> findByProductVariation(ProductVariation productVariation);
+    Optional<InventoryQuantityView> getQuantityViewByProductVariation(ProductVariation productVariation);
 
     void deleteByProductVariation(ProductVariation productVariation);
 

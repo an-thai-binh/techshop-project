@@ -4,7 +4,9 @@ import com.example.techshop_api.dto.request.product.ProductVariationCreationRequ
 import com.example.techshop_api.dto.request.product.ProductVariationUpdateRequest;
 import com.example.techshop_api.dto.request.product.ProductVariationWithValuesRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.image.ImageResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
+import com.example.techshop_api.dto.response.product.ProductVariationFullResponse;
 import com.example.techshop_api.dto.response.product.ProductVariationResponse;
 import com.example.techshop_api.entity.choice.ChoiceValue;
 import com.example.techshop_api.entity.image.Image;
@@ -14,6 +16,7 @@ import com.example.techshop_api.entity.product.Product;
 import com.example.techshop_api.entity.product.ProductVariation;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
+import com.example.techshop_api.mapper.ImageMapper;
 import com.example.techshop_api.mapper.InventoryMapper;
 import com.example.techshop_api.mapper.ProductMapper;
 import com.example.techshop_api.mapper.ProductVariationMapper;
@@ -48,6 +51,7 @@ public class ProductVariationService {
     ProductMapper productMapper;
     ProductVariationMapper productVariationMapper;
     InventoryMapper inventoryMapper;
+    ImageMapper imageMapper;
     SKUGenerator skuGenerator;
 
     public ApiResponse<Page<ProductVariationResponse>> index(Pageable pageable) {
@@ -69,6 +73,18 @@ public class ProductVariationService {
         return ApiResponse.<ProductVariationResponse>builder()
                 .success(true)
                 .data(productVariationResponse)
+                .build();
+    }
+
+    public ApiResponse<ProductVariationFullResponse> showFull(Long id) {
+        ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
+        ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
+        ImageResponse imageResponse = imageMapper.toImageResponse(productVariation.getImage());
+        int quantity = inventoryRepository.getQuantityViewByProductVariation(productVariation).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND)).getQuantity();
+        ProductVariationFullResponse productVariationFullResponse = productVariationMapper.toProductVariationFullResponse(productResponse, imageResponse, quantity, productVariation);
+        return ApiResponse.<ProductVariationFullResponse>builder()
+                .success(true)
+                .data(productVariationFullResponse)
                 .build();
     }
 
@@ -98,6 +114,9 @@ public class ProductVariationService {
         List<ChoiceValue> unorderChoiceValueList = choiceValueRepository.findAllById(choiceValueIdList);
         List<ChoiceValue> choiceValueList = getOrderedChoiceValueList(choiceValueIdList, unorderChoiceValueList);
         String sku = skuGenerator.generateSKU(product.getId(), choiceValueList);
+        if(productVariationRepository.existsBySku(sku)) {
+            throw new AppException(ErrorCode.PRODUCT_VARIATION_ALREADY_EXISTS);
+        }
         Image image = checkImageUpload(product, request.getImageId());
         ProductVariation productVariation = productVariationMapper.toProductVariation(product, image, choiceValueList, sku, request);
         Inventory inventory = inventoryMapper.toInventory(productVariation, request.getQuantity());
@@ -180,6 +199,28 @@ public class ProductVariationService {
             productVariation = productVariationRepository.save(productVariation);
         } catch (Exception e) {
             log.error(e.getMessage());
+            throw new AppException(ErrorCode.UPDATE_FAILED);
+        }
+        ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
+        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productResponse, productVariation);
+        return ApiResponse.<ProductVariationResponse>builder()
+                .success(true)
+                .data(productVariationResponse)
+                .build();
+    }
+
+    @Transactional
+    public ApiResponse<ProductVariationResponse> patch(Long id, int variationPriceChange, int quantity, Long imageId) {
+        ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
+        Image image = imageRepository.findById(imageId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        Inventory inventory = inventoryRepository.findByProductVariationId(productVariation.getId()).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND));
+        inventory.setQuantity(quantity);
+        productVariation.setImage(image);
+        productVariation.setVariationPriceChange(variationPriceChange);
+        try {
+            productVariation = productVariationRepository.save(productVariation);
+            inventoryRepository.save(inventory);
+        } catch (Exception e) {
             throw new AppException(ErrorCode.UPDATE_FAILED);
         }
         ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());

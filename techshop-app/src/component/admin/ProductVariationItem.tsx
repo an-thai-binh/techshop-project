@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useAppSelector } from "@/shared/redux/hook";
 import { selectToken } from "@/features/auth/authSelectors";
+import Link from "next/link";
 
 interface ProductVariationItemProps {
     id: string;
@@ -55,7 +56,9 @@ export default function ProductVariationItem({ id, sku, basePrice, priceChange, 
                     <p>Tồn kho: <span className="font-bold">{quantity}</span></p>
                 </div>
                 <div className="flex flex-col">
-                    <PencilSquareIcon className="text-gray-500 hover:text-green-600 size-9 mb-1 cursor-pointer" />
+                    <Link href={`/admin/product/variation/update/${id}`}>
+                        <PencilSquareIcon className="text-gray-500 hover:text-green-600 size-9 mb-1 cursor-pointer" />
+                    </Link>
                     <TrashIcon className="text-gray-500 hover:text-red-500 size-9 mt-1 cursor-pointer" onClick={() => setShowConfirmDialog(true)} />
                 </div>
             </div>

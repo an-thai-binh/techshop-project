@@ -4,12 +4,12 @@ import com.example.techshop_api.dto.request.product.ProductVariationCreationRequ
 import com.example.techshop_api.dto.request.product.ProductVariationUpdateRequest;
 import com.example.techshop_api.dto.request.product.ProductVariationWithValuesRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.product.ProductVariationFullResponse;
 import com.example.techshop_api.dto.response.product.ProductVariationResponse;
 import com.example.techshop_api.service.ProductVariationService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -48,6 +48,13 @@ public class ProductVariationController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
+    @GetMapping("/{id}/full")
+    @PreAuthorize("hasAuthority('product:view')")
+    public ResponseEntity<ApiResponse<ProductVariationFullResponse>> showFull(@PathVariable Long id) {
+        ApiResponse<ProductVariationFullResponse> apiResponse = productVariationService.showFull(id);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
     @PostMapping
     @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> store(@RequestBody ProductVariationCreationRequest request) {
@@ -65,6 +72,13 @@ public class ProductVariationController {
     @PreAuthorize("hasAuthority('product:update')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> update(@PathVariable Long id, @RequestBody ProductVariationUpdateRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.update(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:update')")
+    public ResponseEntity<ApiResponse<ProductVariationResponse>> patch(@PathVariable Long id, @RequestParam int variationPriceChange, @RequestParam int quantity, @RequestParam Long imageId) {
+        ApiResponse<ProductVariationResponse> apiResponse = productVariationService.patch(id, variationPriceChange, quantity, imageId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

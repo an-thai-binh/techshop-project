@@ -8,7 +8,6 @@ import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import ActionConfirmDialog from "./ActionConfirmDialog";
-import { headers } from "next/headers";
 import toast from "react-hot-toast";
 import Image from "next/image";
 

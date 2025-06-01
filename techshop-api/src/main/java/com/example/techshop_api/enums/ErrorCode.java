@@ -21,6 +21,7 @@ public enum ErrorCode {
     INSERT_FAILED("Insert Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     UPDATE_FAILED("Update Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     DELETE_FAILED("Delete Failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    PRODUCT_VARIATION_ALREADY_EXISTS("Product Variation with those choice values already exists", HttpStatus.BAD_REQUEST),
     USER_ALREADY_EXISTS("User Already Exists", HttpStatus.BAD_REQUEST),
     EMAIL_ALREADY_BIND("Email Already Bind", HttpStatus.BAD_REQUEST),
     WRONG_PASSWORD("Wrong Password", HttpStatus.BAD_REQUEST),
