@@ -8,6 +8,7 @@ public interface CartItemDisplayResponse {
     Double getProductFinalPrice(); // basePrice + changePrice
     String getProductTotalPrice(); // basePrice * quantity
     String getProductDescription();
+    String getSku();
     Integer getQuantity();
     String getProductImgUrl();
 }

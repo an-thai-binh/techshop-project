@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { useUIContext } from '@/shared/context/UIContext'
 import { CategoryType } from '@/features/categories/types/CategoriesType'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type ProductCatalogProps = {
   className?: string
@@ -12,7 +12,6 @@ type ProductCatalogProps = {
 
 export default function ProductCatalog(_props: ProductCatalogProps) {
   const { state, dispatch } = useUIContext()
-  const router = useRouter()
   const catalogRef = useRef<HTMLDivElement>(null)
   const handleClickOutside = (e: MouseEvent) => {
     if (
@@ -37,25 +36,26 @@ export default function ProductCatalog(_props: ProductCatalogProps) {
       <div className="flex w-full flex-col items-start justify-start gap-1">
         <ul className="flex size-full flex-col gap-0 rounded-xl p-2">
           {_props.items?.map((category) => (
-            <li
-              onClick={() => router.push(`/categories/${category.id}`)}
-              key={category.id}
-              className="group scale-100 transform cursor-pointer rounded-sm border-gray-500/10 p-2 transition-all ease-in-out hover:border-l-4 hover:bg-gray-500/10 active:scale-95"
-            >
-              <div className={'flex items-center justify-between'}>
-                <div className={'flex items-center'}>
-                  <h2 className={'text-md font-semibold'}>{category.categoryName}</h2>
+            <Link key={category.id} href={`/categories/${category.id}`}>
+              <li
+                key={category.id}
+                className="group scale-100 transform cursor-pointer rounded-sm border-gray-500/10 p-2 transition-all ease-in-out hover:border-l-4 hover:bg-gray-500/10 active:scale-95"
+              >
+                <div className={'flex items-center justify-between'}>
+                  <div className={'flex items-center'}>
+                    <h2 className={'text-md font-semibold'}>{category.categoryName}</h2>
+                  </div>
+                  <div className={'flex items-center'}>
+                    <ChevronRightIcon
+                      className={
+                        'size-4 rotate-90 transform transition-all duration-500 ease-in-out group-hover:rotate-0 group-hover:animate-pulse'
+                      }
+                      strokeWidth={2.5}
+                    />
+                  </div>
                 </div>
-                <div className={'flex items-center'}>
-                  <ChevronRightIcon
-                    className={
-                      'size-4 rotate-90 transform transition-all duration-500 ease-in-out group-hover:rotate-0 group-hover:animate-pulse'
-                    }
-                    strokeWidth={2.5}
-                  />
-                </div>
-              </div>
-            </li>
+              </li>
+            </Link>
           ))}
         </ul>
       </div>

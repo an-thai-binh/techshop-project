@@ -5,6 +5,7 @@ import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/re
 import { ProductType } from '@/features/product/types/ProductType'
 import Link from 'next/link'
 import { CategoryType } from '@/features/categories/types/CategoriesType'
+import Loading from '@/component/feedback/Loading'
 
 type HotProductProps = {
   category: CategoryType
@@ -20,7 +21,7 @@ export default function HotProduct(_props: HotProductProps) {
   }
   return (
     <div className="flex w-full justify-center px-2">
-      <div className="flex h-full w-full flex-col rounded-md bg-blue-400 px-2 py-1 shadow-md">
+      <div className="flex h-full w-full flex-col rounded-md bg-blue-500 px-2 py-1 shadow-md ring-2 ring-white/10">
         <div className="flex h-fit w-full items-center justify-between gap-2 py-2">
           <div className="flex h-fit gap-2">
             <div className="flex items-center justify-center">
@@ -65,7 +66,7 @@ export default function HotProduct(_props: HotProductProps) {
           </div>
         </div>
         <div className="flex w-full grow items-center justify-center">
-          <ProductSlider backgroundColor={'bg-blue-500/90'} ref={sliderRef} items={_props.items} />
+          <ProductSlider className={'bg-white text-black'} ref={sliderRef} items={_props.items} />
         </div>
         <Link href={`/categories/${_props.category.id}`}>
           <div className="flex w-full items-center justify-center">

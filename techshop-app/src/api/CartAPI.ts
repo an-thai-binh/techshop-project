@@ -12,7 +12,7 @@ export async function fetchCart() {
 
 export async function fetchAddItemCart(productVariationId: number) {
   return await apiFetch<{ success: boolean; message: string }>(
-    `http://localhost:8080/techshop/cart/add?productVariationId=${productVariationId}`,
+    `http://localhost:8080/techshop/cartItem/add?productVariationId=${productVariationId}`,
     {
       method: 'POST',
     },
@@ -21,7 +21,7 @@ export async function fetchAddItemCart(productVariationId: number) {
 
 export async function fetchRemoveItemCart(cartItemId: number) {
   return await apiFetch<{ success: boolean; message: string }>(
-    `http://localhost:8080/techshop/cart/remove?cartItemId=${cartItemId}`,
+    `http://localhost:8080/techshop/cartItem/subtract?cartItemId=${cartItemId}`,
     {
       method: 'POST',
     },
@@ -29,7 +29,7 @@ export async function fetchRemoveItemCart(cartItemId: number) {
 }
 export async function fetchDeleteItemCart(cartItemId: number) {
   return await apiFetch<{ success: boolean; message: string }>(
-    `http://localhost:8080/techshop/cart/delete?cartItemId=${cartItemId}`,
+    `http://localhost:8080/techshop/cartItem/delete?cartItemId=${cartItemId}`,
     {
       method: 'POST',
     },
@@ -37,7 +37,7 @@ export async function fetchDeleteItemCart(cartItemId: number) {
 }
 export async function fetchDeleteAllItemCart() {
   return await apiFetch<{ success: boolean; message: string }>(
-    `http://localhost:8080/techshop/cart/removeAll}`,
+    `http://localhost:8080/techshop/cartItem/deleteAll}`,
     {
       method: 'POST',
     },

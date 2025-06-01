@@ -5,17 +5,20 @@ interface OverlayState {
   isSidebarVisible: boolean
   isCatalogVisible: boolean
   isPopupVisible: boolean
+
+  isOverlayVisible: boolean
+}
+interface OverlayType {
   modalType: 'login' | 'register' | 'forgot' | null
   dropdownType: 'search' | 'cart' | 'user' | null
   popupType: 'cart' | null
-  isOverlayVisible: boolean
 }
 
 interface ThemeState {
   theme: 'light' | 'dark'
 }
 
-export type State = OverlayState & ThemeState
+export type State = OverlayState & ThemeState & OverlayType
 
 type ThemeAction =
   | { type: 'SET_THEME'; payload: { theme: State['theme'] } }
@@ -24,7 +27,7 @@ type ThemeAction =
 type OverlayAction =
   | { type: 'OPEN_MODAL'; payload: { modalType: State['modalType'] } }
   | { type: 'CLOSE_MODAL' }
-  | { type: 'OPEN_DROPDOWN'; payload: { dropdownType: State['dropdownType'] } }
+  | { type: 'TOGGLE_DROPDOWN'; payload: { dropdownType: State['dropdownType'] } }
   | { type: 'CLOSE_DROPDOWN' }
   | { type: 'OPEN_POPUP'; payload: { popupType: State['popupType'] } }
   | { type: 'CLOSE_POPUP' }

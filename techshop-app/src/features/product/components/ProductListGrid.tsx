@@ -63,7 +63,7 @@ export default function ProductListGrid(_props: ProductListGridProps) {
         </div>
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {productsShow.map((item) => (
-            <CardProduct key={item.id} backgroundColor="bg-white dark:bg-gray-800" item={item} />
+            <CardProduct key={item.id} className="bg-white dark:bg-gray-800" item={item} />
           ))}
         </div>
         <div className={'mt-2 flex items-center justify-center'}>

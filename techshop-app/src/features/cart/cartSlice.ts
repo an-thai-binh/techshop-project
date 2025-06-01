@@ -4,7 +4,7 @@ import {
   fetchCartFromApi,
   fetchDeleteAllItemCartFromApi,
   fetchDeleteItemCartFromApi,
-  fetchRemoveItemCartFromApi,
+  fetchSubtractItemCartFromApi,
 } from './cartThunks'
 import { CartItemType } from '@/features/cart/types/CartItemType'
 
@@ -52,7 +52,7 @@ const cartSlice = createSlice({
       console.log('Add item cart successful', action.payload)
     })
 
-    builder.addCase(fetchRemoveItemCartFromApi.fulfilled, (state, action) => {
+    builder.addCase(fetchSubtractItemCartFromApi.fulfilled, (state, action) => {
       console.log('Remove item cart successful', action.payload)
     })
     builder.addCase(fetchDeleteItemCartFromApi.fulfilled, (state, action) => {

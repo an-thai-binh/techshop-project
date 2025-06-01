@@ -1,7 +1,24 @@
+'use client'
+
 import Link from 'next/link'
 import { MailIcon } from '@heroui/shared-icons'
+import { useActionState, useEffect } from 'react'
+import { toast } from 'sonner'
+import { forgotPassword } from '@/app/(auth)/auth/action'
 
 export default function ForgotPasswordPage() {
+  const [state, formAction, isPending] = useActionState(forgotPassword, {
+    success: false,
+    message: '',
+  })
+
+  useEffect(() => {
+    if (state.message) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      state.success ? toast.success(state.message) : toast.error(state.message)
+    }
+  }, [state])
+
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md space-y-6 rounded-xl bg-white/50 p-8 shadow-lg backdrop-blur-sm transition hover:shadow-xl">
@@ -10,7 +27,7 @@ export default function ForgotPasswordPage() {
           Nhập email để nhận hướng dẫn đặt lại mật khẩu
         </p>
 
-        <form className="space-y-4">
+        <form action={formAction} className="space-y-4">
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
               <MailIcon className="h-5 w-5" />
@@ -26,9 +43,10 @@ export default function ForgotPasswordPage() {
 
           <button
             type="submit"
-            className="w-full rounded bg-blue-600 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+            disabled={isPending}
+            className="w-full rounded bg-blue-600 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
           >
-            Gửi yêu cầu đặt lại mật khẩu
+            {isPending ? 'Đang gửi...' : 'Gửi yêu cầu đặt lại mật khẩu'}
           </button>
         </form>
 

@@ -1,11 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
-    domains: ['cdn2.fptshop.com.vn', 'www.apple.com', 'store.storeimages.cdn-apple.com', 'binhan.io.vn'],
+    domains: [
+      'cdn2.fptshop.com.vn',
+      'www.apple.com',
+      'store.storeimages.cdn-apple.com',
+      'binhan.io.vn',
+    ],
   },
   experimental: {
-    serverActions: true,
+    serverActions: {},
   },
   async rewrites() {
     return [

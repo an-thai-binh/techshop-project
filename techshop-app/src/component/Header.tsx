@@ -48,7 +48,7 @@ export default function Header() {
           >
             <div
               onClick={() =>
-                dispatch({ type: 'OPEN_DROPDOWN', payload: { dropdownType: 'search' } })
+                dispatch({ type: 'TOGGLE_DROPDOWN', payload: { dropdownType: 'search' } })
               }
               className={'flex h-full w-full items-center p-1'}
             >
@@ -82,7 +82,7 @@ export default function Header() {
                 <button
                   className="relative rounded-full p-2 hover:bg-gray-500/50"
                   onMouseDown={() =>
-                    dispatch({ type: 'OPEN_DROPDOWN', payload: { dropdownType: 'cart' } })
+                    dispatch({ type: 'TOGGLE_DROPDOWN', payload: { dropdownType: 'cart' } })
                   }
                 >
                   <ShoppingCartIcon
@@ -102,7 +102,7 @@ export default function Header() {
                 <>
                   <button
                     onClick={() =>
-                      dispatch({ type: 'OPEN_DROPDOWN', payload: { dropdownType: 'user' } })
+                      dispatch({ type: 'TOGGLE_DROPDOWN', payload: { dropdownType: 'user' } })
                     }
                     className="rounded-full p-2 hover:bg-gray-500/50"
                   >

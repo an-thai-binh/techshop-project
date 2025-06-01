@@ -35,7 +35,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class SecurityConfig {
     final String[] POST_PUBLIC_ENDPOINTS = {"/auth/login", "/auth/register"};
-    final String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**"};
+    final String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**", "/cartItem/**"};
     @Value("${jwt.secret-key}")
     String jwtSecretKey;
 
