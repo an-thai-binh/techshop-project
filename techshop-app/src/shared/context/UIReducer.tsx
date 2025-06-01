@@ -1,4 +1,4 @@
-import { Action, State } from '@/types/ui'
+import { Action, State } from '@/shared/context/UITypes'
 
 export const initialState: State = {
   theme: 'light',
@@ -40,12 +40,12 @@ export const UIReducer = (state: State, action: Action): State => {
         modalType: null,
         isOverlayVisible: false,
       }
-    case 'OPEN_DROPDOWN':
+    case 'TOGGLE_DROPDOWN':
       return {
         ...state,
-        isDropdownVisible: true,
+        isDropdownVisible: !state.isDropdownVisible,
         dropdownType: action.payload.dropdownType,
-        isOverlayVisible: true,
+        isOverlayVisible: !state.isOverlayVisible,
       }
     case 'CLOSE_DROPDOWN':
       return {

@@ -2,7 +2,6 @@ import SliderDetailProduct from '@/features/product/components/SliderDetailProdu
 import ProductDescription from '@/features/product/components/ProductDescription'
 import {
   ArrowPathRoundedSquareIcon,
-  ArrowRightIcon,
   BanknotesIcon,
   ChevronRightIcon,
   InboxIcon,
@@ -125,42 +124,6 @@ export default async function ProductDetail({ params }: { params: { productId: n
                 </div>
               </div>
             </div>
-            {/*<hr className={'my-4 border-gray-700'} />*/}
-            {/*<div className={'flex w-full items-center'}>*/}
-            {/*  <div className={'flex w-full items-center justify-between'}>*/}
-            {/*    <div className={'flex items-center'}>*/}
-            {/*      <h1 className={'text-lg font-bold'}>Thông số kĩ thật</h1>*/}
-            {/*    </div>*/}
-            {/*    <div className={'flex items-center gap-2'}>*/}
-            {/*      <div className={'flex items-center justify-center'}>*/}
-            {/*        <h1 className={'text-xs'}>Xem tất cả</h1>*/}
-            {/*      </div>*/}
-            {/*      <div className={'flex items-center'}>*/}
-            {/*        <div className={'size-4 rounded-full'}>*/}
-            {/*          <ArrowRightIcon className={'size-4'} fill={'transparent'} />*/}
-            {/*        </div>*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
-            {/*<hr className={'my-4 border-gray-700'} />*/}
-            {/*<div className={'flex w-full items-center'}>*/}
-            {/*  <div className={'flex w-full items-center justify-between'}>*/}
-            {/*    <div className={'flex items-center'}>*/}
-            {/*      <h1 className={'text-lg font-bold'}>Video liên quan</h1>*/}
-            {/*    </div>*/}
-            {/*    <div className={'flex items-center gap-2'}>*/}
-            {/*      <div className={'flex items-center justify-center'}>*/}
-            {/*        <h1 className={'text-xs'}>Xem tất cả</h1>*/}
-            {/*      </div>*/}
-            {/*      <div className={'flex items-center'}>*/}
-            {/*        <div className={'size-4 rounded-full'}>*/}
-            {/*          <ArrowRightIcon className={'size-4'} fill={'transparent'} />*/}
-            {/*        </div>*/}
-            {/*      </div>*/}
-            {/*    </div>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
           </div>
           <ProductChoice productDetail={productDetail} productId={productId} />
         </div>

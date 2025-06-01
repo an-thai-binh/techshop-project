@@ -19,8 +19,8 @@ export default function ProductListSlider(_props: ProductListSlider) {
     slideRef.current?.slidePrev()
   }
   return (
-    <div className="flex w-full justify-center px-2">
-      <div className="flex h-full w-full flex-col rounded-md border border-gray-500/10 bg-gray-100 px-2 py-1 shadow-md backdrop-blur-md dark:bg-gray-500/10">
+    <div className="my-2 flex w-full justify-center px-2">
+      <div className="flex h-full w-full flex-col rounded-md bg-gray-100 px-2 py-1 ring-2 ring-white/90 drop-shadow-sm dark:bg-gray-500/10">
         <div className="flex h-fit w-full items-center justify-between gap-2 py-2">
           <div className="flex h-fit gap-2">
             <div className="flex items-center justify-center">
@@ -28,26 +28,6 @@ export default function ProductListSlider(_props: ProductListSlider) {
                 {_props.category?.categoryName}
               </h1>
             </div>
-            {/* <div className="flex items-center">
-                    <div className="flex justify-center gap-2">
-                        <div className="size-10 bg-yellow-500 px-2 py-1 rounded-xl">
-                          <div className="text-center text-black font-bold text-xs">11</div>
-                          <div className="text-center text-black font-light text-[0.5rem]">Ngày</div>
-                        </div>
-                        <div className="size-10 bg-yellow-500 px-2 py-1 rounded-xl">
-                          <div className="text-center text-black font-bold text text-xs">2</div>
-                          <div className="text-center text-black font-light text-[0.5rem]">Giờ</div>
-                        </div>
-                        <div className="size-10 bg-yellow-500 px-2 py-1 rounded-xl">
-                          <div className="text-center text-black font-bold text-xs">11</div>
-                          <div className="text-center text-black font-light text-[0.5rem]">Phút</div>
-                        </div>
-                        <div className="size-10 bg-yellow-500 px-2 py-1 rounded-xl">
-                          <div className="text-center text-black font-bold text-xs">11</div>
-                          <div className="text-center text-black font-light text-[0.5rem]">Giây</div>
-                        </div>
-                    </div>
-                  </div> */}
           </div>
           <div className="mx-2 my-1 hidden justify-between sm:hidden md:flex lg:flex">
             <button
@@ -65,25 +45,13 @@ export default function ProductListSlider(_props: ProductListSlider) {
           </div>
         </div>
         <div className="flex w-full grow items-center justify-center">
-          {/*<ProductSlider*/}
-          {/*  backgroundColor={'bg-white dark:bg-gray-800'}*/}
-          {/*  ref={slideRef}*/}
-          {/*  items={_props.items.filter((r) => r.id === _props.category?.id)}*/}
-          {/*/>*/}
           {sortData !== null && (
             <ProductSlider
               items={sortData}
-              backgroundColor={'bg-white dark:bg-gray-800'}
+              className={'bg-white dark:bg-gray-800'}
               ref={slideRef}
             />
           )}
-          {/*{_props.items.filter(res => _props.category?.id === res.categoryId).length > 0 && (*/}
-          {/*  <ProductSlider*/}
-          {/*    items={sortData}*/}
-          {/*    backgroundColor={'bg-white dark:bg-gray-800'}*/}
-          {/*    ref={slideRef}*/}
-          {/*  />*/}
-          {/*)}*/}
         </div>
         <Link href={`/categories/${_props.category?.id}`}>
           <div className="flex w-full items-center justify-center">

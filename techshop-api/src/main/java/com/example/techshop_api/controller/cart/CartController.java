@@ -47,7 +47,7 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<CartResponse>> insert(@RequestBody CartCreationRequest request) {
+    public ResponseEntity<ApiResponse<CartResponse>> store(@RequestBody CartCreationRequest request) {
         ApiResponse<CartResponse> apiResponse = cartService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
@@ -68,32 +68,32 @@ public class CartController {
     }
 
 
-    @PostMapping("/add")
-    public ResponseEntity<ApiResponse<Void>> add(@RequestParam Long productVariationId) {
-        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
-        ApiResponse<Void> apiResponse = cartService.add(userId, productVariationId);
-        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<ApiResponse<Void>> add(@RequestParam Long productVariationId) {
+//        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+//        ApiResponse<Void> apiResponse = cartService.add(userId, productVariationId);
+//        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+//    }
 
-    @PostMapping("/remove")
-    public ResponseEntity<ApiResponse<Void>> remove(@RequestParam Long cartItemId) {
-        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
-        ApiResponse<Void> apiResponse = cartService.remove(userId, cartItemId);
-        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-    }
+//    @PostMapping("/remove")
+//    public ResponseEntity<ApiResponse<Void>> remove(@RequestParam Long cartItemId) {
+//        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+//        ApiResponse<Void> apiResponse = cartService.remove(userId, cartItemId);
+//        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+//    }
 
-    @PostMapping("/delete")
-    public ResponseEntity<ApiResponse<Void>> delete(@RequestParam Long cartItemId) {
-        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
-        ApiResponse<Void> apiResponse = cartService.delete(userId, cartItemId);
-        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-    }
+//    @PostMapping("/delete")
+//    public ResponseEntity<ApiResponse<Void>> delete(@RequestParam Long cartItemId) {
+//        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+//        ApiResponse<Void> apiResponse = cartService.delete(userId, cartItemId);
+//        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+//    }
 
-    @PostMapping("/delete-all")
-    public ResponseEntity<ApiResponse<Void>> deleteAll() {
-        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
-        ApiResponse<Void> apiResponse = cartService.deleteAll(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-    }
+//    @PostMapping("/delete-all")
+//    public ResponseEntity<ApiResponse<Void>> deleteAll() {
+//        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+//        ApiResponse<Void> apiResponse = cartService.deleteAll(userId);
+//        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+//    }
 
 }

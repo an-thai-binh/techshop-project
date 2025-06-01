@@ -77,7 +77,6 @@ export default function HomePage(_props: HomeProps) {
               />
             </div>
           </div>
-          {_props.categories.map((r) => r.id)}
         </div>
         <HotProductSlider
           items={_props.products.hotProducts.content}

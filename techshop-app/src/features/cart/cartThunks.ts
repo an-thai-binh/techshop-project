@@ -7,6 +7,7 @@ import {
   fetchRemoveItemCart,
 } from '@/api/CartAPI'
 import { CartType } from '@/features/cart/types/CartType'
+import { toast } from 'sonner'
 
 export const fetchCartFromApi = createAsyncThunk<CartType>('cart/fetchCart', async () => {
   const { success, data } = await fetchCart()
@@ -18,16 +19,17 @@ export const fetchCartFromApi = createAsyncThunk<CartType>('cart/fetchCart', asy
 
 export const fetchAddItemCartFromApi = createAsyncThunk<string, number>(
   'cart/addItemCart',
-  async (productId, { dispatch }) => {
-    const { success, message } = await fetchAddItemCart(productId)
+  async (productVariationId, { dispatch }) => {
+    const { success, message } = await fetchAddItemCart(productVariationId)
     if (!success) {
-      console.error('fetchAddCartFromApi Thunk', message)
+      // console.error('fetchAddCartFromApi Thunk', message)
+      toast.error(message)
     }
     dispatch(fetchCartFromApi())
     return message
   },
 )
-export const fetchRemoveItemCartFromApi = createAsyncThunk<string, number>(
+export const fetchSubtractItemCartFromApi = createAsyncThunk<string, number>(
   'cart/removeItemCart',
   async (cartItemId, { dispatch }) => {
     const { success, message } = await fetchRemoveItemCart(cartItemId)

@@ -5,11 +5,10 @@ import ToggleThemeButton from '@/component/button/ToggleThemeButton'
 import { BanknotesIcon, UserIcon } from '@heroicons/react/24/outline'
 import { useAppDispatch } from '@/shared/redux/hook'
 import { removeTokenFromCookie } from '@/features/auth/authThunks'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function DropdownUser() {
   const dispatch = useAppDispatch()
-  const router = useRouter()
   return createPortal(
     <AnimatePresence>
       <motion.div
@@ -43,27 +42,28 @@ export default function DropdownUser() {
                 </div>
                 <ToggleThemeButton />
               </div>
-              <div
-                onClick={() => router.push('/auth/profile')}
-                className={
-                  'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-300/80 active:scale-95 dark:hover:bg-gray-800'
-                }
-              >
+              <Link href={'/profile'}>
                 <div
                   className={
-                    'flex size-full items-center transition-all duration-300 ease-in-out group-hover:opacity-0'
+                    'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-300/80 active:scale-95 dark:hover:bg-gray-800'
                   }
                 >
-                  <h1 className={'text-md font-semibold'}>Thông tin cá nhân</h1>
+                  <div
+                    className={
+                      'flex size-full items-center transition-all duration-300 ease-in-out group-hover:opacity-0'
+                    }
+                  >
+                    <h1 className={'text-md font-semibold'}>Thông tin cá nhân</h1>
+                  </div>
+                  <div
+                    className={
+                      'flex size-full scale-100 transform items-center justify-end duration-300 group-hover:absolute group-hover:-translate-x-1/2 group-hover:animate-pulse group-active:absolute group-active:-translate-x-1/2'
+                    }
+                  >
+                    <UserIcon className={'size-5'} fill={'transparent'} strokeWidth={3} />
+                  </div>
                 </div>
-                <div
-                  className={
-                    'flex size-full scale-100 transform items-center justify-end duration-300 group-hover:absolute group-hover:-translate-x-1/2 group-hover:animate-pulse group-active:absolute group-active:-translate-x-1/2'
-                  }
-                >
-                  <UserIcon className={'size-5'} fill={'transparent'} strokeWidth={3} />
-                </div>
-              </div>
+              </Link>
               <div
                 className={
                   'group relative flex size-full scale-100 transform items-center justify-between rounded-sm px-2 py-2 transition-all duration-300 hover:bg-gray-300/80 active:scale-95 dark:hover:bg-gray-800'

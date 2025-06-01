@@ -9,6 +9,7 @@ interface ProductsState {
   productDetail: ProductDetailType | null
   choices: ChoiceType[]
   selectedChoices: Record<number, number>
+  activeChoiceValueIds: number[]
 }
 
 const initialState: ProductsState = {
@@ -16,6 +17,7 @@ const initialState: ProductsState = {
   productDetail: null,
   choices: [],
   selectedChoices: {},
+  activeChoiceValueIds: [],
 }
 
 const productSlice = createSlice({
@@ -34,6 +36,9 @@ const productSlice = createSlice({
     setSelectedChoice: (state, action: PayloadAction<Record<number, number>>) => {
       state.selectedChoices = action.payload
     },
+    setActiveChoiceValueIds: (state, action: PayloadAction<number[]>) => {
+      state.activeChoiceValueIds = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchChoiceGetByProductIdFromApi.fulfilled, (state, action) => {
@@ -42,6 +47,11 @@ const productSlice = createSlice({
   },
 })
 
-export const { setProducts, setProductsDetail, setChoiceGetByProduct, setSelectedChoice } =
-  productSlice.actions
+export const {
+  setProducts,
+  setProductsDetail,
+  setChoiceGetByProduct,
+  setSelectedChoice,
+  setActiveChoiceValueIds,
+} = productSlice.actions
 export default productSlice.reducer
