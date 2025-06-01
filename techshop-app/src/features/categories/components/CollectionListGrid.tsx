@@ -46,7 +46,7 @@ export default function CollectionListGrid(_props: CollectionProductProps) {
               <CardProduct
                 key={product.id}
                 item={product}
-                backgroundColor={'bg-white dark:bg-gray-800'}
+                className={'bg-white dark:bg-gray-800'}
               />
             ))}
           </AnimationMotion>

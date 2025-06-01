@@ -5,6 +5,7 @@ export interface CartItemType {
   productName: string
   productFinalPrice: number
   productTotalPrice: string
+  sku: string
   productDescription: string
   quantity: number
   productImgUrl: string

@@ -5,6 +5,7 @@ import com.example.techshop_api.dto.request.cart.CartItemUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.cart.CartItemResponse;
 import com.example.techshop_api.service.CartItemService;
+import com.example.techshop_api.utils.SecurityUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -45,12 +46,43 @@ public class CartItemController {
     }
 
     @PostMapping()
-    public ResponseEntity<ApiResponse<CartItemResponse>> insert(
+    public ResponseEntity<ApiResponse<CartItemResponse>> store(
             @RequestParam Long userId,
             @RequestBody CartItemCreationRequest request
     ) {
         ApiResponse<CartItemResponse> apiResponse = cartItemService.store(userId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<ApiResponse<Void>> add(@RequestParam Long productVariationId) {
+        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+        ApiResponse<Void> apiResponse = cartItemService.add(userId, productVariationId);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+    @PostMapping("/addWithQuantity")
+    public ResponseEntity<ApiResponse<Void>> addWithQuantity(@RequestBody CartItemCreationRequest request) {
+        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+        ApiResponse<Void> apiResponse = cartItemService.addWithQuantity(userId, request);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+    @PostMapping("/subtract")
+    public ResponseEntity<ApiResponse<Void>> remove(@RequestParam Long cartItemId) {
+        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+        ApiResponse<Void> apiResponse = cartItemService.subtract(userId, cartItemId);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+    @PostMapping("/delete")
+    public ResponseEntity<ApiResponse<Void>> delete(@RequestParam Long cartItemId) {
+        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+        ApiResponse<Void> apiResponse = cartItemService.delete(userId, cartItemId);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+    @PostMapping("/deleteAll")
+    public ResponseEntity<ApiResponse<Void>> deleteAll() {
+        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+        ApiResponse<Void> apiResponse = cartItemService.deleteAll(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PutMapping("/{id}")
@@ -61,10 +93,19 @@ public class CartItemController {
         ApiResponse<CartItemResponse> apiResponse = cartItemService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
+    @PutMapping("/updateQuantity")
+    public ResponseEntity<ApiResponse<Void>> updateQuantity(
+            @RequestBody CartItemUpdateRequest request
+    ) {
+        Long userId = Long.parseLong(SecurityUtil.getCurrentUserId());
+        ApiResponse<Void> apiResponse = cartItemService.updateQuantity(userId, request);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
         ApiResponse<Void> apiResponse = cartItemService.destroy(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
+
 }

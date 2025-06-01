@@ -1,37 +1,59 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useAppSelector } from '@/shared/redux/hook'
-import { selectProducts } from '@/features/product/productSelectors'
+import { ProductType } from '@/features/product/types/ProductType'
 
-export interface ProductResponse {
-  id: number
-  categoryId: number
-  productName: string
-  productDescription: string
-  productBasePrice: number
+interface SearchPageParams {
+  page?: number
+  size?: number
+  sort?: string
+  direction?: 'asc' | 'desc'
 }
 
-export function useSearch(query: string) {
-  const [results, setResults] = useState<ProductResponse[]>([])
-  const products = useAppSelector(selectProducts)
+export function useSearch(query: string, pageParams?: SearchPageParams) {
+  const [results, setResults] = useState<ProductType[]>([])
+  const [loading, setLoading] = useState(false)
+  const [total, setTotal] = useState<number>(0)
 
   useEffect(() => {
     if (!query.trim()) {
       setResults([])
+      setTotal(0)
       return
     }
 
     const timeout = setTimeout(() => {
-      const keyword = query.toLowerCase()
-      const filtered = products.filter((product) =>
-        product.productName.toLowerCase().includes(keyword),
-      )
-      setResults(filtered)
+      const controller = new AbortController()
+      const signal = controller.signal
+
+      const fetchSearch = async () => {
+        setLoading(true)
+        try {
+          const { page = 0, size = 10, sort = 'id', direction = 'desc' } = pageParams || {}
+          const url = `http://localhost:8080/techshop/product/display/searchPage?query=${encodeURIComponent(query)}&page=${page}&size=${size}&sort=${sort}&direction=${direction}`
+
+          const res = await fetch(url, { signal })
+          const json = await res.json()
+          setResults(json.data?.content || [])
+          setTotal(json.data?.totalElements || 0)
+        } catch (err) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          if (err.name !== 'AbortError') {
+            console.error('Search API error:', err)
+          }
+        } finally {
+          setLoading(false)
+        }
+      }
+
+      fetchSearch()
+
+      return () => controller.abort()
     }, 300) // debounce 300ms
 
     return () => clearTimeout(timeout)
-  }, [query, products])
+  }, [query, pageParams])
 
-  return { results, loading: false }
+  return { results, total, loading }
 }

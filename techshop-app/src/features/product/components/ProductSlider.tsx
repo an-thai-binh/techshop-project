@@ -12,7 +12,7 @@ import { ProductType } from '@/features/product/types/ProductType'
 
 type SlideProps = {
   children?: React.ReactNode
-  backgroundColor?: string
+  className?: string
   items: ProductType[]
 }
 export type SlideRef = {
@@ -61,11 +61,11 @@ const ProductSlider = forwardRef<SlideRef, SlideProps>((_props, ref) => {
         },
       }}
       centeredSlides={false}
-      className="h-fit w-full cursor-pointer"
+      className="size-full cursor-pointer"
     >
       {_props.items?.map((item) => (
-        <SwiperSlide key={item.id}>
-          <CartItem backgroundColor={_props.backgroundColor} item={item} />
+        <SwiperSlide className={'px-1 py-2'} key={item.id}>
+          <CartItem className={_props.className} item={item} />
         </SwiperSlide>
       ))}
     </Swiper>

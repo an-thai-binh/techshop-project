@@ -20,7 +20,7 @@ export const fetchTokenFromCookie = createAsyncThunk<string>(
 export const removeTokenFromCookie = createAsyncThunk(
   'auth/removeTokenCookie',
   async (_, { dispatch }) => {
-    document.cookie = 'token=;max-age=0'
+    document.cookie = 'token=; Max-Age=0; Path=/; SameSite=Lax'
     dispatch(clearToken())
   },
 )

@@ -11,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 
 public class CartItemCreationRequest {
     Long productVariationId;
-
+    int quantity;
 }

@@ -6,21 +6,21 @@ import { HeartIcon } from '@heroicons/react/24/solid'
 import { useAppDispatch } from '@/shared/redux/hook'
 import { fetchAddItemCartFromApi } from '@/features/cart/cartThunks'
 import { formatPrice } from '@/utils/CurrentyFormat'
+import BuyCardButton from '@/component/button/BuyCardButton'
 
 type CartItemProps = {
-  backgroundColor?: string
+  className?: string
   item: ProductType
 }
 export default function CardProduct(_props: CartItemProps) {
   const dispatch = useAppDispatch()
   return (
-    // href={`/product-detail/${_props.item.productName}`}
     <Link href={`/product-detail/${_props.item.id}`}>
       <div
-        className={`sm:h[40vh] xl:[50vh] relative flex h-[35vh] lg:h-[45vh] ${_props.backgroundColor} cursor-pointer rounded-md text-black dark:text-white`}
+        className={`sm:h[40vh] xl:[50vh] relative flex h-[35vh] shadow-md ring-2 ring-white/10 duration-300 hover:ring-white lg:h-[45vh] ${_props.className} cursor-pointer rounded-md text-black dark:text-white`}
       >
-        <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-between gap-2 p-2">
-          <div className="relative flex h-[20vh] w-full overflow-hidden rounded-md sm:h-[20vh] md:h-[30vh] lg:h-[30vh]">
+        <div className="flex size-full flex-col items-center justify-between gap-2 p-2">
+          <div className="relative flex h-[20vh] w-full items-center justify-center overflow-hidden rounded-md bg-white sm:h-[20vh] md:h-[30vh] lg:h-[30vh]">
             <Image
               src={_props.item.productImgUrl}
               layout="fill"
@@ -38,7 +38,7 @@ export default function CardProduct(_props: CartItemProps) {
           </div>
           <div className="flex w-full justify-center gap-1 sm:w-full sm:flex-col-reverse sm:justify-between">
             <div className="flex w-full items-center justify-center">
-              <h1 className="text-sm font-extrabold">
+              <h1 className="text-md font-extrabold">
                 <span>{formatPrice(_props.item.productBasePrice)}</span>
               </h1>
             </div>
@@ -66,14 +66,7 @@ export default function CardProduct(_props: CartItemProps) {
                 </button>
               </div>
               <div className="flex items-center justify-center">
-                {/*<button className="box-content size-full rounded-md border border-gray-300 bg-gray-300 px-4 py-2 dark:bg-gray-300/30">*/}
-                {/*  <h1 className="text-sm font-bold">MUA NGAY</h1>*/}
-                {/*</button>*/}
-                <button className="size-full rounded-full">
-                  <div className="border-gray flex items-center justify-center rounded-md border border-gray-300/50 bg-gray-300 p-2 hover:bg-gray-300/50 dark:border-gray-700/50 dark:bg-gray-700 dark:hover:bg-gray-700/50">
-                    <h1 className="text-sm font-bold">MUA NGAY</h1>
-                  </div>
-                </button>
+                <BuyCardButton />
               </div>
               <div className="hidden items-center sm:flex md:flex lg:flex">
                 <button

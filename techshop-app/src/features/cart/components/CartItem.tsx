@@ -6,7 +6,7 @@ import { useAppDispatch } from '@/shared/redux/hook'
 import {
   fetchAddItemCartFromApi,
   fetchDeleteItemCartFromApi,
-  fetchRemoveItemCartFromApi,
+  fetchSubtractItemCartFromApi,
 } from '@/features/cart/cartThunks'
 type CartItemProps = {
   item: CartItemType
@@ -29,7 +29,7 @@ export default function CartItem(_props: CartItemProps) {
             className="scale-100 transform rounded-md transition duration-500 hover:scale-110"
           />
         </div>
-        <div className="flex grow flex-col gap-2">
+        <div className="flex grow flex-col justify-between gap-1">
           <div className="flex grow items-start justify-between">
             <div className="flex items-center">
               <h1 className="text-md font-bold">{_props.item.productName}</h1>
@@ -41,11 +41,16 @@ export default function CartItem(_props: CartItemProps) {
               <XMarkIcon className={'size-5'} />
             </div>
           </div>
+          <div className={'flex items-start'}>
+            <h1 className={'text-xs font-semibold text-black dark:text-white'}>
+              SKU: <span>{_props.item.sku}</span>
+            </h1>
+          </div>
           <div className="flex h-fit items-center justify-between rounded-sm">
             <div className="flex items-center justify-center gap-0 border border-gray-500">
               <div className="flex items-center justify-center">
                 <button
-                  onClick={() => dispatch(fetchRemoveItemCartFromApi(_props.item.id))}
+                  onClick={() => dispatch(fetchSubtractItemCartFromApi(_props.item.id))}
                   className="box-content bg-gray-500 px-2"
                 >
                   -
@@ -56,7 +61,7 @@ export default function CartItem(_props: CartItemProps) {
               </div>
               <div className="flex items-center justify-center">
                 <button
-                  onClick={() => dispatch(fetchAddItemCartFromApi(_props.item.productId))}
+                  onClick={() => dispatch(fetchAddItemCartFromApi(_props.item.productVariationId))}
                   className="box-content bg-gray-500 px-2"
                 >
                   +
