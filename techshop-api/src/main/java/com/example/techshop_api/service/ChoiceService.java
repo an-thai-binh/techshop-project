@@ -7,13 +7,16 @@ import com.example.techshop_api.dto.response.choice.ChoiceResponse;
 import com.example.techshop_api.dto.response.choice.ChoiceValueResponse;
 import com.example.techshop_api.dto.response.choice.ChoiceWithValuesResponse;
 import com.example.techshop_api.entity.choice.Choice;
+import com.example.techshop_api.entity.image.Image;
+import com.example.techshop_api.entity.inventory.Inventory;
 import com.example.techshop_api.entity.product.Product;
+import com.example.techshop_api.entity.product.ProductVariation;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.ChoiceMapper;
 import com.example.techshop_api.mapper.ChoiceValueMapper;
-import com.example.techshop_api.repository.ChoiceRepository;
-import com.example.techshop_api.repository.ProductRepository;
+import com.example.techshop_api.mapper.InventoryMapper;
+import com.example.techshop_api.repository.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,8 +35,12 @@ import java.util.List;
 public class ChoiceService {
     ChoiceRepository choiceRepository;
     ProductRepository productRepository;
+    ProductVariationRepository productVariationRepository;
+    InventoryRepository inventoryRepository;
+    ImageRepository imageRepository;
     ChoiceMapper choiceMapper;
     ChoiceValueMapper choiceValueMapper;
+    InventoryMapper inventoryMapper;
 
     public ApiResponse<Page<ChoiceResponse>> index(Pageable pageable) {
         Page<Choice> choiceList = choiceRepository.findAll(pageable);
@@ -79,6 +86,7 @@ public class ChoiceService {
     @Transactional
     public ApiResponse<ChoiceResponse> store(ChoiceCreationRequest request) {
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        deleteOldProductVariations(product);
         Choice choice = choiceMapper.toChoice(product, request);
         try {
             choice = choiceRepository.save(choice);
@@ -91,6 +99,35 @@ public class ChoiceService {
                 .success(true)
                 .data(choiceResponse)
                 .build();
+    }
+
+    /**
+     * xoá các biến thể cũ của sản phẩm và thêm biến thể mặc định
+     * @param product product
+     */
+    private void deleteOldProductVariations(Product product) {
+        List<ProductVariation> productVariationList = product.getProductVariationList();
+        try {
+            // xoá trong inventory
+            inventoryRepository.deleteByProductVariationIn(productVariationList);
+            // xoá danh sách variation
+            product.getProductVariationList().removeAll(productVariationList);
+            product = productRepository.save(product);
+            // thêm variation mặc định
+            Image image = imageRepository.findByProductId(product.getId()).orElse(null);
+            ProductVariation productVariation = ProductVariation.builder()
+                    .product(product)
+                    .sku(product.getId().toString())
+                    .variationPriceChange(0)
+                    .image(image)
+                    .build();
+            Inventory inventory = inventoryMapper.toInventory(productVariation, 0);
+            productVariationRepository.save(productVariation);
+            inventoryRepository.save(inventory);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new AppException(ErrorCode.DELETE_FAILED);
+        }
     }
 
     @Transactional
@@ -111,9 +148,12 @@ public class ChoiceService {
                 .build();
     }
 
-    public ApiResponse<Void> destroy(Long id) {
+    @Transactional
+    public ApiResponse<Void> destroy(Long choiceId, Long productId) {
+        Product product = productRepository.findById(productId).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        deleteOldProductVariations(product);
         try {
-            choiceRepository.deleteById(id);
+            choiceRepository.deleteById(choiceId);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.DELETE_FAILED);

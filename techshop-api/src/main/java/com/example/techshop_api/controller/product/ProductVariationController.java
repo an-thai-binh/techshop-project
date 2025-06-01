@@ -4,6 +4,7 @@ import com.example.techshop_api.dto.request.product.ProductVariationCreationRequ
 import com.example.techshop_api.dto.request.product.ProductVariationUpdateRequest;
 import com.example.techshop_api.dto.request.product.ProductVariationWithValuesRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.product.ProductVariationFullResponse;
 import com.example.techshop_api.dto.response.product.ProductVariationResponse;
 import com.example.techshop_api.service.ProductVariationService;
 import lombok.AccessLevel;
@@ -45,6 +46,13 @@ public class ProductVariationController {
     @PreAuthorize("hasAuthority('product:view')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> show(@PathVariable Long id) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.show(id);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/{id}/full")
+    @PreAuthorize("hasAuthority('product:view')")
+    public ResponseEntity<ApiResponse<ProductVariationFullResponse>> showFull(@PathVariable Long id) {
+        ApiResponse<ProductVariationFullResponse> apiResponse = productVariationService.showFull(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
