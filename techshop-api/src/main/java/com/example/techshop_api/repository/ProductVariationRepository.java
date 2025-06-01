@@ -14,4 +14,6 @@ public interface ProductVariationRepository extends JpaRepository<ProductVariati
                     " AND pv.sku NOT LIKE '%\\\\_%' ESCAPE '\\\\'",
             nativeQuery = true)
     ProductVariation findDefaultByProduct(Long productId);
+
+    boolean existsBySku(String sku);
 }

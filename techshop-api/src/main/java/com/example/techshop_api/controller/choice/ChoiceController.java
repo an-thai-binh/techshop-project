@@ -70,9 +70,9 @@ public class ChoiceController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
-        ApiResponse<Void> apiResponse = choiceService.destroy(id);
+    @DeleteMapping
+    public ResponseEntity<ApiResponse<Void>> delete(@RequestParam Long choiceId, @RequestParam Long productId) {
+        ApiResponse<Void> apiResponse = choiceService.destroy(choiceId, productId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }
