@@ -85,7 +85,7 @@ public class ProductService {
         CategoryResponse categoryResponse = categoryMapper.toCategoryResponse(product.getCategory());
         List<ProductVariationDetailResponse> productVariationDetailResponseList = product.getProductVariationList().stream()
                 .map(productVariation -> {
-                    int quantity = inventoryRepository.findByProductVariation(productVariation).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND))
+                    int quantity = inventoryRepository.getQuantityViewByProductVariation(productVariation).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND))
                             .getQuantity();
                     return productVariationMapper.toProductVariationDetailResponse(productVariation, quantity);
                 })

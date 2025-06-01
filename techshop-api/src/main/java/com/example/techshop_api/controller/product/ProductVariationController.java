@@ -10,7 +10,6 @@ import com.example.techshop_api.service.ProductVariationService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -73,6 +72,13 @@ public class ProductVariationController {
     @PreAuthorize("hasAuthority('product:update')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> update(@PathVariable Long id, @RequestBody ProductVariationUpdateRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.update(id, request);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:update')")
+    public ResponseEntity<ApiResponse<ProductVariationResponse>> patch(@PathVariable Long id, @RequestParam int variationPriceChange, @RequestParam int quantity, @RequestParam Long imageId) {
+        ApiResponse<ProductVariationResponse> apiResponse = productVariationService.patch(id, variationPriceChange, quantity, imageId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

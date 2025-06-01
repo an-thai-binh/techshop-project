@@ -80,7 +80,7 @@ public class ProductVariationService {
         ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
         ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
         ImageResponse imageResponse = imageMapper.toImageResponse(productVariation.getImage());
-        int quantity = inventoryRepository.findByProductVariation(productVariation).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND)).getQuantity();
+        int quantity = inventoryRepository.getQuantityViewByProductVariation(productVariation).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND)).getQuantity();
         ProductVariationFullResponse productVariationFullResponse = productVariationMapper.toProductVariationFullResponse(productResponse, imageResponse, quantity, productVariation);
         return ApiResponse.<ProductVariationFullResponse>builder()
                 .success(true)
@@ -199,6 +199,28 @@ public class ProductVariationService {
             productVariation = productVariationRepository.save(productVariation);
         } catch (Exception e) {
             log.error(e.getMessage());
+            throw new AppException(ErrorCode.UPDATE_FAILED);
+        }
+        ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());
+        ProductVariationResponse productVariationResponse = productVariationMapper.toProductVariationResponse(productResponse, productVariation);
+        return ApiResponse.<ProductVariationResponse>builder()
+                .success(true)
+                .data(productVariationResponse)
+                .build();
+    }
+
+    @Transactional
+    public ApiResponse<ProductVariationResponse> patch(Long id, int variationPriceChange, int quantity, Long imageId) {
+        ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
+        Image image = imageRepository.findById(imageId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        Inventory inventory = inventoryRepository.findByProductVariationId(productVariation.getId()).orElseThrow(() -> new AppException(ErrorCode.INVENTORY_NOT_FOUND));
+        inventory.setQuantity(quantity);
+        productVariation.setImage(image);
+        productVariation.setVariationPriceChange(variationPriceChange);
+        try {
+            productVariation = productVariationRepository.save(productVariation);
+            inventoryRepository.save(inventory);
+        } catch (Exception e) {
             throw new AppException(ErrorCode.UPDATE_FAILED);
         }
         ProductResponse productResponse = productMapper.toProductResponse(productVariation.getProduct());

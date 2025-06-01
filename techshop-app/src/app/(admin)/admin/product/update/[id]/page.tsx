@@ -106,13 +106,6 @@ export default function UpdateProductPage() {
                     );
                   })
                 ) : null}
-                {/* <ProductVariationItem
-                id="35"
-                sku="13_DEN_SAPHU"
-                basePrice={1350000}
-                priceChange={-50000}
-                imgUrl="https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1"
-              /> */}
               </div>
             </div>
           </div>
