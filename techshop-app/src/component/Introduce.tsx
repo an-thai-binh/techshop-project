@@ -14,28 +14,28 @@ export default function Introduce() {
           <div className="relative size-full rounded-md border border-gray-300/50 shadow-sm dark:border-gray-900/50">
             <Image
               src={'/image/img_1.jpg'}
+              sizes={'100%'}
               alt="img_1"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
+              fill
+              className="rounded-md object-cover"
             />
           </div>
           <div className="relative size-full rounded-md border border-gray-300/50 bg-white/10 shadow-sm dark:border-gray-900/50">
             <Image
               src={'/image/img_2.jpg'}
               alt="img_2"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
+              sizes={'100%'}
+              fill
+              className="rounded-md object-cover"
             />
           </div>
           <div className="relative size-full rounded-md border border-gray-300/50 bg-white/10 shadow-sm dark:border-gray-900/50">
             <Image
               src={'/image/img_3.jpg'}
               alt="img_3"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md"
+              fill
+              sizes={'100%'}
+              className="rounded-md object-cover"
             />
           </div>
         </div>

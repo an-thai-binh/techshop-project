@@ -1,4 +1,6 @@
-import HomePage from '@/view/HomePage'
+import dynamic from 'next/dynamic'
+
+const HomePage = dynamic(() => import('@/view/HomePage'))
 import { fetchCategories } from '@/api/CategoriesAPI'
 import { fetchAllProduct, fetchProductByCategoryId } from '@/api/ProductAPI'
 

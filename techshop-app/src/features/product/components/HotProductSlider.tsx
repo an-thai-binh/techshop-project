@@ -5,7 +5,6 @@ import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/re
 import { ProductType } from '@/features/product/types/ProductType'
 import Link from 'next/link'
 import { CategoryType } from '@/features/categories/types/CategoriesType'
-import Loading from '@/component/feedback/Loading'
 
 type HotProductProps = {
   category: CategoryType

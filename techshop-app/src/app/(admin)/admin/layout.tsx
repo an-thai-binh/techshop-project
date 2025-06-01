@@ -7,7 +7,6 @@ import {
   TruckIcon,
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import AppInitializer from '@/component/AppInitializer'
 import React from 'react'
 import { Toaster } from 'react-hot-toast'
 

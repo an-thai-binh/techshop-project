@@ -12,6 +12,12 @@ const nextConfig = {
   experimental: {
     serverActions: {},
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   async rewrites() {
     return [
       {

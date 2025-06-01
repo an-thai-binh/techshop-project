@@ -43,37 +43,37 @@ export default function HomePage(_props: HomeProps) {
           </div>
           <Introduce />
         </div>
-        <div className="flex h-[20vh] w-full items-center justify-center gap-4 px-2 sm:h-[30vh] md:h-[50vh] lg:h-[30vh]">
+        <div className="flex w-full items-center justify-center gap-4 px-2">
           <div className="flex size-full items-center justify-center shadow-sm">
-            <div className="relative size-full">
+            <div className="relative aspect-[16/9] w-full">
               <Image
                 src={'/image/img_5.jpg'}
                 alt="img_5"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-md"
+                fill
+                sizes={'100%'}
+                className="rounded-md object-cover"
               />
             </div>
           </div>
           <div className="flex size-full items-center justify-center shadow-sm">
-            <div className="relative size-full">
+            <div className="relative aspect-[16/9] w-full">
               <Image
                 src={'/image/img_6.jpg'}
                 alt="img_6"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-md"
+                sizes={'100%'}
+                fill
+                className="rounded-md object-cover"
               />
             </div>
           </div>
           <div className="flex size-full items-center justify-center shadow-sm">
-            <div className="relative size-full">
+            <div className="relative aspect-[16/9] w-full">
               <Image
                 src={'/image/img_7.jpg'}
                 alt="img_7"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-md"
+                sizes={'100%'}
+                fill
+                className="rounded-md object-cover"
               />
             </div>
           </div>

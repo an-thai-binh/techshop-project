@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import { MailIcon } from '@heroui/shared-icons'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
@@ -7,16 +8,12 @@ import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { login } from '@/app/(auth)/auth/action'
 
-// interface LoginPageProps {
-//   searchParams?: { [key: string]: string | string[] | undefined }
-// }
 export default function LoginPage({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined }
+  searchParams?: { [key: string]: string | string[] }
 }) {
-  const next = searchParams?.next
-  // const next = typeof searchParams?.next === 'string' ? searchParams.next : undefined
+  const next = typeof searchParams?.next === 'string' ? searchParams.next : undefined
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
 
