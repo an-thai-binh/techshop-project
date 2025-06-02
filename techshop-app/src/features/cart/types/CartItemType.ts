@@ -9,4 +9,5 @@ export interface CartItemType {
   productDescription: string
   quantity: number
   productImgUrl: string
+  inStock: number
 }

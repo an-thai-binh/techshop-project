@@ -11,4 +11,5 @@ public interface CartItemDisplayResponse {
     String getSku();
     Integer getQuantity();
     String getProductImgUrl();
+    Integer getInStock();
 }

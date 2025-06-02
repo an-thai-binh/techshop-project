@@ -125,6 +125,7 @@ public class CartItemService {
         if (cartItemCreationRequest.getQuantity() <= 0) {
             return ApiResponse.<Void>builder().success(false).message("Số lượng phải lớn hơn 0").build();
         }
+
         User user = userRepository.findById(userId).orElse(null);
         Cart cart = cartRepository.findByUserId(userId)
                 .orElseGet(() -> cartRepository.save(Cart.builder().user(user).build()));
@@ -135,32 +136,52 @@ public class CartItemService {
         Inventory inventory = inventoryRepository.findByProductVariationId(cartItemCreationRequest.getProductVariationId())
                 .orElseThrow(() -> new RuntimeException("Sản phẩm không còn trong kho"));
 
-        if (inventory.getQuantity() < cartItemCreationRequest.getQuantity()) {
-            return ApiResponse.<Void>builder().success(false).message("Không đủ hàng trong kho").build();
+        int availableStock = inventory.getQuantity();
+        int requestedQuantity = cartItemCreationRequest.getQuantity();
+
+        if (availableStock == 0) {
+            return ApiResponse.<Void>builder().success(false).message("Sản phẩm đã hết hàng").build();
         }
 
         Optional<CartItem> existingItem = cartItemRepository
                 .findByCartIdAndProductVariationId(cart.getId(), variation.getId());
 
+        int finalQuantityToSet;
+        String infoMessage = null;
+
         if (existingItem.isPresent()) {
             CartItem item = existingItem.get();
-            int totalQuantity = item.getQuantity() + cartItemCreationRequest.getQuantity();
-            if (totalQuantity > inventory.getQuantity()) {
-                return ApiResponse.<Void>builder().success(false).message("Không đủ hàng để thêm vào giỏ").build();
-            }
-            item.setQuantity(totalQuantity);
+            int currentQuantity = item.getQuantity();
+            int totalRequested = currentQuantity + requestedQuantity;
+            finalQuantityToSet = Math.min(totalRequested, availableStock);
+
+            item.setQuantity(finalQuantityToSet);
             cartItemRepository.save(item);
+
+            if (finalQuantityToSet < totalRequested) {
+                infoMessage = String.format("Chỉ thêm được %d sản phẩm vào giỏ do giới hạn tồn kho.", finalQuantityToSet - currentQuantity);
+            }
         } else {
+            finalQuantityToSet = Math.min(requestedQuantity, availableStock);
+
             CartItem newItem = CartItem.builder()
                     .cart(cart)
                     .productVariation(variation)
-                    .quantity(cartItemCreationRequest.getQuantity())
+                    .quantity(finalQuantityToSet)
                     .build();
             cartItemRepository.save(newItem);
+
+            if (finalQuantityToSet < requestedQuantity) {
+                infoMessage = String.format("Chỉ thêm được %d sản phẩm vào giỏ do giới hạn tồn kho.", finalQuantityToSet);
+            }
         }
 
-        return ApiResponse.<Void>builder().success(true).message("Thêm vào giỏ hàng thành công").build();
+        return ApiResponse.<Void>builder()
+                .success(true)
+                .message(infoMessage != null ? infoMessage : "Thêm vào giỏ hàng thành công")
+                .build();
     }
+
 
     public ApiResponse<Void> subtract(Long userId, Long cartItemId) {
         Cart cart = cartRepository.findByUserId(userId)
@@ -234,26 +255,39 @@ public class CartItemService {
         Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy giỏ hàng"));
 
-        CartItem cartItem = cartItemRepository.findById(cartItemUpdateRequest.getId())
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm trong giỏ hàng"));
+        Optional<CartItem> optionalCartItem = cartItemRepository
+                .findByCartIdAndProductVariationId(cart.getId(), cartItemUpdateRequest.getProductVariationId());
 
-        if (!cartItem.getCart().getId().equals(cart.getId())) {
-            return ApiResponse.<Void>builder().success(false).message("Sản phẩm không thuộc giỏ hàng người dùng").build();
+        CartItem cartItem;
+        int newQuantity;
+
+        if (optionalCartItem.isPresent()) {
+            cartItem = optionalCartItem.get();
+            newQuantity = cartItem.getQuantity() + cartItemUpdateRequest.getQuantity();
+        } else {
+            ProductVariation productVariation = productVariationRepository.findById(cartItemUpdateRequest.getProductVariationId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy biến thể sản phẩm"));
+
+            cartItem = new CartItem();
+            cartItem.setCart(cart);
+            cartItem.setProductVariation(productVariation);
+            newQuantity = cartItemUpdateRequest.getQuantity();
         }
 
-        Inventory inventory = inventoryRepository.findByProductVariationId(
-                cartItem.getProductVariation().getId()
-        ).orElseThrow(() -> new RuntimeException("Không tìm thấy tồn kho"));
+        Inventory inventory = inventoryRepository.findByProductVariationId(cartItem.getProductVariation().getId())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy tồn kho"));
 
-        if (inventory.getQuantity() < cartItemUpdateRequest.getQuantity()) {
+        if (inventory.getQuantity() < newQuantity) {
             return ApiResponse.<Void>builder().success(false).message("Không đủ hàng trong kho").build();
         }
 
-        cartItem.setQuantity(cartItemUpdateRequest.getQuantity());
+        cartItem.setQuantity(newQuantity);
         cartItemRepository.save(cartItem);
 
         return ApiResponse.<Void>builder().success(true).message("Cập nhật số lượng thành công").build();
     }
+
+
 
 
     public ApiResponse<Void> destroy(Long id) {

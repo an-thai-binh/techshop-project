@@ -34,7 +34,7 @@ export default function HomePage(_props: HomeProps) {
         exit={{ height: 0, opacity: 0, y: -20 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
         style={{ transformOrigin: 'top' }}
-        className={'flex size-full flex-col items-center gap-4 bg-gray-100 px-0 dark:bg-gray-900'}
+        className={'flex size-full flex-col items-center gap-4 bg-gray-50 px-0 dark:bg-gray-900'}
       >
         <div className="flex h-[42vh] w-full justify-center gap-0 px-2 xl:justify-end">
           {/* Sidebar */}
