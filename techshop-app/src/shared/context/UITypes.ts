@@ -9,7 +9,7 @@ interface OverlayState {
   isOverlayVisible: boolean
 }
 interface OverlayType {
-  modalType: 'login' | 'register' | 'forgot' | null
+  modalType: 'login' | 'register' | 'forgot' | 'logout' | null
   dropdownType: 'search' | 'cart' | 'user' | null
   popupType: 'cart' | null
 }
@@ -28,6 +28,7 @@ type OverlayAction =
   | { type: 'OPEN_MODAL'; payload: { modalType: State['modalType'] } }
   | { type: 'CLOSE_MODAL' }
   | { type: 'TOGGLE_DROPDOWN'; payload: { dropdownType: State['dropdownType'] } }
+  | { type: 'OPEN_DROPDOWN'; payload: { dropdownType: State['dropdownType'] } }
   | { type: 'CLOSE_DROPDOWN' }
   | { type: 'OPEN_POPUP'; payload: { popupType: State['popupType'] } }
   | { type: 'CLOSE_POPUP' }

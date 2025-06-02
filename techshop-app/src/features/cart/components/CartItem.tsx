@@ -1,3 +1,5 @@
+'use client'
+
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { CartItemType } from '@/features/cart/types/CartItemType'
 import Image from 'next/image'
@@ -8,75 +10,113 @@ import {
   fetchDeleteItemCartFromApi,
   fetchSubtractItemCartFromApi,
 } from '@/features/cart/cartThunks'
+import Link from 'next/link'
+import { useUIContext } from '@/shared/context/UIContext'
+
 type CartItemProps = {
   item: CartItemType
 }
 
-export default function CartItem(_props: CartItemProps) {
-  const dispatch = useAppDispatch()
+export default function CartItem({ item }: CartItemProps) {
+  const appDispatch = useAppDispatch()
+  const { state, dispatch } = useUIContext()
+  const isOutOfStock = item.isStock === 0
+  const isMaxQuantity = item.quantity >= item.isStock
+  const handleClick = () => {
+    if (state.isDropdownVisible && state.dropdownType === 'cart') {
+      dispatch({
+        type: 'CLOSE_DROPDOWN',
+      })
+    }
+  }
   return (
-    <>
-      <div className="flex w-full gap-2 text-black dark:text-white">
-        <div className="relative flex h-20 min-w-20 items-center justify-center overflow-hidden rounded-sm">
+    <Link onClick={() => handleClick()} href={`/product-detail/${item.productId}`}>
+      <div className="group relative flex w-full flex-row items-start gap-4 rounded-lg border border-gray-200 bg-white p-2 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-900">
+        {/* Overlay khi hết hàng */}
+        {isOutOfStock && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-black/60 text-lg font-bold text-white">
+            ĐÃ HẾT HÀNG
+          </div>
+        )}
+
+        {/* Image */}
+        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-100 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
           <Image
-            src={_props.item.productImgUrl}
-            width={80}
-            height={80}
-            sizes={'100%'}
-            objectFit="contain"
-            objectPosition={'center'}
-            alt={`Hình ảnh ${_props.item.productName}`}
-            className="scale-100 transform rounded-md transition duration-500 hover:scale-110"
+            src={item.productImgUrl}
+            width={96}
+            height={96}
+            alt={`Hình ảnh ${item.productName}`}
+            className="h-full w-full object-contain p-1"
           />
         </div>
-        <div className="flex grow flex-col justify-between gap-1">
-          <div className="flex grow items-start justify-between">
-            <div className="flex items-center">
-              <h1 className="text-md font-bold">{_props.item.productName}</h1>
+
+        {/* Info and controls */}
+        <div className="flex flex-1 flex-col justify-between">
+          {/* Top row: name + delete */}
+          <div className="flex items-start justify-between">
+            <div>
+              <h2 className="line-clamp-1 overflow-ellipsis text-base font-semibold text-gray-900 dark:text-white">
+                {item.productName}
+              </h2>
+              <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                SKU: <span className="font-medium">{item.sku}</span>
+              </p>
             </div>
-            <div
-              onClick={() => dispatch(fetchDeleteItemCartFromApi(_props.item.id))}
-              className="flex items-center justify-center"
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
+                appDispatch(fetchDeleteItemCartFromApi(item.id))
+              }}
+              className="z-50 rounded-full p-1 text-gray-400 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900"
             >
-              <XMarkIcon className={'size-5'} />
-            </div>
+              <XMarkIcon className="h-5 w-5" />
+            </button>
           </div>
-          <div className={'flex items-start'}>
-            <h1 className={'text-xs font-semibold text-black dark:text-white'}>
-              SKU: <span>{_props.item.sku}</span>
-            </h1>
-          </div>
-          <div className="flex h-fit items-center justify-between rounded-sm">
-            <div className="flex items-center justify-center gap-0 border border-gray-500">
-              <div className="flex items-center justify-center">
+
+          {/* Bottom row: quantity & price */}
+          <div className="mt-4 flex items-center justify-between">
+            {/* Quantity control */}
+            {!isOutOfStock ? (
+              <div className="flex items-center gap-2">
                 <button
-                  onClick={() => dispatch(fetchSubtractItemCartFromApi(_props.item.id))}
-                  className="box-content bg-gray-500 px-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    appDispatch(fetchSubtractItemCartFromApi(item.id))
+                  }}
+                  className="rounded-md border border-gray-300 bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-200 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+                  disabled={item.quantity <= 1}
                 >
                   -
                 </button>
-              </div>
-              <div className="flex items-center justify-center px-2">
-                <span className="text-md font-bold">{_props.item.quantity}</span>
-              </div>
-              <div className="flex items-center justify-center">
+                <span className="min-w-[32px] text-center text-sm font-semibold text-gray-900 dark:text-white">
+                  {item.quantity}
+                </span>
                 <button
-                  onClick={() => dispatch(fetchAddItemCartFromApi(_props.item.productVariationId))}
-                  className="box-content bg-gray-500 px-2"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    if (!isMaxQuantity) {
+                      appDispatch(fetchAddItemCartFromApi(item.productVariationId))
+                    }
+                  }}
+                  disabled={isMaxQuantity}
+                  className="rounded-md border border-gray-300 bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-200 disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
                 >
                   +
                 </button>
               </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <span className="text-md font-bold">
-                {formatPrice(_props.item.productTotalPrice)}
-              </span>
+            ) : (
+              <span className="text-sm font-medium text-red-500">Hết hàng</span>
+            )}
+
+            <div className="text-right text-base font-bold text-blue-600 dark:text-blue-400">
+              {formatPrice(item.productTotalPrice)}
             </div>
           </div>
         </div>
       </div>
-      <hr />
-    </>
+    </Link>
   )
 }
