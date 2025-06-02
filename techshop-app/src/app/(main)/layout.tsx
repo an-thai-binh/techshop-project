@@ -10,7 +10,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
   return (
     <UIProvider>
       <ApplyTheme />
-      <div className="relative z-10 flex h-full w-full flex-col overflow-auto bg-white scrollbar-thin scrollbar-track-gray-950 scrollbar-thumb-gray-800 scrollbar-corner-inherit">
+      <div className="relative z-10 flex h-full w-full flex-col overflow-auto bg-white scrollbar-thin scrollbar-track-gray-950 scrollbar-thumb-gray-800 scrollbar-corner-inherit dark:bg-gray-950">
         <Overlay />
         <Header />
         <main className="flex-grow">{children}</main>
