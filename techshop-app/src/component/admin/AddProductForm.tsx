@@ -80,7 +80,7 @@ export default function AddProductForm() {
       }
       return;
     } catch (error: any) {
-      const errorMessage = error.response.data?.message || error.message;
+      const errorMessage = error.response?.data.message || error.message;
       setImageError("Lỗi khi tải ảnh lên: " + errorMessage);
       throw new Error("Error uploading image: " + errorMessage);
     }
