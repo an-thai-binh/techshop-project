@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { useUIContext } from '@/shared/context/UIContext'
-import DropdownCart from '../features/cart/components/DropdownCart'
-import ProductCatalog from './ProductCatalog'
+import DropdownCart from '../../features/cart/components/DropdownCart'
+import ProductCatalog from '../ProductCatalog'
 import DropdownSearch from '@/features/search/components/DropdownSearch'
 import Link from 'next/link'
 import {
@@ -81,9 +81,13 @@ export default function Header() {
               <div className="relative flex flex-col items-center justify-center gap-2">
                 <button
                   className="relative rounded-full p-2 hover:bg-gray-500/50"
-                  onMouseDown={() =>
-                    dispatch({ type: 'TOGGLE_DROPDOWN', payload: { dropdownType: 'cart' } })
-                  }
+                  onClick={() => {
+                    if (state.isDropdownVisible && state.dropdownType === 'cart') {
+                      dispatch({ type: 'TOGGLE_DROPDOWN', payload: { dropdownType: 'cart' } })
+                    } else {
+                      dispatch({ type: 'OPEN_DROPDOWN', payload: { dropdownType: 'cart' } })
+                    }
+                  }}
                 >
                   <ShoppingCartIcon
                     className="size-7 text-gray-950/50 dark:text-white"
@@ -101,13 +105,17 @@ export default function Header() {
               {isAuthenticated ? (
                 <>
                   <button
-                    onClick={() =>
-                      dispatch({ type: 'TOGGLE_DROPDOWN', payload: { dropdownType: 'user' } })
-                    }
+                    onClick={() => {
+                      if (state.isDropdownVisible && state.dropdownType === 'user') {
+                        dispatch({ type: 'TOGGLE_DROPDOWN', payload: { dropdownType: 'user' } })
+                      } else {
+                        dispatch({ type: 'OPEN_DROPDOWN', payload: { dropdownType: 'user' } })
+                      }
+                    }}
                     className="rounded-full p-2 hover:bg-gray-500/50"
                   >
                     <UserCircleIcon
-                      className="size-7 text-gray-950/50 dark:text-white"
+                      className="size-7 text-blue-500 dark:text-white"
                       fill="transparent"
                       strokeWidth={2.5}
                     />
@@ -116,7 +124,7 @@ export default function Header() {
                 </>
               ) : (
                 <Link href={'/auth/login'}>
-                  <button className="rounded-md border hover:bg-gray-500/50">
+                  <button className="rounded-md ring-2 ring-blue-500 hover:ring-gray-500/50">
                     <div className={'flex items-center'}>
                       <div className={'px-2 py-1'}>
                         <UserCircleIcon
@@ -126,7 +134,7 @@ export default function Header() {
                         />
                       </div>
                       <div className={'px-2 py-1'}>
-                        <h1 className={'font-semibold'}>Đăng nhập</h1>
+                        <h1 className={'font-semibold text-blue-500 dark:text-white'}>Đăng nhập</h1>
                       </div>
                     </div>
                   </button>

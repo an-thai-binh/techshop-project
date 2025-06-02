@@ -47,6 +47,13 @@ export const UIReducer = (state: State, action: Action): State => {
         dropdownType: action.payload.dropdownType,
         isOverlayVisible: !state.isOverlayVisible,
       }
+    case 'OPEN_DROPDOWN':
+      return {
+        ...state,
+        isDropdownVisible: true,
+        dropdownType: action.payload.dropdownType,
+        isOverlayVisible: true,
+      }
     case 'CLOSE_DROPDOWN':
       return {
         ...state,

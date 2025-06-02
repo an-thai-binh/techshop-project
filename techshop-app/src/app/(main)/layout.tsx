@@ -1,8 +1,8 @@
 import ApplyTheme from '@/component/ApplyTheme'
-import Overlay from '@/component/Overlay'
-import Header from '@/component/Header'
-import Footer from '@/component/Footer'
-import Navigation from '@/component/Navigation'
+import Overlay from '@/component/layout/Overlay'
+import Header from '@/component/layout/Header'
+import Footer from '@/component/layout/Footer'
+import Navigation from '@/component/layout/Navigation'
 import { UIProvider } from '@/shared/context/UIContext'
 import React from 'react'
 
