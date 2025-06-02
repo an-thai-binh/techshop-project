@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
   fetchAddItemCart,
+  fetchAddWithQuantityItemCart,
   fetchCart,
   fetchDeleteAllItemCart,
   fetchDeleteItemCart,
@@ -29,6 +30,18 @@ export const fetchAddItemCartFromApi = createAsyncThunk<string, number>(
     return message
   },
 )
+export const fetchAddWithQuantityItemCartFromApi = createAsyncThunk<
+  string,
+  { productVariationId: number; quantity: number }
+>('cart/addWithQuantityItemCart', async ({ productVariationId, quantity }, { dispatch }) => {
+  const { success, message } = await fetchAddWithQuantityItemCart(productVariationId, quantity)
+  if (!success) {
+    // console.error('fetchAddCartFromApi Thunk', message)
+    toast.error(message)
+  }
+  dispatch(fetchCartFromApi())
+  return message
+})
 export const fetchSubtractItemCartFromApi = createAsyncThunk<string, number>(
   'cart/removeItemCart',
   async (cartItemId, { dispatch }) => {

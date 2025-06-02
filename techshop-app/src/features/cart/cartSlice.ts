@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   fetchAddItemCartFromApi,
+  fetchAddWithQuantityItemCartFromApi,
   fetchCartFromApi,
   fetchDeleteAllItemCartFromApi,
   fetchDeleteItemCartFromApi,
@@ -51,7 +52,9 @@ const cartSlice = createSlice({
     builder.addCase(fetchAddItemCartFromApi.fulfilled, (state, action) => {
       console.log('Add item cart successful', action.payload)
     })
-
+    builder.addCase(fetchAddWithQuantityItemCartFromApi.fulfilled, (state, action) => {
+      console.log('Add item cart successful', action.payload)
+    })
     builder.addCase(fetchSubtractItemCartFromApi.fulfilled, (state, action) => {
       console.log('Remove item cart successful', action.payload)
     })

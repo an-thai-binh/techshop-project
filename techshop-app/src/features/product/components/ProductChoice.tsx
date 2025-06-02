@@ -5,7 +5,10 @@ import { ProductDetailType } from '@/features/product/types/ProductDetailType'
 import { formatPrice } from '@/utils/CurrentyFormat'
 import { ProductVariationType } from '@/features/product/types/ProductVariationType'
 import { useAppDispatch, useAppSelector } from '@/shared/redux/hook'
-import { fetchAddItemCartFromApi } from '@/features/cart/cartThunks'
+import {
+  fetchAddItemCartFromApi,
+  fetchAddWithQuantityItemCartFromApi,
+} from '@/features/cart/cartThunks'
 import { round } from '@floating-ui/utils'
 import { fetchChoiceGetByProductIdFromApi } from '@/features/product/productThunks'
 import { selectChoices, selectSelectedChoices } from '@/features/product/productSelectors'
@@ -26,7 +29,7 @@ export default function ProductChoice({ productId, productDetail }: ProductChoic
   const dispatch = useAppDispatch()
   const choice = useAppSelector(selectChoices)
   const selectedChoices = useAppSelector(selectSelectedChoices)
-
+  const [quantity, setQuantity] = useState<number>(1)
   const [productVariation, setProductVariation] = useState<ProductVariationType | null>(null)
   const [groupPrice, setGroupPrice] = useState<{
     finalPrice: number | undefined
@@ -34,7 +37,6 @@ export default function ProductChoice({ productId, productDetail }: ProductChoic
   }>()
   const [stockError, setStockError] = useState<string | null>(null)
   useEffect(() => {
-    // ✅ Reset state khi đổi productId để tránh giữ lại state cũ
     setProductVariation(null)
     setGroupPrice(undefined)
     setStockError(null)
@@ -175,13 +177,23 @@ export default function ProductChoice({ productId, productDetail }: ProductChoic
               <h1 className={'text-md font-bold'}>Số lượng</h1>
             </div>
             <div className="flex items-center rounded-md border border-gray-300 bg-gray-50 px-1 py-1 shadow-sm dark:border-gray-600 dark:bg-gray-800">
-              <button className="rounded-md px-3 py-1 text-gray-700 transition hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700">
+              <button
+                disabled={quantity < 1}
+                onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                className="rounded-md px-3 py-1 text-gray-700 transition hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+              >
                 <MinusIcon className="size-4" />
               </button>
               <span className="mx-2 min-w-[32px] text-center font-semibold text-gray-900 dark:text-white">
-                1
+                {quantity}
               </span>
-              <button className="rounded-md px-3 py-1 text-gray-700 transition hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700">
+              <button
+                disabled={!productVariation || quantity >= (productVariation?.quantity || 0)}
+                onClick={() =>
+                  setQuantity((prev) => Math.min(prev + 1, productVariation?.quantity || prev))
+                }
+                className="rounded-md px-3 py-1 text-gray-700 transition hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700"
+              >
                 <PlusIcon className="size-4" />
               </button>
             </div>
@@ -198,7 +210,15 @@ export default function ProductChoice({ productId, productDetail }: ProductChoic
         {/* Action buttons */}
         <div className="mt-4 flex w-full gap-2">
           <button
-            onClick={() => dispatch(fetchAddItemCartFromApi(productVariation?.id as number))}
+            // onClick={() => dispatch(fetchAddItemCartFromApi(productVariation?.id as number))}
+            onClick={() =>
+              dispatch(
+                fetchAddWithQuantityItemCartFromApi({
+                  productVariationId: productVariation?.id as number,
+                  quantity: quantity as number,
+                }),
+              )
+            }
             disabled={!isFullySelected || !productVariation || isOutOfStock}
             className="w-1/2 rounded-sm px-4 py-2 shadow shadow-gray-700 ring-2 ring-blue-500 transition-all duration-500 active:scale-95 disabled:opacity-50"
           >

@@ -18,6 +18,18 @@ export async function fetchAddItemCart(productVariationId: number) {
     },
   )
 }
+export async function fetchAddWithQuantityItemCart(productVariationId: number, quantity: number) {
+  return await apiFetch<{ success: boolean; message: string }>(
+    `http://localhost:8080/techshop/cartItem/addWithQuantity`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        productVariationId,
+        quantity,
+      }),
+    },
+  )
+}
 
 export async function fetchRemoveItemCart(cartItemId: number) {
   return await apiFetch<{ success: boolean; message: string }>(

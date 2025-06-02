@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "cart_item")
+@Table(name = "cart_item", uniqueConstraints = @UniqueConstraint(columnNames = {"id", "product_variation_id"}))
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

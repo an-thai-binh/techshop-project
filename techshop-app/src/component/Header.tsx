@@ -37,7 +37,7 @@ export default function Header() {
     <>
       <AppInitializer />
       <header className="sticky top-0 z-30 flex size-full flex-col justify-center">
-        <div className="flex size-full flex-wrap items-center justify-between gap-1 bg-white p-2 shadow-md backdrop-blur-sm dark:bg-gray-950/80">
+        <div className="flex size-full flex-wrap items-center justify-between gap-1 bg-white/80 p-2 shadow-md backdrop-blur-sm dark:bg-gray-950/80">
           <Link href={`/`}>
             <div className="order-1 flex items-center p-2 shadow-white drop-shadow-md">
               <h1 className="text-2xl font-extrabold text-blue-500">Techshop</h1>
