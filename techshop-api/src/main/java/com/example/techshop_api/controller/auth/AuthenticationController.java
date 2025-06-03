@@ -39,20 +39,4 @@ public class AuthenticationController {
         ApiResponse<UserResponse> apiResponse = userService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
-//    @PostMapping("/refresh-token")
-//    public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response) {
-//        String token = extractRefreshToken(request);
-//
-//
-//    }
-
-    private String extractRefreshToken(HttpServletRequest request) {
-        if(request.getCookies() != null) return null;
-        for(Cookie cookie : request.getCookies()) {
-            if(cookie.getName().equals("refresh_token")) {
-                return cookie.getValue();
-            }
-        }
-        return null;
-    }
 }
