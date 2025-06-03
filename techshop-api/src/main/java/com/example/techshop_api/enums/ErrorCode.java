@@ -18,6 +18,7 @@ public enum ErrorCode {
     USER_NOT_FOUND("User Not Found", HttpStatus.NOT_FOUND),
     CART_NOT_FOUND("Cart Not Found", HttpStatus.NOT_FOUND),
     CART_ITEM_NOT_FOUND("Cart Item Not Found", HttpStatus.NOT_FOUND),
+    OTP_ACTION_NOT_FOUND("OTP Action Not Found", HttpStatus.NOT_FOUND),
     INSERT_FAILED("Insert Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     UPDATE_FAILED("Update Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     DELETE_FAILED("Delete Failed", HttpStatus.INTERNAL_SERVER_ERROR),

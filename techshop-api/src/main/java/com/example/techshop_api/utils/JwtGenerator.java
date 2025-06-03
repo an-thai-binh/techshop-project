@@ -41,19 +41,7 @@ public class JwtGenerator {
 
         return buildJWT(header, jwtClaimsSet); //access tooken
     }
-    public String generateRefreshToken(User user){
-        JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
-        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getId().toString()) // sub
-                .claim("username", user.getUsername())
-                .issueTime(new Date())  // iat
-                .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.DAYS).toEpochMilli()))   // exp
-                .claim("scope", buildScope(user))
-                .build();
-
-        return buildJWT(header, jwtClaimsSet); //refresh token
-    }
     private String buildJWT(JWSHeader header, JWTClaimsSet jwtClaimsSet) {
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
         JWSObject jwsObject = new JWSObject(header, payload);
