@@ -28,7 +28,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <AdminSidebarItem
                 icon={<RectangleGroupIcon />}
                 label={'Thể loại'}
-                page={'/admin/product'}
+                page={'/admin/category'}
               />
               <div></div>
               <AdminSidebarItem

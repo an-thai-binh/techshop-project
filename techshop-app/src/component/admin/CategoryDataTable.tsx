@@ -4,22 +4,11 @@ import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import ActionConfirmDialog from "./ActionConfirmDialog";
 import toast from "react-hot-toast";
-import Image from "next/image";
-
-interface Product {
-    id: string;
-    categoryId: string;
-    categoryName: string;
-    productName: string;
-    productDescription: string;
-    productBasePrice: number;
-    productImgUrl: string;
-}
+import { Category } from "@/types/product";
 
 export default function ProductDataTable() {
     const token = useAppSelector(selectToken);
@@ -28,7 +17,7 @@ export default function ProductDataTable() {
     const [sort, setSort] = useState<string>('id');
     const [direction, setDirection] = useState<string>('desc');
     const [reload, setReload] = useState<boolean>(false);
-    const [products, setProducts] = useState<Product[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
     const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
     const [deleteId, setDeleteId] = useState<string>("");
@@ -37,9 +26,9 @@ export default function ProductDataTable() {
         if (!token) {
             return;
         }
-        const fetchProducts = async () => {
+        const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/techshop/product/display', {
+                const response = await axios.get('http://localhost:8080/techshop/category', {
                     headers: {
                         'Authorization': 'Bearer ' + token
                     },
@@ -51,7 +40,7 @@ export default function ProductDataTable() {
                     }
                 });
                 if (response.data.success) {
-                    setProducts(response.data.data.content);
+                    setCategories(response.data.data.content);
                     setTotalItems(response.data.data.page.totalElements);
                 }
             } catch (error: any) {
@@ -60,7 +49,7 @@ export default function ProductDataTable() {
                 throw new Error(message);
             }
         }
-        fetchProducts();
+        fetchCategories();
     }, [token, page, size, sort, direction, reload]);
 
     const handleOnClickDeleteButton = (id: string) => {
@@ -71,7 +60,7 @@ export default function ProductDataTable() {
     const handleDeleteAction = async () => {
         setShowConfirmDialog(false);
         try {
-            const response = await axios.delete(`http://localhost:8080/techshop/product/${deleteId}`, {
+            const response = await axios.delete(`http://localhost:8080/techshop/category/${deleteId}`, {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -89,21 +78,13 @@ export default function ProductDataTable() {
     const columns = [
         { field: 'id', headerName: 'ID', flex: 1 },
         {
-            field: 'productImgUrl',
-            headerName: 'Ảnh',
-            flex: 1,
+            field: 'categoryName',
+            headerName: 'Danh mục',
+            flex: 3,
             renderCell: (params: GridRenderCellParams) => {
-                return <Image src={params.row.productImgUrl} alt={params.row.productName} width={64} height={64} className="w-16 h-16 object-contain" />
-            }
-        },
-        { field: 'categoryName', headerName: 'Danh mục', flex: 1 },
-        { field: 'productName', headerName: 'Tên sản phẩm', flex: 5 },
-        {
-            field: 'productBasePrice',
-            headerName: 'Giá ban đầu',
-            flex: 1,
-            renderCell: (params: GridRenderCellParams) => {
-                return formatVietNamCurrency(params.row.productBasePrice);
+                return (
+                    <b>{params.row.categoryName}</b>
+                );
             }
         },
         {
@@ -113,7 +94,7 @@ export default function ProductDataTable() {
             renderCell: (params: GridRenderCellParams) => {
                 return (
                     <div className="py-2 grid grid-cols-1 gap-1">
-                        <Link href={`/admin/product/update/${params.row.id}`}>
+                        <Link href={`/admin/category/update/${params.row.id}`}>
                             <button className="px-2 py-1 min-w-[50px] text-white uppercase font-bold bg-blue-400 hover:bg-blue-500 shadow-sm hover:shadow-lg">Sửa</button>
                         </Link>
                         <button onClick={() => handleOnClickDeleteButton(params.row.id)} className="px-2 py-1 min-w-[50px] text-white uppercase font-bold bg-red-400 hover:bg-red-500 shadow-sm hover:shadow-lg">Xoá</button>
@@ -127,7 +108,7 @@ export default function ProductDataTable() {
         <>
             <DataGrid
                 columns={columns}
-                rows={products}
+                rows={categories}
                 rowCount={totalItems}
                 pageSizeOptions={[10, 15, 20]}
                 pagination
@@ -170,7 +151,7 @@ export default function ProductDataTable() {
                 display={showConfirmDialog}
                 onClose={() => setShowConfirmDialog(false)}
                 onConfirm={handleDeleteAction}
-                description={`DELETE PRODUCT ID = ${deleteId}`}
+                description={`DELETE CATEGORY ID = ${deleteId}`}
             />
         </>
     );
