@@ -5,12 +5,13 @@ const ProductDataTable = dynamic(() => import('@/component/admin/ProductDataTabl
 })
 import { FunnelIcon } from '@heroicons/react/20/solid'
 import dynamic from 'next/dynamic'
-
-// export const metadata = {
-//   title: 'Product Manager',
-// }
+import { useEffect } from 'react'
 
 export default function AdminProductPage() {
+  useEffect(() => {
+    document.title = 'Product Manager'
+  });
+
   return (
     <div className="flex h-screen flex-col">
       <h3 className="my-3 text-center text-3xl font-bold uppercase">Quản lý sản phẩm</h3>
