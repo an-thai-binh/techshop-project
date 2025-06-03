@@ -30,11 +30,34 @@ export function useSearch(query: string, pageParams?: SearchPageParams) {
         setLoading(true)
         try {
           const { page = 0, size = 10, sort = 'id', direction = 'desc' } = pageParams || {}
-          const url = `http://localhost:8080/techshop/product/display/searchPage?query=${encodeURIComponent(query)}&page=${page}&size=${size}&sort=${sort}&direction=${direction}`
+
+          const url = `http://localhost:8080/techshop/product/display/searchPage?query=${encodeURIComponent(
+            query,
+          )}&page=${page}&size=${size}&sort=${sort}&direction=${direction}`
 
           const res = await fetch(url, { signal })
           const json = await res.json()
-          setResults(json.data?.content || [])
+
+          const originalResults: ProductType[] = json.data?.content || []
+          const normalizedQuery = query.trim().toLowerCase()
+
+          const sortedResults = [...originalResults].sort((a, b) => {
+            const aName = a.productName.toLowerCase()
+            const bName = b.productName.toLowerCase()
+
+            const aIncludes = aName.includes(normalizedQuery)
+            const bIncludes = bName.includes(normalizedQuery)
+
+            const aIndex = aName.indexOf(normalizedQuery)
+            const bIndex = bName.indexOf(normalizedQuery)
+
+            if (!aIncludes && !bIncludes) return 0
+            if (aIncludes && !bIncludes) return -1
+            if (!aIncludes && bIncludes) return 1
+            return aIndex - bIndex
+          })
+
+          setResults(sortedResults)
           setTotal(json.data?.totalElements || 0)
         } catch (err) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment

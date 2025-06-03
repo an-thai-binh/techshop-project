@@ -1,7 +1,6 @@
 'use client'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
-import { className } from 'postcss-selector-parser'
 
 type AnimationMotionProps = {
   children?: React.ReactNode
