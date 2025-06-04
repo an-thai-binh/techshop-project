@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserSecurityController {
 //    @PatchMapping("/{id}/changePassword")
-//    public ResponseEntity<ApiResponse<Void>> changePassword(@PathVariable Long id, @RequestParam(name = "newPassword") String newPassword) {
-//
+//    public ResponseEntity<ApiResponse<Void>> changePassword(@PathVariable Long id, @RequestParam(name = "newPassword") String newPassword, @RequestParam String otp) {
+//        // service
+//        // return
 //    }
 //
 //    @PatchMapping("/{id}/changeEmail")
-//    public ResponseEntity<ApiResponse<Void>> changeEmail(@PathVariable Long id, @RequestParam(name = "newEmail") String newEmail) {
-//
+//    public ResponseEntity<ApiResponse<Void>> changeEmail(@PathVariable Long id, @RequestParam(name = "newEmail") String newEmail, @RequestParam String otp) {
+//        // service
+//        // return
 //    }
 }
