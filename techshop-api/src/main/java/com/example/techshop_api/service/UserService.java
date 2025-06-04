@@ -60,10 +60,9 @@ public class UserService {
             throw new AppException(ErrorCode.EMAIL_ALREADY_BIND);
         }
         User user = userMapper.toUser(userCreationRequest);
-        Role role = roleRepository.findByRoleName("ROLE_USER");
-        if(role != null) {
-            user.setRoleList(List.of(role));
-        }
+        user.setVerified(false);
+        Role role = roleRepository.findByRoleName("ROLE_USER").orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+        user.setRoleList(List.of(role));
         try {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
             user.setPassword(passwordEncoder.encode(user.getPassword())); // hash password

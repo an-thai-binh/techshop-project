@@ -24,10 +24,4 @@ public class OtpController {
         ApiResponse<Void> apiResponse = otpService.generate(action, userId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
-
-    @PostMapping("/validate")
-    public ResponseEntity<ApiResponse<Void>> validate(@RequestParam String key, @RequestParam String otp) {
-        ApiResponse<Void> apiResponse = otpService.validate(key, otp);
-        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
-    }
 }

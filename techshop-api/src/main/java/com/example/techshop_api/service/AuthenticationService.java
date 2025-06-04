@@ -28,6 +28,9 @@ public class AuthenticationService {
         if (user == null) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
+        if (!user.isVerified()) {
+            throw new AppException(ErrorCode.USER_NOT_VERIFIED);
+        }
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new AppException(ErrorCode.WRONG_PASSWORD);
