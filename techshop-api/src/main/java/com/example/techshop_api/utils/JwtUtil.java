@@ -43,7 +43,22 @@ public class JwtUtil {
                 .claim("scope", buildScope(user))
                 .build();
 
-        return buildJWT(header, jwtClaimsSet); //access tooken
+        return buildJWT(header, jwtClaimsSet); //a ccess token
+    }
+
+    public String generateRefreshToken(User user) {
+        JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
+
+        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
+                .jwtID(UUID.randomUUID().toString())
+                .claim("type", "refresh")
+                .subject(user.getId().toString())
+                .claim("username", user.getUsername())
+                .issueTime(new Date())
+                .expirationTime(new Date(Instant.now().plus(24, ChronoUnit.HOURS).toEpochMilli()))
+                .build();
+
+        return buildJWT(header, jwtClaimsSet);
     }
 
     private String buildJWT(JWSHeader header, JWTClaimsSet jwtClaimsSet) {

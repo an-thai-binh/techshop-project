@@ -29,7 +29,7 @@ public enum ErrorCode {
     EMAIL_ALREADY_BIND("Email Already Bind", HttpStatus.BAD_REQUEST),
     WRONG_PASSWORD("Wrong Password", HttpStatus.BAD_REQUEST),
     USER_NOT_VERIFIED("User Not Verified", HttpStatus.FORBIDDEN),
-    INVALID_TOKEN("Invalid Token", HttpStatus.BAD_REQUEST),
+    INVALID_TOKEN("Invalid Token", HttpStatus.UNAUTHORIZED),
     CREATE_TOKEN_FAILED("Create Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     VERIFY_TOKEN_FAILED("Verify Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     REQUEST_EXTERNAL_FAILED("Request To External Resource Failed", HttpStatus.INTERNAL_SERVER_ERROR),
