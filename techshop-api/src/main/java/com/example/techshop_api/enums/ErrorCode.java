@@ -19,6 +19,7 @@ public enum ErrorCode {
     ROLE_NOT_FOUND("Role Not Found", HttpStatus.NOT_FOUND),
     CART_NOT_FOUND("Cart Not Found", HttpStatus.NOT_FOUND),
     CART_ITEM_NOT_FOUND("Cart Item Not Found", HttpStatus.NOT_FOUND),
+    ORDER_NOT_FOUND("Order Not Found", HttpStatus.NOT_FOUND),
     OTP_ACTION_NOT_FOUND("OTP Action Not Found", HttpStatus.NOT_FOUND),
     INSERT_FAILED("Insert Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     UPDATE_FAILED("Update Failed", HttpStatus.INTERNAL_SERVER_ERROR),
@@ -28,7 +29,9 @@ public enum ErrorCode {
     EMAIL_ALREADY_BIND("Email Already Bind", HttpStatus.BAD_REQUEST),
     WRONG_PASSWORD("Wrong Password", HttpStatus.BAD_REQUEST),
     USER_NOT_VERIFIED("User Not Verified", HttpStatus.FORBIDDEN),
+    INVALID_TOKEN("Invalid Token", HttpStatus.BAD_REQUEST),
     CREATE_TOKEN_FAILED("Create Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    VERIFY_TOKEN_FAILED("Verify Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     REQUEST_EXTERNAL_FAILED("Request To External Resource Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     UNAUTHORIZED("Unauthorized", HttpStatus.UNAUTHORIZED),
     ;
