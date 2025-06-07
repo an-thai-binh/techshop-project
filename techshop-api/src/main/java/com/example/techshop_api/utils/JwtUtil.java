@@ -7,24 +7,27 @@ import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 @Slf4j
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class JwtGenerator {
+public class JwtUtil {
     @Value("${jwt.secret-key}")
     String jwtSecretKey;
 
@@ -32,6 +35,7 @@ public class JwtGenerator {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
+                .jwtID(UUID.randomUUID().toString())
                 .subject(user.getId().toString()) // sub
                 .claim("username", user.getUsername())
                 .issueTime(new Date())  // iat
@@ -66,5 +70,18 @@ public class JwtGenerator {
             }
         }
         return joiner.toString();
+    }
+
+    public SignedJWT verifyToken(String token) throws JOSEException, ParseException {
+        JWSVerifier verifier = new MACVerifier(jwtSecretKey.getBytes());
+        SignedJWT signedJWT = SignedJWT.parse(token);
+        if(!signedJWT.verify(verifier)) {
+            return null;
+        }
+        Date exp = signedJWT.getJWTClaimsSet().getExpirationTime();
+        if(exp == null || exp.before(new Date())) {
+            return null;
+        }
+        return signedJWT;
     }
 }

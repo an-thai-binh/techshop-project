@@ -1,6 +1,7 @@
 package com.example.techshop_api.entity.user;
 
 import com.example.techshop_api.entity.cart.Cart;
+import com.example.techshop_api.entity.order.Order;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -49,4 +50,7 @@ public class User {
     Cart cart;
 
     boolean isVerified;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Order> orderList;
 }

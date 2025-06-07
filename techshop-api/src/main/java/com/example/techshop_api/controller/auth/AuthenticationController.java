@@ -1,6 +1,7 @@
 package com.example.techshop_api.controller.auth;
 
 import com.example.techshop_api.dto.request.auth.UserLoginRequest;
+import com.example.techshop_api.dto.request.auth.UserLogoutRequest;
 import com.example.techshop_api.dto.request.user.UserCreationRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.auth.AuthenticationResponse;
@@ -28,6 +29,12 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody UserLoginRequest request) {
         ApiResponse<AuthenticationResponse> apiResponse = authenticationService.login(request);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody UserLogoutRequest request) {
+        ApiResponse<Void> apiResponse = authenticationService.logout(request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

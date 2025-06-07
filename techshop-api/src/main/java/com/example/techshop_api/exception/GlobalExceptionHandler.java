@@ -4,6 +4,7 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.jwt.JwtException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler {
     /**
      * Xử lý app exception (các lỗi đã biết khi xử lý logic thông thường)
      * @param appException AppException instance
-     * @return ResponseEntity status code 400
+     * @return ResponseEntity
      */
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ApiResponse<Object>> handleAppException(AppException appException) {
