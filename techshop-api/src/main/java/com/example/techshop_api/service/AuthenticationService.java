@@ -41,7 +41,7 @@ public class AuthenticationService {
         String refreshToken = jwtUtil.generateRefreshToken(user);
         redisTemplate.opsForValue().set("REFRESH_TOKEN:" + user.getId(), refreshToken, 24, TimeUnit.HOURS);
         return AuthenticationResponse.builder()
-                .accessToken(accessToken)
+                .token(accessToken)
                 .refreshToken(refreshToken)
                 .build();
     }
