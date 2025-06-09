@@ -1,6 +1,6 @@
 export interface AuthType {
   isAuthenticated: boolean
-  token: string
+  token: string | undefined
 }
 
 export interface StateType {

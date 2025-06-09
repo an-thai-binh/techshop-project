@@ -26,9 +26,7 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
       },
     })
 
-    const body = await res.json().catch(() => null) // ✅ chỉ gọi 1 lần
-    console.log(body)
-    // ✅ Nếu chưa xác minh, trả về để client hiển thị modal OTP
+    const body = await res.json().catch(() => null)
     if (body?.data && !body.data.isVerified && body.data.userId) {
       return {
         success: false,
@@ -39,7 +37,6 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
       }
     }
 
-    // ✅ Nếu có lỗi khác
     if (!res.ok) {
       return {
         success: false,
@@ -47,7 +44,6 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
       }
     }
 
-    // ✅ Thành công → lưu token
     const { data } = body
     ;(await cookies()).set('token', data.token, {
       httpOnly: false,
@@ -55,7 +51,12 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
       path: '/',
       maxAge: 60 * 60 * 24,
     })
-
+    ;(await cookies()).set('refreshToken', data.refreshToken, {
+      httpOnly: true,
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7,
+    })
     return {
       success: true,
       message: 'Đăng nhập thành công!',

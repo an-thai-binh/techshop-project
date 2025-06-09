@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { clearToken, setToken } from '@/features/auth/authSlice'
+import { RootState } from '@/shared/redux/store'
+import { toast } from 'sonner'
 
-export const fetchTokenFromCookie = createAsyncThunk<string>(
+export const fetchTokenFromCookie = createAsyncThunk<string | undefined>(
   'auth/fetchTokenFromCookie',
   async (_, { dispatch }) => {
     if (typeof document === 'undefined') throw new Error('Not in browser')
@@ -11,24 +13,39 @@ export const fetchTokenFromCookie = createAsyncThunk<string>(
       .find((r) => r.startsWith('token'))
       ?.trim()
       .split('=')[1]
-    if (!token) throw new Error('Token not found in cookie')
-    dispatch(setToken({ token: token, isAuthenticated: true }))
+    if (!token) {
+      dispatch(setToken({ token: token, isAuthenticated: false }))
+      toast.info('Bạn chưa đăng nhập')
+      throw new Error('Token is undefined')
+    } else {
+      dispatch(setToken({ token: token, isAuthenticated: true }))
+    }
+
     return token
   },
 )
 
-export const removeTokenFromCookie = createAsyncThunk(
+export const removeTokenFromCookie = createAsyncThunk<void, void, { state: RootState }>(
   'auth/removeTokenCookie',
-  async (_, { dispatch }) => {
+  async (_, { dispatch, getState }) => {
+    const state = getState()
+    await fetch('http://localhost:8080/techshop/auth/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: state.auth.token }),
+    })
     document.cookie = 'token=; Max-Age=0; Path=/; SameSite=Lax'
     dispatch(clearToken())
+    toast.info('Đăng xuất thành công')
   },
 )
 export const refreshToken = createAsyncThunk(
   'auth/refreshToken',
   async (_, { rejectWithValue }) => {
     try {
-      const res = await fetch('http://localhost:8080/techshop/refresh')
+      const res = await fetch('http://localhost:8080/techshop/auth/refresh')
       return res.json()
     } catch (err) {
       return rejectWithValue(err)

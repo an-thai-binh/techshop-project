@@ -4,14 +4,14 @@ import { fetchTokenFromCookie } from '@/features/auth/authThunks'
 
 interface AuthState {
   isAuthenticated: boolean
-  token: string | null
+  token: string | undefined
   loading: boolean
   error: null
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  token: null,
+  token: undefined,
   loading: true,
   error: null,
 }
@@ -25,7 +25,7 @@ const authSlice = createSlice({
       state.isAuthenticated = action.payload.isAuthenticated
     },
     clearToken(state) {
-      state.token = null
+      state.token = undefined
       state.isAuthenticated = false
       state.loading = false
     },
@@ -41,8 +41,9 @@ const authSlice = createSlice({
       state.loading = false
     })
     builder.addCase(fetchTokenFromCookie.rejected, (state) => {
-      state.token = null
+      state.token = undefined
       state.isAuthenticated = false
+      state.loading = false
       state.error = null
     })
   },
