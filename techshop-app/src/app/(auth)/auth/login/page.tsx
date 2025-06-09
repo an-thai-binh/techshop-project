@@ -17,7 +17,6 @@ export default function LoginPage({
   // const next = typeof searchParams?.next === 'string' ? searchParams.next : undefined
   const router = useRouter()
   const formRef = useRef<HTMLFormElement>(null)
-
   const [state, formAction, isPending] = useActionState(login, {
     message: '',
     success: false,
