@@ -51,13 +51,21 @@ public class AuthenticationService {
         if (user == null) {
             throw new AppException(ErrorCode.USER_NOT_FOUND);
         }
-        if (!user.isVerified()) {
-            throw new AppException(ErrorCode.USER_NOT_VERIFIED);
-        }
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new AppException(ErrorCode.WRONG_PASSWORD);
         }
+        if (!user.isVerified()) {
+            return ApiResponse.<AuthenticationResponse>builder()
+                    .success(false)
+                    .message("Tài khoản chưa xác minh. Vui lòng xác thực")
+                    .data(AuthenticationResponse.builder()
+                            .isVerified(user.isVerified())
+                            .userId(user.getId())
+                            .build())
+                    .build();
+        }
+        String token = jwtUtil.generateAccessToken(user);
         AuthenticationResponse authenticationResponse = createAuthenticationResponse(user);
         return ApiResponse.<AuthenticationResponse>builder()
                 .success(true)
@@ -73,7 +81,7 @@ public class AuthenticationService {
             log.error("JWT verification failed: {}", e.getMessage());
         }
         // nếu token user truyền lên là hợp lệ thì đưa vào CSDL (thu hồi)
-        if(signedJWT != null) {
+        if (signedJWT != null) {
             try {
                 RevocatedToken revocatedToken = RevocatedToken.builder()
                         .id(signedJWT.getJWTClaimsSet().getJWTID())

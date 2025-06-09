@@ -9,7 +9,7 @@ spring:
   datasource:
 #    url: "jdbc:mysql://localhost:3306/techshop_api"
 #    username: "root"
-#    password: ""
+#    password: "1234"
     url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASS}
@@ -25,6 +25,17 @@ spring:
     redis:
       host: localhost
       port: 6379 # default
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: younglibit@8zulieu.com
+    password: klmmhgbucqooeiyr
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 jwt:
   secret-key: "ab54e0afc48dccae05b716718cc086157064eb59deafbd8a1b947a46367f6c59f9f1a614522e79099bc259e786dbe8a15a47265221ae38bb0223b818d7669d21"

@@ -49,4 +49,13 @@ public class OtpService {
         }
         return otp.equals(storedOtp);
     }
+    public boolean validate(OtpAction action, Long userId, String otp) {
+        String key = action.name() + ":" + userId;
+        String storedOtp = redisTemplate.opsForValue().get(key);
+        if (storedOtp == null || !storedOtp.equals(otp)) {
+            return false;
+        }
+        redisTemplate.delete(key);
+        return true;
+    }
 }

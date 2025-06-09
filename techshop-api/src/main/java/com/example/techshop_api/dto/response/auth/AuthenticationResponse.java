@@ -11,4 +11,6 @@ import lombok.experimental.FieldDefaults;
 public class AuthenticationResponse {
     String token;
     String refreshToken;
+    Boolean isVerified;
+    Long userId;
 }

@@ -26,10 +26,12 @@ public enum ErrorCode {
     DELETE_FAILED("Delete Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     PRODUCT_VARIATION_ALREADY_EXISTS("Product Variation with those choice values already exists", HttpStatus.BAD_REQUEST),
     USER_ALREADY_EXISTS("User Already Exists", HttpStatus.BAD_REQUEST),
+    EMAIL_ALREADY_EXISTS("Email Already Exists", HttpStatus.BAD_REQUEST),
     EMAIL_ALREADY_BIND("Email Already Bind", HttpStatus.BAD_REQUEST),
     WRONG_PASSWORD("Wrong Password", HttpStatus.BAD_REQUEST),
     USER_NOT_VERIFIED("User Not Verified", HttpStatus.FORBIDDEN),
     INVALID_TOKEN("Invalid Token", HttpStatus.UNAUTHORIZED),
+    INVALID_OTP("Invalid OTP", HttpStatus.BAD_REQUEST),
     CREATE_TOKEN_FAILED("Create Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     VERIFY_TOKEN_FAILED("Verify Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     REQUEST_EXTERNAL_FAILED("Request To External Resource Failed", HttpStatus.INTERNAL_SERVER_ERROR),
@@ -38,6 +40,7 @@ public enum ErrorCode {
 
     private String message;
     private HttpStatusCode statusCode;
+
     ErrorCode(String message, HttpStatusCode statusCode) {
         this.message = message;
         this.statusCode = statusCode;

@@ -29,12 +29,12 @@ export default function DropdownUser() {
         exit={{ opacity: 0, scaleY: 0.95 }}
         transition={{ duration: 0.25, ease: 'easeOut' }}
         style={{ transformOrigin: 'top' }}
-        className="absolute right-10 top-20 z-50 w-[280px] rounded-md border border-white/20 bg-white/80 shadow-xl backdrop-blur-sm dark:border-gray-700 dark:bg-gray-900/80"
+        className="absolute right-10 top-16 z-50 w-[280px] rounded-md border border-white/20 bg-white/90 shadow-xl backdrop-blur-sm dark:border-gray-700 dark:bg-gray-900/80"
       >
         <div className="flex flex-col gap-3 p-4 text-sm text-gray-800 dark:text-white">
           {/* Header */}
           <div className="flex items-center justify-center pb-1">
-            <h1 className="text-lg font-bold tracking-wide">Tài khoản</h1>
+            <h1 className="text-lg font-bold tracking-wide">TÀI KHOẢN</h1>
           </div>
 
           <div className="space-y-1.5">
@@ -45,7 +45,7 @@ export default function DropdownUser() {
             </div>
 
             {/* Thông tin cá nhân */}
-            <Link onClick={() => handleClick()} href="/profile">
+            <Link onClick={() => handleClick()} href="/profile/info">
               <div className="group relative flex items-center justify-between rounded-md px-3 py-2 transition-all duration-300 hover:bg-gray-200 dark:hover:bg-gray-700">
                 <span className="font-medium transition-transform group-hover:translate-x-1">
                   Thông tin cá nhân
