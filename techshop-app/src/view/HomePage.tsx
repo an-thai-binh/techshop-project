@@ -8,7 +8,7 @@ import { ProductDataType } from '@/features/product/types/ProductType'
 import { CategoryType } from '@/features/categories/types/CategoriesType'
 import { AnimatePresence, motion } from 'framer-motion'
 import React, { useEffect } from 'react'
-import { useAppDispatch } from '@/shared/redux/hook'
+import { useAppDispatch, useAppSelector } from '@/shared/redux/hook'
 import { setProducts } from '@/features/product/productSlice'
 
 type HomeProps = {
@@ -25,7 +25,6 @@ export default function HomePage(_props: HomeProps) {
   useEffect(() => {
     dispatch(setProducts(_props.products.gridProducts.content))
   })
-
   return (
     <AnimatePresence>
       <motion.div

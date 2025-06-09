@@ -6,7 +6,7 @@ import Navigation from '@/component/layout/Navigation'
 import { UIProvider } from '@/shared/context/UIContext'
 import React from 'react'
 
-export default function UserLayout({ children }: { children: React.ReactNode }) {
+export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <UIProvider>
       <ApplyTheme />

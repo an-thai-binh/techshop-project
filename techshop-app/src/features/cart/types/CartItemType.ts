@@ -9,5 +9,5 @@ export interface CartItemType {
   productDescription: string
   quantity: number
   productImgUrl: string
-  isStock: number
+  inStock: number
 }

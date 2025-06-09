@@ -13,7 +13,6 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('token')?.value
   const pathname = request.nextUrl.pathname
   const publicRoutes = ['/auth/login', '/auth/register', '/']
-  // const privateRoutes = ['/profile', '/admin']
   if (!token && !publicRoutes.includes(pathname)) {
     const pathCurrent = decodeURIComponent(request.nextUrl.pathname)
     const nextUrl = new URL(`/auth/login`, request.url)
@@ -26,15 +25,27 @@ export function middleware(request: NextRequest) {
   let payload: TokenPayload | null = null
   try {
     payload = jwt.decode(token) as TokenPayload
-    console.log(payload)
     if (!payload) throw new Error('Token decode failed')
   } catch {
-    return NextResponse.redirect(new URL('/auth/login', request.url))
+    const res = NextResponse.redirect(new URL('/auth/login', request.url))
+    res.cookies.set({
+      name: 'token',
+      value: '',
+      path: '/',
+      expires: new Date(0),
+    })
+    return res
   }
   const now = Math.floor(Date.now() / 1000)
   if (payload.exp < now) {
-    request.cookies.delete('token')
-    return NextResponse.redirect(new URL('/auth/login', request.url))
+    const res = NextResponse.redirect(new URL('/auth/login', request.url))
+    res.cookies.set({
+      name: 'token',
+      value: '',
+      path: '/',
+      expires: new Date(0),
+    })
+    return res
   }
   const scopes = payload.scope.split(' ')
   if (pathname.startsWith('/admin') && !scopes.includes('ROLE_ADMIN')) {
@@ -45,5 +56,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*', '/profile', '/settings'],
+  matcher: ['/admin/:path*', '/profile/:path*', '/product-detail/:path'],
 }

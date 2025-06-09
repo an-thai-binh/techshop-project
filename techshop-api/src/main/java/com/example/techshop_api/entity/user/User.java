@@ -46,8 +46,8 @@ public class User {
     )
     List<Role> roleList;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    Cart cart;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    Cart cart;
 
     boolean isVerified;
 

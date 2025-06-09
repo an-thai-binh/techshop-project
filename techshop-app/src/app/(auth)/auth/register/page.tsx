@@ -2,9 +2,10 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useActionState, useEffect, useRef } from 'react'
+import { useActionState, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { register } from '@/app/(auth)/auth/action'
+import OtpVerificationModal from '@/component/common/OtpModal'
 
 // interface RegisterPageProps {
 //   searchParams: {
@@ -24,14 +25,18 @@ export default function RegisterPage({
   const [state, formAction, isPending] = useActionState(register, {
     success: false,
     message: '',
+    userId: '',
   })
+
+  const [showOtpModal, setShowOtpModal] = useState(false)
 
   useEffect(() => {
     if (state.success) {
       toast.success(state.message)
-      setTimeout(() => {
-        router.push(state.redirectTo || '/auth/login')
-      }, 1000)
+      setShowOtpModal(true)
+      // setTimeout(() => {
+      //   router.push(state.redirectTo || '/auth/login')
+      // }, 1000)
     } else if (state.message) {
       toast.error(state.message)
     }
@@ -98,8 +103,8 @@ export default function RegisterPage({
             required
           >
             <option value="">Chọn giới tính</option>
-            <option value="male">Nam</option>
-            <option value="female">Nữ</option>
+            <option value="Male">Nam</option>
+            <option value="Female">Nữ</option>
             <option value="other">Khác</option>
           </select>
 
@@ -119,6 +124,16 @@ export default function RegisterPage({
           </Link>
         </p>
       </div>
+      {showOtpModal && state.userId && (
+        <OtpVerificationModal
+          userId={state.userId}
+          onVerified={() => {
+            setShowOtpModal(false)
+            router.push('/auth/login')
+          }}
+          action={'VERIFY_ACCOUNT'}
+        />
+      )}
     </div>
   )
 }

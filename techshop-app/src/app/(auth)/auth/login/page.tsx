@@ -2,14 +2,12 @@
 import Link from 'next/link'
 import { MailIcon } from '@heroui/shared-icons'
 import { LockClosedIcon } from '@heroicons/react/24/outline'
-import { useActionState, useEffect, useRef } from 'react'
+import { useActionState, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { login } from '@/app/(auth)/auth/action'
+import OtpVerificationModal from '@/component/common/OtpModal'
 
-// interface LoginPageProps {
-//   searchParams?: { [key: string]: string | string[] | undefined }
-// }
 export default function LoginPage({
   searchParams,
 }: {
@@ -23,17 +21,27 @@ export default function LoginPage({
   const [state, formAction, isPending] = useActionState(login, {
     message: '',
     success: false,
+    userId: '',
+    isVerified: false,
   })
-
+  const [showOtpModal, setShowOtpModal] = useState(false)
+  const [otpUserId, setOtpUserId] = useState<string | undefined>(undefined)
+  console.log(state.userId)
   useEffect(() => {
-    if (state.success) {
-      router.push(state.redirectTo || '/')
+    if (!state.isVerified && state.userId) {
+      setOtpUserId(state.userId)
+      setShowOtpModal(true)
+      toast.info(state.message || 'Vui lòng xác minh tài khoản')
+    } else if (state.success) {
       toast.success(state.message || 'Đăng nhập thành công!')
+      router.push(state.redirectTo || '/')
     } else if (state.message) {
       toast.error(state.message)
     }
   }, [state])
-
+  const autoLoginAfterOtp = () => {
+    formRef.current?.requestSubmit()
+  }
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-md space-y-6 rounded-xl bg-white/50 p-8 shadow-lg backdrop-blur-sm transition hover:shadow-xl">
@@ -89,6 +97,17 @@ export default function LoginPage({
           </Link>
         </div>
       </div>
+      {showOtpModal && otpUserId && (
+        <OtpVerificationModal
+          userId={otpUserId}
+          action={'VERIFY_ACCOUNT'}
+          onVerified={() => {
+            setShowOtpModal(false)
+            autoLoginAfterOtp()
+            router.push('/')
+          }}
+        />
+      )}
     </div>
   )
 }

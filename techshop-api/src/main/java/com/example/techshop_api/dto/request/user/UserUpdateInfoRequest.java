@@ -1,4 +1,4 @@
-package com.example.techshop_api.dto.response.auth;
+package com.example.techshop_api.dto.request.user;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -8,8 +8,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AuthenticationResponse {
-    String token;
-    Boolean isVerified;
-    Long userId;
+public class UserUpdateInfoRequest {
+    String fullName;
+    int birthYear;
+    String gender;
 }
