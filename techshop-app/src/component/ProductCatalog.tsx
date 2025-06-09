@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useUIContext } from '@/shared/context/UIContext'
 import { CategoryType } from '@/features/categories/types/CategoriesType'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
@@ -7,11 +7,22 @@ import Link from 'next/link'
 
 type ProductCatalogProps = {
   className?: string
-  items: CategoryType[]
+  items?: CategoryType[]
 }
 
 export default function ProductCatalog(_props: ProductCatalogProps) {
   const { state, dispatch } = useUIContext()
+  const [categories, setCategories] = useState<CategoryType[]>([])
+  useEffect(() => {
+    if (_props.items) {
+      setCategories(_props.items)
+    } else {
+      fetch('http://localhost:8080/techshop/category/all')
+        .then((res) => res.json())
+        .then((res) => setCategories(res.data))
+        .catch(console.error)
+    }
+  }, [_props.items])
   const catalogRef = useRef<HTMLDivElement>(null)
   const handleClickOutside = (e: MouseEvent) => {
     if (
@@ -35,7 +46,7 @@ export default function ProductCatalog(_props: ProductCatalogProps) {
     >
       <div className="flex w-full flex-col items-start justify-start gap-1">
         <ul className="flex size-full flex-col gap-0 rounded-xl p-2">
-          {_props.items?.map((category) => (
+          {categories.map((category) => (
             <Link key={category.id} href={`/categories/${category.id}`}>
               <li
                 key={category.id}

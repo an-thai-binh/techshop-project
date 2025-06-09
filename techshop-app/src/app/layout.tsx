@@ -3,6 +3,8 @@ import './globals.css'
 import React from 'react'
 import ProviderRedux from '@/shared/redux/provider'
 import { Toaster } from 'sonner'
+import ProgressBar from '@/component/feedback/ProgressBar'
+import MainWrapper from '@/component/feedback/MainWrapper'
 
 export const metadata: Metadata = {
   title: 'Techshop App',
@@ -17,8 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`flex max-h-full flex-col`}>
+        <ProgressBar />
         <ProviderRedux>
-          {children}
+          <MainWrapper>{children}</MainWrapper>
           <Toaster
             position="bottom-right"
             duration={4000}

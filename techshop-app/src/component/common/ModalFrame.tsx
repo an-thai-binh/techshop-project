@@ -28,15 +28,7 @@ export default function ModalFrame({
 
   return createPortal(
     <div onClick={onClose} className="fixed inset-0 z-10 flex items-center justify-center">
-      {/* Overlay */}
-      {/*<div*/}
-      {/*  onClick={onClose}*/}
-      {/*  className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"*/}
-      {/*></div>*/}
-
-      {/* Modal content - Sora style */}
       <div className="absolute z-10 w-[90%] max-w-sm rounded-xl border border-black/10 bg-white/80 p-6 shadow-lg backdrop-blur dark:border-white/10 dark:bg-gray-950/80 dark:text-white">
-        {/* Close */}
         <button
           onClick={onClose}
           className="absolute right-4 top-4 text-gray-500 hover:text-red-500"
@@ -44,15 +36,12 @@ export default function ModalFrame({
           <XMarkIcon className="h-5 w-5" />
         </button>
 
-        {/* Title */}
         <h2 className="text-lg font-semibold tracking-tight text-black dark:text-white">{title}</h2>
 
-        {/* Description */}
         {description && (
           <p className="mt-2 text-sm text-gray-700 dark:text-gray-300">{description}</p>
         )}
 
-        {/* Actions */}
         <div className="mt-6 flex justify-end gap-2">
           <button
             onClick={onClose}

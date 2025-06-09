@@ -9,14 +9,19 @@ import {
 } from '@/api/CartAPI'
 import { CartType } from '@/features/cart/types/CartType'
 import { toast } from 'sonner'
+import { setCart } from '@/features/cart/cartSlice'
 
-export const fetchCartFromApi = createAsyncThunk<CartType>('cart/fetchCart', async () => {
-  const { success, data } = await fetchCart()
-  if (!success) {
-    console.log('fetchCartFromApi Thunk', data)
-  }
-  return data
-})
+export const fetchCartFromApi = createAsyncThunk<CartType>(
+  'cart/fetchCart',
+  async (_, { dispatch }) => {
+    const { success, data } = await fetchCart()
+    if (!success) {
+      console.log('fetchCartFromApi Thunk', data)
+    }
+    dispatch(setCart(data.items))
+    return data
+  },
+)
 
 export const fetchAddItemCartFromApi = createAsyncThunk<string, number>(
   'cart/addItemCart',

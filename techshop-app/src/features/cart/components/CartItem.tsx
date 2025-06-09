@@ -20,8 +20,8 @@ type CartItemProps = {
 export default function CartItem({ item }: CartItemProps) {
   const appDispatch = useAppDispatch()
   const { state, dispatch } = useUIContext()
-  const isOutOfStock = item.isStock === 0
-  const isMaxQuantity = item.quantity >= item.isStock
+  const isOutOfStock = item.inStock === 0
+  const isMaxQuantity = item.quantity >= item.inStock
   const handleClick = () => {
     if (state.isDropdownVisible && state.dropdownType === 'cart') {
       dispatch({

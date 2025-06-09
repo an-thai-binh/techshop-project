@@ -12,7 +12,7 @@ interface AuthState {
 const initialState: AuthState = {
   isAuthenticated: false,
   token: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -27,10 +27,11 @@ const authSlice = createSlice({
     clearToken(state) {
       state.token = null
       state.isAuthenticated = false
+      state.loading = false
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchTokenFromCookie.pending, (state, action) => {
+    builder.addCase(fetchTokenFromCookie.pending, (state) => {
       state.error = null
       state.loading = true
     })
@@ -38,6 +39,11 @@ const authSlice = createSlice({
       state.token = action.payload
       state.isAuthenticated = true
       state.loading = false
+    })
+    builder.addCase(fetchTokenFromCookie.rejected, (state) => {
+      state.token = null
+      state.isAuthenticated = false
+      state.error = null
     })
   },
 })

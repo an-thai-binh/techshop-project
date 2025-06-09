@@ -1,10 +1,10 @@
-import { forwardRef } from 'react'
-import { UserForm } from '@/app/(main)/profile/page'
+import React, { forwardRef } from 'react'
+import { UserForm } from '@/app/(main)/profile/info/page'
 
 export type InputFieldProps = {
   name: keyof UserForm
   label: string
-  value: string
+  value?: string
   setValue: React.Dispatch<React.SetStateAction<UserForm>>
   type?: string
   hint?: string

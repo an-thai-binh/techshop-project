@@ -43,4 +43,5 @@ public class AuthenticationController {
         ApiResponse<UserResponse> apiResponse = userService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
+
 }

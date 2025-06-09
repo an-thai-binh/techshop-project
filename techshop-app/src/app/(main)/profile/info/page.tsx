@@ -5,10 +5,17 @@ import { toast } from 'sonner'
 import { getUserProfile, updateUserProfile } from '@/app/(auth)/auth/action'
 import InputField from '@/component/form/InputFieldProps'
 import { SelectField } from '@/component/form/SelectField'
+import { Loader2 } from 'lucide-react'
 
 export type Gender = 'male' | 'female' | 'other' | ''
 
 export type UserForm = {
+  username?: string
+  email?: string
+  newEmail?: string
+  password?: string
+  newPassword?: string
+  confirmPassword?: string
   fullName: string
   phoneNumber: string
   birthYear: string
@@ -23,7 +30,7 @@ export type User = {
   gender?: Gender
 }
 
-export default function ProfilePage() {
+export default function InfoPage() {
   const [user, setUser] = useState<User | null>(null)
   const [form, setForm] = useState<UserForm>({
     fullName: '',
@@ -88,7 +95,6 @@ export default function ProfilePage() {
     formData.append('phoneNumber', form.phoneNumber)
     formData.append('birthYear', form.birthYear)
     formData.append('gender', form.gender)
-
     const res = await updateUserProfile(formData)
     setUpdating(false)
 
@@ -96,11 +102,35 @@ export default function ProfilePage() {
     res.success ? toast.success(res.message) : toast.error(res.message)
   }
 
-  if (loading) return <div className="p-10 text-center text-gray-500">Đang tải...</div>
+  if (loading) {
+    return (
+      <div className="flex size-full items-center justify-center bg-white/70 px-4 py-10 dark:bg-gray-900">
+        <div className="w-full max-w-4xl animate-pulse space-y-6 rounded-xl border border-gray-200 bg-white/50 px-6 py-8 shadow-lg backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/50">
+          <div className="flex flex-col items-center sm:flex-row sm:items-center sm:space-x-6">
+            <div className="h-24 w-24 rounded-full bg-gray-300 dark:bg-gray-700" />
+            <div className="mt-4 h-6 w-32 rounded bg-gray-300 dark:bg-gray-700 sm:mt-0" />
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <div key={idx} className="space-y-2">
+                <div className="h-4 w-1/3 rounded bg-gray-300 dark:bg-gray-700" />
+                <div className="h-10 w-full rounded bg-gray-200 dark:bg-gray-800" />
+              </div>
+            ))}
+          </div>
+
+          <div className="flex w-full items-center justify-center pt-4">
+            <div className="h-10 w-40 rounded bg-blue-300 dark:bg-blue-800" />
+          </div>
+        </div>
+      </div>
+    )
+  }
   if (!user) return <div className="p-10 text-center text-red-500">Không thể tải người dùng.</div>
 
   return (
-    <div className="flex size-full items-start justify-center bg-gray-100 px-4 py-10 dark:bg-gray-900">
+    <div className="flex size-full items-start justify-center bg-white/70 px-4 py-10 dark:bg-gray-900">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-4xl space-y-6 rounded-xl border border-gray-200 bg-white/50 px-6 py-8 shadow-lg backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/50"

@@ -27,8 +27,8 @@ export const SelectField = ({
       className="w-full rounded border border-gray-300 bg-gray-50 p-3 text-sm text-black shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
     >
       <option value="">Chọn giới tính</option>
-      <option value="male">Nam</option>
-      <option value="female">Nữ</option>
+      <option value="Male">Nam</option>
+      <option value="Female">Nữ</option>
       <option value="other">Khác</option>
     </select>
   </div>
