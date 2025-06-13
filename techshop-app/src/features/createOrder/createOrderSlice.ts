@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { OrderInformation } from "./types/CreateOrderType";
+import { OrderInformationType } from "./types/CreateOrderType";
 
-const initialState: OrderInformation = {
+const initialState: OrderInformationType = {
     orderName: "",
     orderAddress: "",
     orderEmail: "",
@@ -12,7 +12,7 @@ export const createOrderSlice = createSlice({
     name: 'createOrder',
     initialState,
     reducers: {
-        updateInformation: (state, action: PayloadAction<{ field: keyof OrderInformation; value: string}>) => {
+        updateInformation: (state, action: PayloadAction<{ field: keyof OrderInformationType; value: string}>) => {
             const { field, value} = action.payload;
             state[field] = value;
         },

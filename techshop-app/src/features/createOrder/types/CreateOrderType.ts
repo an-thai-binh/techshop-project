@@ -8,7 +8,7 @@ export interface OrderRequest {
     orderItems: OrderItemRequest[]
 }
 
-export interface OrderInformation {
+export interface OrderInformationType {
     orderName: string,
     orderAddress: string,
     orderEmail: string,
