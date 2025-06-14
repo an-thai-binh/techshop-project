@@ -19,6 +19,7 @@ import com.example.techshop_api.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -80,6 +82,7 @@ public class OrderService {
         try {
             orderRepository.save(order);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new AppException(ErrorCode.INSERT_FAILED);
         }
         OrderResponse orderResponse = orderMapper.toOrderResponse(order);

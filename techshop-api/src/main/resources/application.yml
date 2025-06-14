@@ -42,6 +42,7 @@ jwt:
 
 stripe:
   secret-key: ${STRIPE_SECRET_KEY}
+  webhook-signing-secret: ${STRIPE_SIGNING_SECRET}
 
 external:
   upload-image-url: "http://binhan.io.vn/api/file_upload/uploadImg.php"
