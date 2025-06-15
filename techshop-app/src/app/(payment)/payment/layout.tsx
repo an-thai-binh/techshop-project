@@ -1,6 +1,5 @@
 import ApplyTheme from '@/component/ApplyTheme'
 import Overlay from '@/component/layout/Overlay'
-import Footer from '@/component/layout/Footer'
 import { UIProvider } from '@/shared/context/UIContext'
 import React from 'react'
 import AppInitializer from '@/component/AppInitializer'
