@@ -23,9 +23,9 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
                 WHERE i.variation_id = :variationId
                 AND i.quantity < :quantity
             )
-            """
-            , nativeQuery = true)
-    boolean isOutOfStock(Long variationId, int quantity);
+        """
+        , nativeQuery = true)
+    int isOutOfStock(Long variationId, int quantity);
 
     interface InventoryQuantityView {   // giúp truy vấn chỉ 1 thuộc hoặc nhiều thuộc tính xác định
         int getQuantity();

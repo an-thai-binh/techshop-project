@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
     PaymentService paymentService;
 
-    @PostMapping("/checkout/cod")
-    public ResponseEntity<ApiResponse<Void>> checkoutCod(Long orderId) {
+    @PostMapping("/checkout/cod/{id}")
+    public ResponseEntity<ApiResponse<Void>> checkoutCod(@PathVariable("id") Long orderId) {
         ApiResponse<Void> apiResponse = paymentService.checkoutCod(orderId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
-    @PostMapping("/checkout/transfer")
-    public ResponseEntity<ApiResponse<StripeCheckoutResponse>> checkoutTransfer(Long orderId) {
+    @PostMapping("/checkout/transfer/{id}")
+    public ResponseEntity<ApiResponse<StripeCheckoutResponse>> checkoutTransfer(@PathVariable("id") Long orderId) {
         ApiResponse<StripeCheckoutResponse> apiResponse = paymentService.checkoutTransfer(orderId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }

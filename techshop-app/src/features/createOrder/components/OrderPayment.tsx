@@ -1,21 +1,82 @@
 import { selectCartItems } from "@/features/cart/cartSelectors";
 import { CartItemType } from "@/features/cart/types/CartItemType";
-import { useAppDispatch, useAppSelector } from "@/shared/redux/hook";
-import React from "react";
-import { selectOrderInformation } from "../createOrderSelectors";
-import Image from "next/image";
+import { useAppSelector } from "@/shared/redux/hook";
+import React, { useState } from "react";
+import { selectOrderId, selectOrderInformation } from "../createOrderSelectors";
 import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { EndpointAPI } from "@/api/EndpointAPI";
+import api from "@/utils/APIAxiosConfig";
 
-type OrderPaymentProps = {
+type PaymentPageProps = {
     setStage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function OrderPayment({ setStage }: OrderPaymentProps) {
+export default function OrderPayment({ setStage }: PaymentPageProps) {
     const carts: CartItemType[] = useAppSelector(selectCartItems)
+    const orderId = useAppSelector(selectOrderId);
     const { orderName, orderAddress, orderEmail, orderPhoneNumber } = useAppSelector(selectOrderInformation);
+    const [paymentMethod, setPaymentMethod] = useState<string>("cod");
 
-    const moveToSuccessPage = () => {
-        setStage(3);
+    const handleChangePaymentMethod = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPaymentMethod(e.target.value);
+    }
+
+    const onSubmitPaymentMethod = () => {
+        if (paymentMethod === "cod") {
+            handleCodMethod();
+        } else {
+            handleTransferMethod();
+        }
+    }
+
+    const handleCodMethod = async () => {
+        try {
+            const response = await api.post(EndpointAPI.CHECKOUT_COD + orderId);
+            if (response.data.success) {
+                setStage(3);
+            }
+        } catch (error: any) {
+            setStage(0);
+            const message = error.response?.data.message || error.message;
+            throw new Error('Set payment method failed: ' + message);
+        }
+
+    }
+
+    const handleTransferMethod = async () => {
+        try {
+            const response = await api.post(EndpointAPI.CHECKOUT_TRANSFER + orderId);
+            if (response.data.success) {
+                const sessionUrl = response.data.data.sessionUrl;
+                const popup = window.open(sessionUrl, "_blank", "width=500,height=800");
+
+                const interval = setInterval(() => {
+                    if (popup?.closed) {
+                        clearInterval(interval);
+                        throw new Error("Set payment method failed: User has closed payment window");
+                    }
+                }, 500);
+
+                window.addEventListener("message", (e) => {
+                    if (e.data?.status === "success") {
+                        clearInterval(interval);
+                        setStage(3);
+                        setTimeout(() => {
+                            popup?.close();
+                        }, 1500);
+                    } else if (e.data?.status === "cancel") {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            popup?.close();
+                        }, 1500);
+                    }
+                })
+            }
+        } catch (error: any) {
+            setStage(0);
+            const message = error.response?.data.message || error.message;
+            throw new Error('Set payment method failed: ' + message);
+        }
     }
 
     return (
@@ -99,19 +160,19 @@ export default function OrderPayment({ setStage }: OrderPaymentProps) {
                 </div>
                 <div className="flex items-center">
                     <div className="p-3">
-                        <input type="radio" name="paymentMethod" />
+                        <input type="radio" name="paymentMethod" value="cod" checked={paymentMethod === "cod"} onChange={handleChangePaymentMethod} />
                     </div>
                     <label className="flex-1 font-semibold">Thanh toán khi nhận hàng</label>
                 </div>
                 <div className="flex items-center">
                     <div className="p-3">
-                        <input type="radio" name="paymentMethod" />
+                        <input type="radio" name="paymentMethod" value="transfer" checked={paymentMethod === "transfer"} onChange={handleChangePaymentMethod} />
                     </div>
                     <label className="flex-1 font-semibold">Trả trước thông qua chuyển khoản trực tuyến</label>
                 </div>
             </div >
             <div className="my-3 mx-auto max-w-fit">
-                <button className="bg-green-500 px-3 py-2 font-bold text-white" onClick={moveToSuccessPage}>Tiếp tục</button>
+                <button className="bg-green-500 px-3 py-2 font-bold text-white" onClick={onSubmitPaymentMethod}>Tiếp tục</button>
             </div>
         </>
     );

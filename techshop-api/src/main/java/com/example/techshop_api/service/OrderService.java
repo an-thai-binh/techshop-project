@@ -7,15 +7,13 @@ import com.example.techshop_api.dto.response.order.OrderResponse;
 import com.example.techshop_api.entity.cart.CartItem;
 import com.example.techshop_api.entity.order.Order;
 import com.example.techshop_api.entity.order.OrderItem;
+import com.example.techshop_api.entity.product.ProductVariation;
 import com.example.techshop_api.entity.user.User;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.OrderItemMapper;
 import com.example.techshop_api.mapper.OrderMapper;
-import com.example.techshop_api.repository.CartItemRepository;
-import com.example.techshop_api.repository.InventoryRepository;
-import com.example.techshop_api.repository.OrderRepository;
-import com.example.techshop_api.repository.UserRepository;
+import com.example.techshop_api.repository.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -39,6 +38,7 @@ public class OrderService {
     InventoryRepository inventoryRepository;
     OrderMapper orderMapper;
     OrderItemMapper orderItemMapper;
+    private final ProductVariationRepository productVariationRepository;
 
     public ApiResponse<Page<OrderResponse>> index(Pageable pageable) {
         Page<Order> orders = orderRepository.findAll(pageable);
@@ -65,7 +65,7 @@ public class OrderService {
         List<OrderItemCreationRequest> requestItems = request.getOrderItems();
         // kiểm tra kho còn đủ số lượng
         for(OrderItemCreationRequest item: requestItems) {
-            if(inventoryRepository.isOutOfStock(item.getVariationId(), item.getQuantity())) {
+            if(inventoryRepository.isOutOfStock(item.getVariationId(), item.getQuantity()) == 1) {  // 1 là true trong mysql
                 throw new AppException(ErrorCode.PRODUCT_OUT_OF_STOCK);
             }
         }
@@ -77,7 +77,12 @@ public class OrderService {
                         .mapToDouble(item -> item.getUnitPrice() * item.getQuantity())
                         .sum();
         order.setTotalAmount(totalAmount);
-        List<OrderItem> orderItemList = requestItems.stream().map((item) -> orderItemMapper.toOrderItem(order, item)).toList();
+        List<OrderItem> orderItemList = new ArrayList<>();
+        for(OrderItemCreationRequest item: requestItems) {
+            ProductVariation productVariation = productVariationRepository.findById(item.getVariationId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
+            OrderItem orderItem = orderItemMapper.toOrderItem(order, productVariation, item);
+            orderItemList.add(orderItem);
+        }
         order.setOrderItemList(orderItemList);
         try {
             orderRepository.save(order);

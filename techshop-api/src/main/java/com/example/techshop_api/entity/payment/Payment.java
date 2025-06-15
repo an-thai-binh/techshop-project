@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Table(name = "payment")
 public class Payment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @OneToOne

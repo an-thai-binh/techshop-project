@@ -5,11 +5,14 @@ import { formatVietNamCurrency } from "@/utils/CurrentyFormat"
 import Image from "next/image"
 import React, { useEffect } from "react"
 import { selectOrderInformation } from "../createOrderSelectors"
-import { updateInformation } from "../createOrderSlice"
+import { updateInformation, updateOrderId } from "../createOrderSlice"
 import { OrderInformationType } from "../types/CreateOrderType"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import api from "@/utils/APIAxiosConfig"
+import { EndpointAPI } from "@/api/EndpointAPI"
+import { getUserId } from "@/app/(auth)/auth/action"
 
 type InformationPageProps = {
     setStage: React.Dispatch<React.SetStateAction<number>>;
@@ -30,7 +33,7 @@ type FormData = z.infer<typeof formSchema>;
 
 export default function OrderInformation({ setStage }: InformationPageProps) {
     const dispatch = useAppDispatch();
-    const carts: CartItemType[] = useAppSelector(selectCartItems)
+    const carts: CartItemType[] = useAppSelector(selectCartItems);
     const { orderName, orderAddress, orderEmail, orderPhoneNumber } = useAppSelector(selectOrderInformation);
     const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>(
         {
@@ -54,8 +57,37 @@ export default function OrderInformation({ setStage }: InformationPageProps) {
     }, [watch, dispatch])
 
 
-    const onSubmit = () => {
-        setStage(2);
+    const onSubmit = async (data: FormData) => {
+        const items = carts.map(({ productVariationId, productFinalPrice, quantity }) => ({
+            variationId: productVariationId,
+            unitPrice: productFinalPrice,
+            quantity: quantity
+        }));
+        if (!items) {
+            setStage(0);
+            throw new Error("Empty order items");
+        }
+        const userId = await getUserId();
+        const requestBody = {
+            userId: userId,
+            orderName: data.orderName,
+            orderAddress: data.orderAddress,
+            orderEmail: data.orderEmail,
+            orderPhoneNumber: data.orderPhoneNumber,
+            orderItems: items
+        }
+        try {
+            const response = await api.post(EndpointAPI.ORDER_STORE, requestBody);
+            if (response.data.success) {
+                const orderId = response.data.data.id;
+                dispatch(updateOrderId(orderId));
+                setStage(2);
+            }
+        } catch (error: any) {
+            setStage(0);
+            const message = error.response?.data.message || error.message;
+            throw new Error("Create order failed: " + message);
+        }
     }
 
     return (

@@ -22,6 +22,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -41,6 +42,13 @@ public class PaymentService {
     @Value("${stripe.webhook-signing-secret}")
     String webhookSigningSecret;
 
+    @Value("${stripe.success-url}")
+    String successUrl;
+
+    @Value("${stripe.cancel-url}")
+    String cancelUrl;
+
+    @Transactional
     public ApiResponse<Void> checkoutCod(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
         order.setStatus("PENDING");
@@ -63,6 +71,7 @@ public class PaymentService {
                 .build();
     }
 
+    @Transactional
     public ApiResponse<StripeCheckoutResponse> checkoutTransfer(Long orderId) {
         Stripe.apiKey = stripeSecretKey;
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
@@ -96,8 +105,8 @@ public class PaymentService {
 
         SessionCreateParams.Builder paramsBuilder = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("")
-                .setCancelUrl("")
+                .setSuccessUrl(successUrl)
+                .setCancelUrl(cancelUrl)
                 .setClientReferenceId(orderId.toString())
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD);
 
@@ -121,15 +130,19 @@ public class PaymentService {
         }
     }
 
+    @Transactional
     public ApiResponse<Void> handleStripeWebhook(String payload, String signature) {
         try {
             Event event = Webhook.constructEvent(payload, signature, webhookSigningSecret);
+            if(!event.getApiVersion().equals(Stripe.API_VERSION)) {
+                log.error("Please update Stripe dependency");
+            }
             if (event.getType().equals("checkout.session.completed")) {
                 Session session = (Session) event.getDataObjectDeserializer()
-                        .getObject()
-                        .orElseThrow(() -> new AppException(ErrorCode.SESSION_NOT_FOUND));
+                        .getObject().orElseThrow(() -> new AppException(ErrorCode.SESSION_NOT_FOUND));
                 Long orderId = Long.valueOf(session.getClientReferenceId());
-                String status = session.getStatus();
+                String status = session.getPaymentStatus();
+                System.out.println(status);
                 if (status.equals("paid")) {
                     Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
                     order.setStatus("PENDING");
