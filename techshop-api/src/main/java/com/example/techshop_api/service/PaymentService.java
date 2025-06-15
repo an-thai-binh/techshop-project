@@ -22,8 +22,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,8 +32,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PaymentService {
-    PaymentRepository paymentRepository;
-    OrderRepository orderRepository;
+    final PaymentRepository paymentRepository;
+    final OrderRepository orderRepository;
 
     @Value("${stripe.secret-key}")
     String stripeSecretKey;
@@ -43,7 +41,29 @@ public class PaymentService {
     @Value("${stripe.webhook-signing-secret}")
     String webhookSigningSecret;
 
-    public ApiResponse<StripeCheckoutResponse> checkout(Long orderId) {
+    public ApiResponse<Void> checkoutCod(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
+        order.setStatus("PENDING");
+        Payment payment = Payment.builder()
+                .order(order)
+                .amount(order.getTotalAmount())
+                .paymentMethod("COD")
+                .paymentStatus("PENDING")
+                .build();
+        try {
+            orderRepository.save(order);
+            paymentRepository.save(payment);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new AppException(ErrorCode.UPDATE_FAILED);
+        }
+        return ApiResponse.<Void>builder()
+                .success(true)
+                .message("Set payment successfully")
+                .build();
+    }
+
+    public ApiResponse<StripeCheckoutResponse> checkoutTransfer(Long orderId) {
         Stripe.apiKey = stripeSecretKey;
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
         List<OrderItem> orderItemList = order.getOrderItemList();
@@ -104,23 +124,23 @@ public class PaymentService {
     public ApiResponse<Void> handleStripeWebhook(String payload, String signature) {
         try {
             Event event = Webhook.constructEvent(payload, signature, webhookSigningSecret);
-            if(event.getType().equals("checkout.session.completed")) {
+            if (event.getType().equals("checkout.session.completed")) {
                 Session session = (Session) event.getDataObjectDeserializer()
                         .getObject()
                         .orElseThrow(() -> new AppException(ErrorCode.SESSION_NOT_FOUND));
                 Long orderId = Long.valueOf(session.getClientReferenceId());
                 String status = session.getStatus();
-                if(status.equals("paid")) {
+                if (status.equals("paid")) {
                     Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
                     order.setStatus("PENDING");
                     double amount = session.getAmountTotal();
                     Payment payment = Payment.builder()
-                                    .order(order)
-                                    .amount(amount)
-                                    .paymentMethod("TRANSFER")
-                                    .paymentStatus("SUCCESS")
-                                    .paymentGateway("STRIPE")
-                                    .build();
+                            .order(order)
+                            .amount(amount)
+                            .paymentMethod("TRANSFER")
+                            .paymentStatus("SUCCESS")
+                            .paymentGateway("STRIPE")
+                            .build();
                     try {
                         orderRepository.save(order);
                         paymentRepository.save(payment);
@@ -137,27 +157,5 @@ public class PaymentService {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.INVALID_SIGNATURE);
         }
-    }
-
-    public ApiResponse<Void> handleCashOnDelivery(Long orderId) {
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
-        order.setStatus("PENDING");
-        Payment payment = Payment.builder()
-                .order(order)
-                .amount(order.getTotalAmount())
-                .paymentMethod("COD")
-                .paymentStatus("PENDING")
-                .build();
-        try {
-            orderRepository.save(order);
-            paymentRepository.save(payment);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new AppException(ErrorCode.UPDATE_FAILED);
-        }
-        return ApiResponse.<Void>builder()
-                .success(true)
-                .message("Set payment successfully")
-                .build();
     }
 }
