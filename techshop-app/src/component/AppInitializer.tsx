@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { fetchTokenFromCookie } from '@/features/auth/authThunks'
 import { fetchCartFromApi } from '@/features/cart/cartThunks'
 import { selectIsAuthenticated } from '@/features/auth/authSelectors'
+import { fetchUserIdFromApi } from '@/features/user/userThunks'
 
 export default function AppInitializer() {
   const dispatch = useAppDispatch()
@@ -12,7 +13,8 @@ export default function AppInitializer() {
     dispatch(fetchTokenFromCookie())
     if (isAuthenticated) {
       dispatch(fetchCartFromApi())
+      dispatch(fetchUserIdFromApi())
     }
-  }, [dispatch, isAuthenticated])
+  }, [isAuthenticated])
   return null
 }

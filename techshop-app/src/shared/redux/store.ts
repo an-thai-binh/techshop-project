@@ -3,14 +3,17 @@ import cartReducer from '@/features/cart/cartSlice'
 import productReducer from '@/features/product/productSlice'
 import cartMiddleware from '@/features/cart/cartMiddleware'
 import authReducer from '@/features/auth/authSlice'
+import userReducer from '@/features/user/userSlice'
+
 import createOrderReducer from '@/features/createOrder/createOrderSlice'
 
 export const store = configureStore({
   reducer: {
+    user: userReducer,
     cart: cartReducer,
     product: productReducer,
     auth: authReducer,
-    createOrder: createOrderReducer
+    createOrder: createOrderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ thunk: true }).concat(cartMiddleware),
