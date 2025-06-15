@@ -142,7 +142,6 @@ public class PaymentService {
                         .getObject().orElseThrow(() -> new AppException(ErrorCode.SESSION_NOT_FOUND));
                 Long orderId = Long.valueOf(session.getClientReferenceId());
                 String status = session.getPaymentStatus();
-                System.out.println(status);
                 if (status.equals("paid")) {
                     Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
                     order.setStatus("PENDING");
