@@ -1,30 +1,44 @@
 package com.example.techshop_api.service;
 
+import com.example.techshop_api.dto.request.order.OrderCreationRequest;
+import com.example.techshop_api.dto.request.order.OrderItemCreationRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.order.OrderResponse;
 import com.example.techshop_api.entity.cart.CartItem;
 import com.example.techshop_api.entity.order.Order;
+import com.example.techshop_api.entity.order.OrderItem;
+import com.example.techshop_api.entity.product.ProductVariation;
+import com.example.techshop_api.entity.user.User;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
+import com.example.techshop_api.mapper.OrderItemMapper;
 import com.example.techshop_api.mapper.OrderMapper;
-import com.example.techshop_api.repository.CartItemRepository;
-import com.example.techshop_api.repository.OrderRepository;
+import com.example.techshop_api.repository.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OrderService {
     OrderRepository orderRepository;
+    CartItemRepository cartItemRepository;
+    UserRepository userRepository;
+    InventoryRepository inventoryRepository;
     OrderMapper orderMapper;
-    private final CartItemRepository cartItemRepository;
+    OrderItemMapper orderItemMapper;
+    private final ProductVariationRepository productVariationRepository;
 
     public ApiResponse<Page<OrderResponse>> index(Pageable pageable) {
         Page<Order> orders = orderRepository.findAll(pageable);
@@ -44,17 +58,42 @@ public class OrderService {
                 .build();
     }
 
-//    public ApiResponse<OrderResponse> store(OrderCreationRequest request, Long[] cartItemIds) {
-//        // user
-//        List<CartItem> itemList = cartItemRepository.findAllById(List.of(cartItemIds));
-//        if(itemList.isEmpty()) {
-//            throw new AppException(ErrorCode.CART_ITEM_NOT_FOUND);
-//        }
-//        // boolean: query: select 1 from cart c join inventory i on c.variation_id = i.variation_id where c.id IN (...) and c.quantity > i.quantity
-//        // mapping from cartitem to orderitem
-//        // order.setOrderItemList = ...
-//        // try save
-//        // reduce in inventory: update inventory i join orderitem oi on i.variation_id = oi.variation_id set i.quantity = i.quantity - oi.quantity where oi.id IN (...)
-//        // start 15 minutes to add payment (restore in inventory, cancel order)
-//    }
+    @Transactional
+    public ApiResponse<OrderResponse> store(OrderCreationRequest request) {
+        // kiểm tra user tồn tại
+        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        List<OrderItemCreationRequest> requestItems = request.getOrderItems();
+        // kiểm tra kho còn đủ số lượng
+        for(OrderItemCreationRequest item: requestItems) {
+            if(inventoryRepository.isOutOfStock(item.getVariationId(), item.getQuantity()) == 1) {  // 1 là true trong mysql
+                throw new AppException(ErrorCode.PRODUCT_OUT_OF_STOCK);
+            }
+        }
+        // khởi tạo order và order item
+        Order order = orderMapper.toOrder(user, request);
+        order.setOrderTime(LocalDateTime.now());
+        order.setStatus("INVALID"); // đơn chưa cài đặt thanh toán sẽ có status là INVALID
+        double totalAmount = requestItems.stream()
+                        .mapToDouble(item -> item.getUnitPrice() * item.getQuantity())
+                        .sum();
+        order.setTotalAmount(totalAmount);
+        List<OrderItem> orderItemList = new ArrayList<>();
+        for(OrderItemCreationRequest item: requestItems) {
+            ProductVariation productVariation = productVariationRepository.findById(item.getVariationId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
+            OrderItem orderItem = orderItemMapper.toOrderItem(order, productVariation, item);
+            orderItemList.add(orderItem);
+        }
+        order.setOrderItemList(orderItemList);
+        try {
+            orderRepository.save(order);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new AppException(ErrorCode.INSERT_FAILED);
+        }
+        OrderResponse orderResponse = orderMapper.toOrderResponse(order);
+        return ApiResponse.<OrderResponse>builder()
+                .success(true)
+                .data(orderResponse)
+                .build();
+    }
 }

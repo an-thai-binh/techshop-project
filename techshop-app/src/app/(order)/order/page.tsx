@@ -1,119 +1,60 @@
 'use client'
-import { selectCartItems } from '@/features/cart/cartSelectors'
-import OrderStage from '@/features/createOrder/components/OrderStage'
-import { useAppSelector } from '@/shared/redux/hook'
-import Image from 'next/image'
-import { useEffect } from 'react'
+import { useState } from "react";
+import OrderInformation from "../../../features/createOrder/components/OrderInformation";
+import OrderPayment from "../../../features/createOrder/components/OrderPayment";
+import OrderSuccess from "@/features/createOrder/components/OrderSuccess";
+import toast from "react-hot-toast";
 
 export default function OrderPage() {
-  const carts = useAppSelector(selectCartItems)
-  useEffect(() => {
-    console.log(carts)
-  }, [carts])
-  return (
-    <div className="mx-auto max-w-fit">
-      <div>
-        <OrderStage stage={1} />
-      </div>
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <div className="max-h-fit rounded bg-white p-4 shadow-sm lg:order-2">
-          <h3 className="mb-4 text-sm font-bold">1 SẢN PHẨM</h3>
-          <div className="mb-4 flex gap-4">
-            <Image
-              src="http://binhan.io.vn/api/file_upload/public_img/balo_huawei_honor_ad60_210525160944.jpg"
-              alt="product"
-              width={60}
-              height={60}
-              className="flex h-[60px] w-[60px] items-center justify-center object-cover"
-            />
-            <div>
-              <p className="text-sm font-medium">ASOS DESIGN sustainable puffer jacket</p>
-              <p className="text-sm text-gray-500">Black, XXS</p>
-              <div className="flex justify-between">
-                <p className="text-sm text-gray-500">SL: 1</p>
-                <p className="text-sm text-gray-500">3.000.000đ</p>
-              </div>
-            </div>
-          </div>
-          <div className="border-t pt-4">
-            <div className="flex justify-between text-sm">
-              <span>Tổng</span>
-              <span>3.000.000đ</span>
-            </div>
-            <div className="mt-2 flex justify-between text-sm font-bold">
-              <span>Thành tiền</span>
-              <span>3.000.000đ</span>
-            </div>
-          </div>
-        </div>
-        <div className="space-y-6 lg:order-1 lg:col-span-2">
-          <div className="text-2xl font-bold uppercase">
-            <p className="text-center tracking-widest">Thông tin đặt hàng</p>
-          </div>
+  const [stage, setStage] = useState<number>(1);
 
-          <div className="bg-white p-3 shadow-sm">
-            <label className="text-md mb-1 block font-bold uppercase">Tên khách hàng</label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                className="w-full rounded border px-4 py-2"
-                placeholder="VD: Nguyễn Văn A"
-              />
+  // đang ở 0 thì không được làm gì cả -> quay về trang chủ sau 5s
+  // đang ở 1 thì không được chuyển sang 2, 3
+  // đang ở 2 thì không được chuyển sang 3
+  // đang ở 3 thì không được chuyển sang 1, 2
+  // => chỉ có stage 2 được phép quay về stage 1
+  const returnInformationStage = () => {
+    if (stage !== 2) {
+      return;
+    }
+    setStage(1);
+    toast.success("Đã về 1", {
+      className: "mt-[50px] lg:mt-[75px] font-bold",
+      duration: 2000
+    });
+  }
+
+  return (
+    <div className="mx-auto max-w-90% lg:max-w-[70%]">
+      <div>
+        <div className="my-6 flex items-center">
+          <div className={`lg:mb-10 flex-1 w-2 h-1 ${stage >= 1 ? "bg-green-500" : "bg-gray-500"}`} />
+          <div className={`lg:w-[100px] flex flex-col justify-center items-center ${stage === 2 ? "cursor-pointer" : ""}`} onClick={() => returnInformationStage()}>
+            <div className={`w-10 h-10 flex justify-center items-center ${stage >= 1 ? "bg-green-500" : "bg-gray-400"} rounded-full`}>
+              <p className="text-2xl text-white font-bold">1</p>
             </div>
+            <p className="hidden lg:block h-12 text-center font-semibold">Nhập<br />thông tin</p>
           </div>
-          <div className="bg-white p-3 shadow-sm">
-            <label className="text-md mb-1 block font-bold uppercase">Email</label>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                className="w-full rounded border px-4 py-2"
-                placeholder="VD: examplee@gmail.com"
-              />
+          <div className={`lg:mb-10 flex-1 w-2 h-1 ${stage >= 2 ? "bg-green-500" : "bg-gray-500"}`} />
+          <div className={`lg:w-[100px] flex flex-col justify-center items-center`}>
+            <div className={`w-10 h-10 flex justify-center items-center ${stage >= 2 ? "bg-green-500" : "bg-gray-400"} rounded-full`}>
+              <p className="text-2xl text-white font-bold">2</p>
             </div>
+            <p className="hidden lg:block h-12 text-center font-semibold">Thanh toán</p>
           </div>
-          <div className="bg-white p-3 shadow-sm">
-            <label className="text-md mb-1 block font-bold uppercase">Số điện thoại</label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                className="w-full rounded border px-4 py-2"
-                placeholder="VD: 0909090909"
-              />
+          <div className={`lg:mb-10 flex-1 w-2 h-1 ${stage === 3 ? "bg-green-500" : "bg-gray-500"}`} />
+          <div className={`lg:w-[100px] flex flex-col justify-center items-center`}>
+            <div className={`w-10 h-10 flex justify-center items-center ${stage === 3 ? "bg-green-500" : "bg-gray-400"} rounded-full`}>
+              <p className="text-2xl text-white font-bold">3</p>
             </div>
+            <p className="hidden lg:block h-12 text-center font-semibold">Thành công</p>
           </div>
-          <div className="bg-white p-3 shadow-sm">
-            <label className="text-md mb-1 block font-bold uppercase">Địa chỉ nhận hàng</label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                className="w-full rounded border px-4 py-2"
-                placeholder="VD: 3/6/9 đường Tesla, quận Edison"
-              />
-            </div>
-          </div>
-          <button
-            className="mt-4 w-full rounded bg-green-200 py-3 font-bold uppercase text-white"
-            disabled
-          >
-            Thanh toán
-          </button>
-          <p className="mt-2 text-sm text-gray-600">
-            Bằng việc đặt hàng, bạn đồng ý với{' '}
-            <a href="#" className="underline">
-              Điều khoản và các chính sách
-            </a>{' '}
-            về{' '}
-            <a href="#" className="underline">
-              quyền riêng tư
-            </a>{' '}
-            và{' '}
-            <a href="#" className="underline">
-              trả hàng
-            </a>
-            .
-          </p>
-        </div>
+          <div className="lg:mb-10 flex-1 w-2 h-1 bg-gray-500" />
+        </div >
       </div>
+      {stage === 1 && <OrderInformation setStage={setStage} />}
+      {stage === 2 && <OrderPayment setStage={setStage} />}
+      {stage === 3 && <OrderSuccess />}
     </div>
-  )
+  );
 }

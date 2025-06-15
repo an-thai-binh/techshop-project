@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 label={'Sản phẩm'}
                 page={'/admin/product'}
               />
-              <AdminSidebarItem icon={<TruckIcon />} label={'Đơn hàng'} page={'/admin/product'} />
+              <AdminSidebarItem icon={<TruckIcon />} label={'Đơn hàng'} page={'/admin/order'} />
               <AdminSidebarItem icon={<PhotoIcon />} label={'Hình ảnh'} page={'/admin/image'} />
               <AdminSidebarItem icon={<HomeIcon />} label={'Về trang chủ'} page={'/'} />
             </div>

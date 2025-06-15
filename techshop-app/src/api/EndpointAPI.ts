@@ -179,4 +179,14 @@ export const EndpointAPI = {
   USER_CHANGE_PASSWORD: '/user//changePassword', // +id
   // PATCH: Đổi email người dùng
   USER_CHANGE_EMAIL: '/user//changeEmail', // +id
+
+  // ORDER
+  // POST: Tạo đơn hàng mới
+  ORDER_STORE: '/order',
+
+  // PAYMENT
+  // POST: Xử lý thanh toán khi nhận hàng
+  CHECKOUT_COD: '/payment/checkout/cod/', // +id
+  // POST: Xử lý thanh toán khi thông qua chuyển khoản
+  CHECKOUT_TRANSFER: '/payment/checkout/transfer/', // +id
 }
