@@ -15,7 +15,6 @@ export const fetchTokenFromCookie = createAsyncThunk<string | undefined>(
       .split('=')[1]
     if (!token) {
       dispatch(setToken({ token: token, isAuthenticated: false }))
-      toast.info('Bạn chưa đăng nhập')
       throw new Error('Token is undefined')
     } else {
       dispatch(setToken({ token: token, isAuthenticated: true }))

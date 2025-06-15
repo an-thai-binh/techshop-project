@@ -5,7 +5,6 @@ import { toast } from 'sonner'
 import { getUserProfile, updateUserProfile } from '@/app/(auth)/auth/action'
 import InputField from '@/component/form/InputFieldProps'
 import { SelectField } from '@/component/form/SelectField'
-import { Loader2 } from 'lucide-react'
 
 export type Gender = 'male' | 'female' | 'other' | ''
 
@@ -130,7 +129,7 @@ export default function InfoPage() {
   if (!user) return <div className="p-10 text-center text-red-500">Không thể tải người dùng.</div>
 
   return (
-    <div className="flex size-full items-start justify-center bg-white/70 px-4 py-10 dark:bg-gray-900">
+    <div className="flex size-full items-center justify-center bg-white/70 px-4 py-10 dark:bg-gray-900">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-4xl space-y-6 rounded-xl border border-gray-200 bg-white/50 px-6 py-8 shadow-lg backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/50"

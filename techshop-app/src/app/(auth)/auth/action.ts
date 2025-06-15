@@ -27,6 +27,7 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
     })
 
     const body = await res.json().catch(() => null)
+    console.log(body)
     if (body?.data && !body.data.isVerified && body.data.userId) {
       return {
         success: false,
@@ -52,7 +53,7 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
       maxAge: 60 * 60 * 24,
     })
     ;(await cookies()).set('refreshToken', data.refreshToken, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'lax',
       path: '/',
       maxAge: 60 * 60 * 24 * 7,

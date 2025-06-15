@@ -40,8 +40,8 @@ export default function UserButton() {
       ) : (
         <Link href={'/auth/login'}>
           <button className="rounded-md ring-2 ring-blue-500 hover:ring-gray-500/50">
-            <div className="flex items-center">
-              <div className="px-2 py-1">
+            <div className="flex items-center justify-center gap-1">
+              <div className="block py-1 pl-1 sm:hidden lg:block">
                 <UserCircleIcon
                   className="size-7 text-gray-950/50 dark:text-white"
                   fill="transparent"
@@ -49,7 +49,7 @@ export default function UserButton() {
                 />
               </div>
               <div className="px-2 py-1">
-                <h1 className="animate-pulse font-semibold text-blue-500 dark:text-white">
+                <h1 className="animate-pulse whitespace-nowrap text-sm font-semibold text-blue-500 dark:text-white">
                   Đăng nhập
                 </h1>
               </div>
