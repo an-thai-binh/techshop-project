@@ -79,15 +79,16 @@ export default function ChangePasswordPage() {
           type="password"
           placeholder="••••••••"
         />
-
-        <button
-          type="button"
-          onClick={handleSendOtp}
-          disabled={isPending}
-          className="w-full rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-        >
-          {isPending ? 'Đang gửi OTP...' : 'Gửi mã OTP'}
-        </button>
+        <div className={'flex w-full items-center justify-center'}>
+          <button
+            type="button"
+            onClick={handleSendOtp}
+            disabled={isPending || !form.newPassword || !form.confirmPassword}
+            className="w-fit rounded-lg bg-blue-600 px-8 py-3 font-medium text-white transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+          >
+            <h1 className={'text-sm font-bold'}>{isPending ? 'Đang gửi OTP...' : 'Gửi mã OTP'}</h1>
+          </button>
+        </div>
       </div>
       {showOtp && userId && (
         <OtpVerificationModal
