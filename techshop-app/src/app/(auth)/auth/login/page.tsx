@@ -25,7 +25,6 @@ export default function LoginPage({
   })
   const [showOtpModal, setShowOtpModal] = useState(false)
   const [otpUserId, setOtpUserId] = useState<string | undefined>(undefined)
-  console.log(state.userId)
   useEffect(() => {
     if (!state.isVerified && state.userId) {
       setOtpUserId(state.userId)

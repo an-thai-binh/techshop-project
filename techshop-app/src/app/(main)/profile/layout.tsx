@@ -17,9 +17,9 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
   const pathname = usePathname()
 
   return (
-    <div className="flex min-h-[80vh] w-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
+    <div className="flex min-h-[90vh] w-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800">
       {/* Left Sidebar */}
-      <aside className="w-full max-w-xs border-r border-gray-200 bg-white p-6 shadow-sm backdrop-blur-sm dark:border-gray-700 dark:bg-gray-900">
+      <aside className="w-[20vw] border-r border-gray-200 bg-white p-5 shadow-inner dark:border-gray-700 dark:bg-gray-900">
         <h2 className="mb-6 text-xl font-bold text-gray-800 dark:text-white">Tài khoản của tôi</h2>
         <nav className="space-y-2">
           {sidebarItems.map((item) => {
@@ -45,7 +45,7 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
       </aside>
 
       {/* Content Area */}
-      <main className="flex-1 overflow-auto rounded-l-sm bg-white p-6 shadow-inner backdrop-blur-sm dark:bg-gray-900/50 md:p-10">
+      <main className="relative w-full overflow-auto rounded-l-sm bg-white/90 p-6 shadow-inner backdrop-blur-md dark:bg-gray-900/50 md:p-10">
         {children}
       </main>
     </div>
