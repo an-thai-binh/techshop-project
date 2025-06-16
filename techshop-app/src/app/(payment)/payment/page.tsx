@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image";
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 
@@ -19,12 +20,14 @@ export default function PaymentStatusPage() {
     return (
         <>
             {status === "success" ?
-                <div>
-                    <p className="text-2xl font-bold">Thanh toán thành công</p>
+                <div className="flex flex-col justify-center items-center h-screen">
+                    <Image src="/image/payment_success.png" alt="success" width={300} height={300} className="mb-3 w-[150px] h-[150px]" />
+                    <p className="text-2xl font-bold text-blue-700">Thanh toán thành công</p>
                 </div>
                 :
-                <div>
-                    <p className="text-2xl font-bold">Thanh toán thất bại</p>
+                <div className="flex flex-col justify-center items-center h-screen">
+                    <Image src="/image/payment_error.png" alt="cancel" width={300} height={300} className="mb-3 w-[150px] h-[150px]" />
+                    <p className="text-2xl font-bold text-red-700">Thanh toán thất bại</p>
                 </div>
             }
         </>

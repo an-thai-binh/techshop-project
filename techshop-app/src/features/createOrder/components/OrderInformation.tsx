@@ -178,12 +178,12 @@ export default function OrderInformation({ setStage }: InformationPageProps) {
                     {errors.orderAddress && <span className="ms-1 text-sm font-medium text-red-500">{errors.orderAddress.message}</span>}
                 </div>
                 <button
-                    className="mt-4 w-full rounded bg-green-500 py-3 font-bold uppercase text-white"
+                    className="mt-4 w-full rounded bg-blue-500 hover:shadow-md py-3 font-bold uppercase text-white"
                     onClick={handleSubmit(onSubmit)}
                 >
                     Thanh toán
                 </button>
-                <p className="mt-2 text-sm text-gray-600">
+                <p className="my-2 text-sm text-gray-600">
                     Bằng việc đặt hàng, bạn đồng ý với{' '}
                     <a href="#" className="underline">
                         Điều khoản và các chính sách
