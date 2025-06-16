@@ -51,8 +51,12 @@ public class PaymentService {
     @Transactional
     public ApiResponse<Void> checkoutCod(Long orderId) {
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
+        Payment payment = paymentRepository.findByOrder(order).orElse(null);
+        if(payment != null) {
+            throw new AppException(ErrorCode.PAYMENT_HAS_BEEN_SET);
+        }
         order.setStatus("PENDING");
-        Payment payment = Payment.builder()
+        payment = Payment.builder()
                 .order(order)
                 .amount(order.getTotalAmount())
                 .paymentMethod("COD")
@@ -75,6 +79,10 @@ public class PaymentService {
     public ApiResponse<StripeCheckoutResponse> checkoutTransfer(Long orderId) {
         Stripe.apiKey = stripeSecretKey;
         Order order = orderRepository.findById(orderId).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
+        Payment payment = paymentRepository.findByOrder(order).orElse(null);
+        if(payment != null) {
+            throw new AppException(ErrorCode.PAYMENT_HAS_BEEN_SET);
+        }
         List<OrderItem> orderItemList = order.getOrderItemList();
 
         List<SessionCreateParams.LineItem> lineItems = new ArrayList<>();

@@ -38,6 +38,7 @@ public enum ErrorCode {
     CREATE_TOKEN_FAILED("Create Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     VERIFY_TOKEN_FAILED("Verify Token Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     REQUEST_EXTERNAL_FAILED("Request To External Resource Failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    PAYMENT_HAS_BEEN_SET("Payment Has Been Set", HttpStatus.CONFLICT),
     PRODUCT_OUT_OF_STOCK("Product Is Out Of Stock", HttpStatus.CONFLICT),
     UNAUTHORIZED("Unauthorized", HttpStatus.UNAUTHORIZED),
     ;

@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom'
 import { selectCartTotalPrice } from '@/features/cart/cartSelectors'
 import { useAppSelector } from '@/shared/redux/hook'
 import { formatPrice } from '@/utils/CurrentyFormat'
+import Link from 'next/link'
 
 export default function DropdownCart() {
   const totalPrice = useAppSelector(selectCartTotalPrice)
@@ -34,7 +35,9 @@ export default function DropdownCart() {
             </div>
             <div className="jsutify-center flex w-full items-center">
               <button className="shadown-md w-full scale-100 transform rounded-md bg-blue-500 p-1.5 transition-all duration-300 hover:bg-blue-500/80 active:scale-95">
-                <h1 className={'font-semibold'}>XEM GIỎ HÀNG</h1>
+                <Link href={"/order"}>
+                  <h1 className={'font-semibold text-white uppercase'}>Đặt hàng</h1>
+                </Link>
               </button>
             </div>
           </div>

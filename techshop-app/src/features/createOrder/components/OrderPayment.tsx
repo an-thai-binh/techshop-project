@@ -57,7 +57,11 @@ export default function OrderPayment({ setStage }: PaymentPageProps) {
                     }
                 }, 500);
 
-                window.addEventListener("message", (e) => {
+                const handlePopupMessage = (e: MessageEvent) => {
+                    const expectedOrigin = window.location.origin;
+                    if (e.source !== popup || e.origin != expectedOrigin) {
+                        return;
+                    }
                     if (e.data?.status === "success") {
                         clearInterval(interval);
                         setStage(3);
@@ -70,7 +74,9 @@ export default function OrderPayment({ setStage }: PaymentPageProps) {
                             popup?.close();
                         }, 1500);
                     }
-                })
+                    window.removeEventListener("message", handlePopupMessage);
+                }
+                window.addEventListener("message", handlePopupMessage);
             }
         } catch (error: any) {
             setStage(0);
@@ -81,10 +87,7 @@ export default function OrderPayment({ setStage }: PaymentPageProps) {
 
     return (
         <>
-            {/* <div className="text-2xl font-bold uppercase">
-                <p className="text-center tracking-widest">Hình thức thanh toán</p>
-            </div> */}
-            <div className="mx-auto p-4 max-w-[500px] bg-white shadow-sm">
+            <div className="mx-auto p-4 max-w-[500px] bg-white shadow-md">
                 <p className="text-center text-xl font-bold uppercase">Thông tin đặt hàng</p>
                 <div className="flex">
                     <p className="basis-2/6 font-semibold">Tên khách hàng:</p>
@@ -104,12 +107,12 @@ export default function OrderPayment({ setStage }: PaymentPageProps) {
                 </div>
                 <div className="flex flex-col">
                     <p className="font-semibold">Chi tiết đặt hàng:</p>
-                    <div className="my-2">
+                    <div className="my-2 py-1 px-2 bg-blue-100 rounded-lg">
                         {carts.map((item) => {
                             return (
-                                <div key={item.id} className="flex">
+                                <div key={item.id} className="flex items-center">
                                     <p className="basis-5/6 text-sm text-justify">{item.productName}</p>
-                                    <p className="basis-1/6 text-center">SL: {item.quantity}</p>
+                                    <p className="basis-1/6 text-center">SL: <b></b>{item.quantity}</p>
                                 </div>
                             );
                         })}
@@ -119,41 +122,6 @@ export default function OrderPayment({ setStage }: PaymentPageProps) {
                     <p className="basis-2/6 font-semibold">Thành tiền:</p>
                     <p className="basis-4/6 text-center text-xl font-bold text-red-600">{formatVietNamCurrency(carts.reduce((sum, item) => { return sum + (item.productFinalPrice * item.quantity) }, 0))}</p>
                 </div>
-                {/* <div className="max-h-fit rounded bg-white lg:order-2">
-                    <h3 className="mb-4 text-sm font-bold">{carts.length} SẢN PHẨM</h3>
-                    {carts.map(item => {
-                        return (
-                            <div key={item.id} className="mb-4 flex gap-4">
-                                <Image
-                                    src={item.productImgUrl}
-                                    alt="product"
-                                    width={60}
-                                    height={60}
-                                    className="flex h-[60px] w-[60px] items-center justify-center object-cover"
-                                />
-                                <div className="w-full">
-                                    <p className="text-sm font-medium">{item.productName}</p>
-                                    <p className="text-sm text-gray-500">{item.sku}</p>
-                                    <div className="flex">
-                                        <p className="basis-1/4 text-sm text-gray-500">SL: <b>{item.quantity}</b></p>
-                                        <div className="basis-2/4"></div>
-                                        <p className="basis-2/4 text-sm text-gray-500">ĐG: <b>{formatVietNamCurrency(item.productFinalPrice)}</b></p>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                    <div className="border-t py-4">
-                        <div className="flex justify-between text-sm">
-                            <span>Tổng</span>
-                            <span>{formatVietNamCurrency(carts.reduce((sum, item) => { return sum + (item.productFinalPrice * item.quantity) }, 0))}</span>
-                        </div>
-                        <div className="mt-2 flex justify-between text-sm font-bold">
-                            <span>Thành tiền</span>
-                            <span>{formatVietNamCurrency(carts.reduce((sum, item) => { return sum + (item.productFinalPrice * item.quantity) }, 0))}</span>
-                        </div>
-                    </div>
-                </div> */}
                 <hr />
                 <div className="mt-3">
                     <p className="text-center font-bold">Chọn hình thức thanh toán</p>
@@ -162,17 +130,17 @@ export default function OrderPayment({ setStage }: PaymentPageProps) {
                     <div className="p-3">
                         <input type="radio" name="paymentMethod" value="cod" checked={paymentMethod === "cod"} onChange={handleChangePaymentMethod} />
                     </div>
-                    <label className="flex-1 font-semibold">Thanh toán khi nhận hàng</label>
+                    <label className="flex-1">Thanh toán khi nhận hàng</label>
                 </div>
                 <div className="flex items-center">
                     <div className="p-3">
                         <input type="radio" name="paymentMethod" value="transfer" checked={paymentMethod === "transfer"} onChange={handleChangePaymentMethod} />
                     </div>
-                    <label className="flex-1 font-semibold">Trả trước thông qua chuyển khoản trực tuyến</label>
+                    <label className="flex-1">Trả trước thông qua chuyển khoản trực tuyến</label>
                 </div>
             </div >
             <div className="my-3 mx-auto max-w-fit">
-                <button className="bg-green-500 px-3 py-2 font-bold text-white" onClick={onSubmitPaymentMethod}>Tiếp tục</button>
+                <button className="bg-blue-500 px-3 py-2 font-bold text-white hover:shadow-md" onClick={onSubmitPaymentMethod}>Tiếp tục</button>
             </div>
         </>
     );

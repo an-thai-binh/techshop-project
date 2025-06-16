@@ -4,7 +4,6 @@ import com.example.techshop_api.dto.request.order.OrderCreationRequest;
 import com.example.techshop_api.dto.request.order.OrderItemCreationRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.order.OrderResponse;
-import com.example.techshop_api.entity.cart.CartItem;
 import com.example.techshop_api.entity.order.Order;
 import com.example.techshop_api.entity.order.OrderItem;
 import com.example.techshop_api.entity.product.ProductVariation;
@@ -33,7 +32,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OrderService {
     OrderRepository orderRepository;
-    CartItemRepository cartItemRepository;
     UserRepository userRepository;
     InventoryRepository inventoryRepository;
     OrderMapper orderMapper;
@@ -65,7 +63,7 @@ public class OrderService {
         List<OrderItemCreationRequest> requestItems = request.getOrderItems();
         // kiểm tra kho còn đủ số lượng
         for(OrderItemCreationRequest item: requestItems) {
-            if(inventoryRepository.isOutOfStock(item.getVariationId(), item.getQuantity()) == 1) {  // 1 là true trong mysql
+            if(inventoryRepository.reduceIfEnough(item.getVariationId(), item.getQuantity()) != 1) {
                 throw new AppException(ErrorCode.PRODUCT_OUT_OF_STOCK);
             }
         }

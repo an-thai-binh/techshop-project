@@ -6,6 +6,7 @@ import { useUIContext } from '@/shared/context/UIContext'
 import { useAppSelector } from '@/shared/redux/hook'
 import { selectCartTotalPrice } from '@/features/cart/cartSelectors'
 import { formatPrice } from '@/utils/CurrentyFormat'
+import Link from 'next/link'
 
 export default function PopupCart() {
   const { state, dispatch } = useUIContext()
@@ -54,10 +55,12 @@ export default function PopupCart() {
                 {formatPrice(totalPrice)}
               </span>
             </div>
-            <div className="jsutify-center flex w-full items-center">
-              <button className="shadown-md w-full scale-100 transform rounded-md bg-blue-700/90 p-1.5 transition-all duration-300 hover:bg-red-600 active:scale-95">
-                XEM GIỎ HÀNG
-              </button>
+            <div className="justify-center flex w-full items-center">
+              <Link href={"/order"} className="w-full">
+                <button className="shadown-md w-full scale-100 transform rounded-md bg-blue-700/90 p-1.5 transition-all duration-300 hover:shadow-md active:scale-95">
+                  <p className="font-bold text-white uppercase">Đặt hàng</p>
+                </button>
+              </Link>
             </div>
           </div>
         </div>
