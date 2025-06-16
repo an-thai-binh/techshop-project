@@ -1,6 +1,7 @@
 package com.example.techshop_api.controller.payment;
 
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.payment.PaymentResponse;
 import com.example.techshop_api.dto.response.payment.StripeCheckoutResponse;
 import com.example.techshop_api.service.PaymentService;
 import lombok.AccessLevel;
@@ -32,6 +33,12 @@ public class PaymentController {
     @PostMapping("/stripe/webhook")
     public ResponseEntity<ApiResponse<Void>> handleStripeWebhook(@RequestBody String payload, @RequestHeader("Stripe-Signature") String signature) {
         ApiResponse<Void> apiResponse = paymentService.handleStripeWebhook(payload, signature);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ApiResponse<PaymentResponse>> updateStatus(@PathVariable Long id, @RequestParam String status) {
+        ApiResponse<PaymentResponse> apiResponse = paymentService.updateStatus(id, status);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 }
