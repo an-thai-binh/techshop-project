@@ -1,12 +1,14 @@
 package com.example.techshop_api.service;
 
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.payment.PaymentResponse;
 import com.example.techshop_api.dto.response.payment.StripeCheckoutResponse;
 import com.example.techshop_api.entity.order.Order;
 import com.example.techshop_api.entity.order.OrderItem;
 import com.example.techshop_api.entity.payment.Payment;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
+import com.example.techshop_api.mapper.PaymentMapper;
 import com.example.techshop_api.repository.OrderRepository;
 import com.example.techshop_api.repository.PaymentRepository;
 import com.stripe.Stripe;
@@ -35,6 +37,7 @@ import java.util.List;
 public class PaymentService {
     final PaymentRepository paymentRepository;
     final OrderRepository orderRepository;
+    final PaymentMapper paymentMapper;
 
     @Value("${stripe.secret-key}")
     String stripeSecretKey;
@@ -177,5 +180,20 @@ public class PaymentService {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.INVALID_SIGNATURE);
         }
+    }
+
+    public ApiResponse<PaymentResponse> updateStatus(Long id, String status) {
+        Payment payment = paymentRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PAYMENT_NOT_FOUND));
+        payment.setPaymentStatus(status);
+        try {
+            paymentRepository.save(payment);
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.UPDATE_FAILED);
+        }
+        PaymentResponse paymentResponse = paymentMapper.toPaymentResponse(payment);
+        return ApiResponse.<PaymentResponse>builder()
+                .success(true)
+                .data(paymentResponse)
+                .build();
     }
 }

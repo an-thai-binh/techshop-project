@@ -20,6 +20,7 @@ public enum ErrorCode {
     CART_NOT_FOUND("Cart Not Found", HttpStatus.NOT_FOUND),
     CART_ITEM_NOT_FOUND("Cart Item Not Found", HttpStatus.NOT_FOUND),
     ORDER_NOT_FOUND("Order Not Found", HttpStatus.NOT_FOUND),
+    PAYMENT_NOT_FOUND("Payment Not Found", HttpStatus.NOT_FOUND),
     OTP_ACTION_NOT_FOUND("OTP Action Not Found", HttpStatus.NOT_FOUND),
     SESSION_NOT_FOUND("Session Not Found", HttpStatus.NOT_FOUND),
     INSERT_FAILED("Insert Failed", HttpStatus.INTERNAL_SERVER_ERROR),
