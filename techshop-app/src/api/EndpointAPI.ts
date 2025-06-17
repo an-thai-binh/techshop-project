@@ -181,6 +181,10 @@ export const EndpointAPI = {
   USER_CHANGE_EMAIL: '/user//changeEmail', // +id
 
   // ORDER
+  // GET: Lấy danh sách đơn hàng
+  ORDER_GET_ALL: '/order',
+  // GET: Lấy chi tiết đơn hàng
+  ORDER_DETAIL: '/order/detail/',
   // POST: Tạo đơn hàng mới
   ORDER_STORE: '/order',
 

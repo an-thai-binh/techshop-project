@@ -39,8 +39,6 @@ public class SecurityConfig {
     final String[] POST_PUBLIC_ENDPOINTS = {"/auth/**", "/otp/**", "/user/verify", "/payment/stripe/webhook"};
     final String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**", "/cartItem/**"};
     final CustomJwtDecoder customJwtDecoder;
-//    @Value("${jwt.secret-key}")
-//    String jwtSecretKey;
 
     @Bean
     public SecurityFilterChain filterChain(@NotNull HttpSecurity http) throws Exception {
@@ -57,14 +55,6 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
-
-//    @Bean
-//    public JwtDecoder jwtDecoder() {
-//        SecretKeySpec secretKeySpec = new SecretKeySpec(jwtSecretKey.getBytes(), "HS512");
-//        return NimbusJwtDecoder.withSecretKey(secretKeySpec)
-//                .macAlgorithm(MacAlgorithm.HS512)
-//                .build();
-//    }
 
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {

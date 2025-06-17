@@ -2,23 +2,14 @@
 
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Link from "next/link";
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatDateTime, formatOrderStatus, formatVietNamCurrency } from "@/utils/CurrentyFormat";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import toast from "react-hot-toast";
-import Image from "next/image";
-
-interface Product {
-    id: string;
-    categoryId: string;
-    categoryName: string;
-    productName: string;
-    productDescription: string;
-    productBasePrice: number;
-    productImgUrl: string;
-}
+import api from "@/utils/APIAxiosConfig";
+import { EndpointAPI } from "@/api/EndpointAPI";
+import { Order } from "@/types/order";
 
 export default function OrderDataTable() {
     const token = useAppSelector(selectToken);
@@ -26,20 +17,16 @@ export default function OrderDataTable() {
     const [size, setSize] = useState<number>(10);
     const [sort, setSort] = useState<string>('id');
     const [direction, setDirection] = useState<string>('desc');
-    const [reload, setReload] = useState<boolean>(false);
-    const [products, setProducts] = useState<Product[]>([]);
+    const [orders, setOrders] = useState<Order[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
 
     useEffect(() => {
         if (!token) {
             return;
         }
-        const fetchProducts = async () => {
+        const fetchOrder = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/techshop/product/display', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    },
+                const response = await api.get(EndpointAPI.ORDER_GET_ALL, {
                     params: {
                         page: page,
                         size: size,
@@ -48,7 +35,7 @@ export default function OrderDataTable() {
                     }
                 });
                 if (response.data.success) {
-                    setProducts(response.data.data.content);
+                    setOrders(response.data.data.content);
                     setTotalItems(response.data.data.page.totalElements);
                 }
             } catch (error: any) {
@@ -57,29 +44,37 @@ export default function OrderDataTable() {
                 throw new Error(message);
             }
         }
-        fetchProducts();
-    }, [token, page, size, sort, direction, reload]);
+        fetchOrder();
+    }, [token, page, size, sort, direction]);
 
     const columns = [
         { field: 'id', headerName: 'ID' },
-        { field: 'categoryName', headerName: 'Khách hàng', flex: 1 },
+        { field: 'orderName', headerName: 'Khách hàng', flex: 1 },
+        { field: 'orderPhoneNumber', headerName: 'Số điện thoại', flex: 1 },
         {
-            field: 'productBasePrice',
+            field: 'totalAmount',
             headerName: 'Tổng tiền',
             flex: 1,
             renderCell: (params: GridRenderCellParams) => {
-                return formatVietNamCurrency(params.row.productBasePrice);
+                return formatVietNamCurrency(params.row.totalAmount);
             }
         },
         {
-            field: 'productName',
+            field: 'orderTime',
             headerName: 'Thời gian đặt hàng',
-            flex: 2
+            flex: 1,
+            renderCell: (params: GridRenderCellParams) => {
+                return formatDateTime(params.row.orderTime);
+            }
         },
         {
             field: 'status',
             headerName: 'Trạng thái',
-            flex: 1
+            flex: 1,
+            renderCell: (params: GridRenderCellParams) => {
+                const { formatted, color } = formatOrderStatus(params.row.status);
+                return <p style={{ color }} className="font-bold ">{formatted}</p>;
+            }
         },
         {
             field: 'actions',
@@ -101,7 +96,7 @@ export default function OrderDataTable() {
         <>
             <DataGrid
                 columns={columns}
-                rows={products}
+                rows={orders}
                 rowCount={totalItems}
                 pageSizeOptions={[10, 15, 20]}
                 pagination

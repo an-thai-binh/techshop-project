@@ -19,7 +19,7 @@ export default function AddCategoryForm() {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>(
         {
             resolver: zodResolver(formSchema),
-            mode: "onSubmit"
+            mode: "onChange"
         }
     );
     const [success, setSuccess] = useState<boolean>(false);

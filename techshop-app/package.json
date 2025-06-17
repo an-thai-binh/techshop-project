@@ -21,6 +21,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "aos": "^2.3.4",
     "axios": "^1.9.0",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.6.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
