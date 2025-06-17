@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -49,5 +46,13 @@ public class AuthenticationController {
         ApiResponse<UserResponse> apiResponse = userService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
+//    @PostMapping("/refresh")
+//    public ResponseEntity<ApiResponse<AuthenticationResponse>> refresh(@CookieValue("refreshToken") String refreshToken) {
+//        UserTokenRequest request = new UserTokenRequest();
+//        request.setToken(refreshToken);
+//        ApiResponse<AuthenticationResponse> apiResponse = authenticationService.refresh(request);
+//        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+//    }
+
 
 }

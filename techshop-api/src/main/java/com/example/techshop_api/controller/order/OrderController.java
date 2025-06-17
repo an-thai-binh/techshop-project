@@ -18,6 +18,8 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 @RequiredArgsConstructor
@@ -37,6 +39,14 @@ public class OrderController {
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page, size, sortBy);
         ApiResponse<Page<OrderResponse>> apiResponse = orderService.index(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/user/{userId}")
+    @PreAuthorize("hasAuthority('order:view')")
+    @PostAuthorize("(hasRole('ADMIN') or returnObject.body.data.?[true].userId.contains(authentication.name))")
+    public ResponseEntity<ApiResponse<List<OrderResponse>>> getOrdersByUserId(@PathVariable Long userId) {
+        ApiResponse<List<OrderResponse>> apiResponse = orderService.getOrdersByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

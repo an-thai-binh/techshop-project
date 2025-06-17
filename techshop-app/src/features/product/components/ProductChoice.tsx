@@ -224,12 +224,12 @@ export default function ProductChoice({ productId, productDetail }: ProductChoic
           >
             <h1 className={'font-bold text-blue-500'}>THÊM VÀO GIỎ</h1>
           </button>
-          <button
-            className="w-1/2 rounded-sm border border-blue-500 bg-blue-500 px-4 py-2 text-center font-bold text-white shadow shadow-gray-700 transition-all duration-500 active:scale-95 disabled:opacity-50"
-            disabled={!isFullySelected || !productVariation || isOutOfStock}
-          >
-            MUA NGAY
-          </button>
+          {/*<button*/}
+          {/*  className="w-1/2 rounded-sm border border-blue-500 bg-blue-500 px-4 py-2 text-center font-bold text-white shadow shadow-gray-700 transition-all duration-500 active:scale-95 disabled:opacity-50"*/}
+          {/*  disabled={!isFullySelected || !productVariation || isOutOfStock}*/}
+          {/*>*/}
+          {/*  MUA NGAY*/}
+          {/*</button>*/}
         </div>
       </div>
     </div>

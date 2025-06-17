@@ -64,6 +64,20 @@ public class OrderService {
                 .build();
     }
 
+    public ApiResponse<List<OrderResponse>> getOrdersByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        List<OrderResponse> orderResponses = orders.stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
+        return ApiResponse.<List<OrderResponse>>builder()
+                .success(true)
+                .data(orderResponses)
+                .build();
+    }
+
+
     public ApiResponse<OrderDetailResponse> showDetail(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.ORDER_NOT_FOUND));
         // payment
