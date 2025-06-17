@@ -1,9 +1,12 @@
 package com.example.techshop_api.entity.order;
 
 import com.example.techshop_api.entity.product.ProductVariation;
+import com.example.techshop_api.entity.review.Review;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -28,4 +31,8 @@ public class OrderItem {
     double unitPrice;
 
     int quantity;
+
+    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Review> reviews;
+
 }

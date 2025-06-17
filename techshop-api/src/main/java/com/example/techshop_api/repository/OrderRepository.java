@@ -20,4 +20,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     """,
     nativeQuery = true)
     void updateStatus(Long orderId, String status);
+
+    List<Order> findAllByUserId(Long userId);
 }
