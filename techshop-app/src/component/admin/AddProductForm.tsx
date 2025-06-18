@@ -7,6 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppSelector } from "@/shared/redux/hook";
 import { selectToken } from "@/features/auth/authSelectors";
+import RichTextField from "../form/RichTextField";
 
 const formSchema = z.object({
   productName: z.string().min(1, { message: "Tên sản phẩm không được để trống" }),
@@ -164,10 +165,17 @@ export default function AddProductForm() {
           <p className="font-bold">
             Mô tả
           </p>
-          <input
+          {/* <input
             {...register("productDescription")}
             type="text"
             className="min-h-[38] w-full rounded-[4] border border-[#cccccc] bg-white p-1 focus-visible:outline-[#2684FF]"
+          /> */}
+          <Controller
+            name="productDescription"
+            control={control}
+            render={({ field }) => (
+              <RichTextField value={field.value} onChange={field.onChange} />
+            )}
           />
           {errors.productDescription && <span className="text-sm font-medium text-red-500">{errors.productDescription.message}</span>}
         </div>

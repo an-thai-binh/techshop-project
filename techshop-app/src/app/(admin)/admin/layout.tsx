@@ -1,6 +1,7 @@
 import AdminSidebarItem from '@/component/admin/AdminSidebarItem'
 import {
   ArchiveBoxIcon,
+  ClipboardDocumentIcon,
   HomeIcon,
   PhotoIcon,
   RectangleGroupIcon,
@@ -25,6 +26,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </h3>
             </div>
             <div className="flex flex-row px-3 lg:w-full lg:flex-col">
+              <AdminSidebarItem
+                icon={<ClipboardDocumentIcon />}
+                label={'Dashboard'}
+                page={'/admin'}
+              />
               <AdminSidebarItem
                 icon={<RectangleGroupIcon />}
                 label={'Thể loại'}

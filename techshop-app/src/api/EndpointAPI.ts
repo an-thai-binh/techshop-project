@@ -197,4 +197,8 @@ export const EndpointAPI = {
   CHECKOUT_TRANSFER: '/payment/checkout/transfer/', // +id
   // PATCH: Cập nhật trạng thái đơn hàng
   PAYMENT_UPDATE_STATUS: '/payment/', // +id
+
+  // STATISTIC
+  // GET: Lấy thống kê số lượng các đối tượng trong CSDL
+  STATISTIC_COUNT_ENTITIES: '/statistic/countEntities',
 }

@@ -22,4 +22,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     void updateStatus(Long orderId, String status);
 
     List<Order> findAllByUserId(Long userId);
+
+    long countByStatus(String status);
 }
