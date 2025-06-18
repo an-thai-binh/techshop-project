@@ -5,7 +5,7 @@ import CartListItem from '@/features/cart/components/CartListItem'
 import { useUIContext } from '@/shared/context/UIContext'
 import { useAppSelector } from '@/shared/redux/hook'
 import { selectCartTotalPrice } from '@/features/cart/cartSelectors'
-import { formatPrice } from '@/utils/CurrentyFormat'
+import { formatPrice } from '@/utils/AppFormatter'
 import Link from 'next/link'
 
 export default function PopupCart() {

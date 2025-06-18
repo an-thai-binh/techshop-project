@@ -4,7 +4,7 @@ import CartListItem from '@/features/cart/components/CartListItem'
 import { createPortal } from 'react-dom'
 import { selectCartTotalPrice } from '@/features/cart/cartSelectors'
 import { useAppSelector } from '@/shared/redux/hook'
-import { formatPrice } from '@/utils/CurrentyFormat'
+import { formatPrice } from '@/utils/AppFormatter'
 import Link from 'next/link'
 
 export default function DropdownCart() {

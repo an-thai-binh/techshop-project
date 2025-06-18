@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { HeartIcon } from '@heroicons/react/24/solid'
 import { useAppDispatch } from '@/shared/redux/hook'
 import { fetchAddItemCartFromApi } from '@/features/cart/cartThunks'
-import { formatPrice } from '@/utils/CurrentyFormat'
+import { formatPrice } from '@/utils/AppFormatter'
 import BuyCardButton from '@/component/button/BuyCardButton'
 
 type CartItemProps = {

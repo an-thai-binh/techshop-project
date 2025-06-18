@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ProductDetailType } from '@/features/product/types/ProductDetailType'
-import { formatPrice } from '@/utils/CurrentyFormat'
+import { formatPrice } from '@/utils/AppFormatter'
 import { ProductVariationType } from '@/features/product/types/ProductVariationType'
 import { useAppDispatch, useAppSelector } from '@/shared/redux/hook'
 import {

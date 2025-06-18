@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderResponse {
     Long id;
+    Long userId;
     String orderName;
     String orderAddress;
     String orderEmail;

@@ -43,8 +43,7 @@ public class OrderController {
     }
 
     @GetMapping("/user/{userId}")
-    @PreAuthorize("hasAuthority('order:view')")
-    @PostAuthorize("(hasRole('ADMIN') or returnObject.body.data.?[true].userId.contains(authentication.name))")
+    @PreAuthorize("(hasRole('ADMIN') or #userId.toString() == authentication.name) and hasAuthority('order:view')")
     public ResponseEntity<ApiResponse<List<OrderResponse>>> getOrdersByUserId(@PathVariable Long userId) {
         ApiResponse<List<OrderResponse>> apiResponse = orderService.getOrdersByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
@@ -52,7 +51,7 @@ public class OrderController {
 
     @GetMapping("/detail/{id}")
     @PreAuthorize("hasAuthority('order:view')")
-    @PostAuthorize("(hasRole('ADMIN') or returnObject.body.data.userId == authentication.name)")
+    @PostAuthorize("(hasRole('ADMIN') or returnObject.body.data.userId.toString() == authentication.name)")
     public ResponseEntity<ApiResponse<OrderDetailResponse>> showDetail(@PathVariable Long id) {
         ApiResponse<OrderDetailResponse> apiResponse = orderService.showDetail(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);

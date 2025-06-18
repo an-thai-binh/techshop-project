@@ -1,5 +1,5 @@
 'use client'
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";

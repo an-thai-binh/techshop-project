@@ -187,10 +187,14 @@ export const EndpointAPI = {
   ORDER_DETAIL: '/order/detail/',
   // POST: Tạo đơn hàng mới
   ORDER_STORE: '/order',
+  // PATCH: Cập nhật trạng thái đơn hàng
+  ORDER_UPDATE_STATUS: '/order/', // +id
 
   // PAYMENT
   // POST: Xử lý thanh toán khi nhận hàng
   CHECKOUT_COD: '/payment/checkout/cod/', // +id
   // POST: Xử lý thanh toán khi thông qua chuyển khoản
   CHECKOUT_TRANSFER: '/payment/checkout/transfer/', // +id
+  // PATCH: Cập nhật trạng thái đơn hàng
+  PAYMENT_UPDATE_STATUS: '/payment/', // +id
 }

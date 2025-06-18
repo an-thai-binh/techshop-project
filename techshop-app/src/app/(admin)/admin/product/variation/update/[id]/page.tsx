@@ -5,7 +5,7 @@ import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { Image } from "@/types/image";
 import { Product } from "@/types/product";
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useParams } from "next/navigation";
