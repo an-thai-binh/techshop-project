@@ -3,7 +3,7 @@
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { formatDateTime, formatOrderStatus, formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatDateTime, formatOrderStatus, formatVietNamCurrency } from "@/utils/AppFormatter";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import toast from "react-hot-toast";
@@ -73,7 +73,11 @@ export default function OrderDataTable() {
             flex: 1,
             renderCell: (params: GridRenderCellParams) => {
                 const { formatted, color } = formatOrderStatus(params.row.status);
-                return <p style={{ color }} className="font-bold ">{formatted}</p>;
+                return (
+                    <div style={{ backgroundColor: color }} className="px-2 rounded-xl opacity-65">
+                        <p className="font-bold text-white">{formatted}</p>
+                    </div >
+                );
             }
         },
         {

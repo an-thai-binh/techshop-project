@@ -21,9 +21,10 @@ export function formatDateTime(value: string): string {
 }
 
 export function formatOrderStatus(value: string): { formatted: string, color: string } {
+  const status = value.split(" ")[0];
   let formatted = value;
   let color = "#000000";
-  switch (value) {
+  switch (status) {
     case "PENDING":
       formatted = "Đang chuẩn bị";
       color = "#123fe5";
@@ -37,7 +38,7 @@ export function formatOrderStatus(value: string): { formatted: string, color: st
       color = "#12e53c";
       break;
     case "FAILED":
-      formatted = "Đã huỷ";
+      formatted = "Huỷ" + value.substring(6);
       color = "#ef1310";
       break;
   }

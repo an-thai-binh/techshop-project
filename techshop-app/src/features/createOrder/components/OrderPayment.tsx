@@ -3,7 +3,7 @@ import { CartItemType } from "@/features/cart/types/CartItemType";
 import { useAppSelector } from "@/shared/redux/hook";
 import React, { useState } from "react";
 import { selectOrderId, selectOrderInformation } from "../createOrderSelectors";
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { EndpointAPI } from "@/api/EndpointAPI";
 import api from "@/utils/APIAxiosConfig";
 

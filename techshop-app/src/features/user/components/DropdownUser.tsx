@@ -58,7 +58,7 @@ export default function DropdownUser() {
             <Link onClick={() => handleClick()} href={'/profile/orders'}>
               <div className="group relative flex items-center justify-between rounded-md px-3 py-2 transition-all duration-300 hover:bg-gray-200 dark:hover:bg-gray-700">
                 <span className="font-medium transition-transform group-hover:translate-x-1">
-                  Lịch sử thanh toán
+                  Lịch sử đơn hàng
                 </span>
                 <BanknotesIcon className="h-5 w-5 text-gray-500 group-hover:text-green-500" />
               </div>

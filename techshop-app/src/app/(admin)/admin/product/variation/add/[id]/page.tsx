@@ -6,7 +6,7 @@ import ChoiceComboBox from "@/component/admin/ChoiceComboBox";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { Choice, Product } from "@/types/product";
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";

@@ -4,15 +4,17 @@ import { EndpointAPI } from "@/api/EndpointAPI";
 import AdminError from "@/component/admin/AdminError";
 import { OrderDetail } from "@/types/order";
 import api from "@/utils/APIAxiosConfig";
-import { formatDateTime, formatOrderStatus, formatPaymentStatus, formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatDateTime, formatOrderStatus, formatPaymentStatus, formatVietNamCurrency } from "@/utils/AppFormatter";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function UpdateOrderPage() {
     const id = useParams().id;
     const [orderDetail, setOrderDetail] = useState<OrderDetail | null>(null);
     const [fetchOrderDetailError, setFetchOrderDetailError] = useState<string | null>(null);
+    const [cancelReason, setCancelReason] = useState<string>("");
 
     useEffect(() => {
         const fetchOrderDetail = async () => {
@@ -29,6 +31,67 @@ export default function UpdateOrderPage() {
         }
         fetchOrderDetail();
     }, [id]);
+
+    const handleUpdateOrderStatus = async (newStatus: string) => {
+        try {
+            const response = await api.patch(EndpointAPI.ORDER_UPDATE_STATUS + id, {}, {
+                params: {
+                    status: newStatus
+                }
+            });
+            if (response.data.success) {
+                setOrderDetail(prev => {
+                    if (!prev) return prev;
+                    return {
+                        ...prev,
+                        status: newStatus
+                    }
+                });
+                toast.success("Cập nhật thành công!");
+            }
+        } catch (error: any) {
+            toast.error("Cập nhật không thành công!");
+            throw new Error(error.response?.data.message || error.message);
+        }
+    }
+
+    const handleCancelOrder = () => {
+        if (cancelReason.trim().length === 0 || cancelReason.trim().length >= 240) {
+            toast.error("Lý do huỷ không hợp lệ");
+            return;
+        }
+        const reason = cancelReason.trim();
+        handleUpdateOrderStatus("FAILED (" + reason + ")");
+    }
+
+    const handleUpdatePaymentStatus = async (newStatus: string) => {
+        if (!orderDetail) {
+            return;
+        }
+        try {
+            const response = await api.patch(EndpointAPI.PAYMENT_UPDATE_STATUS + orderDetail.payment.id, {}, {
+                params: {
+                    status: newStatus
+                }
+            });
+            if (response.data.success) {
+                setOrderDetail(prev => {
+                    if (!prev) return prev;
+                    return {
+                        ...prev,
+                        payment: {
+                            ...prev.payment,
+                            paymentStatus: newStatus
+                        }
+                    }
+                });
+                toast.success("Cập nhật thành công!");
+            }
+        } catch (error: any) {
+            toast.error("Cập nhật không thành công!");
+            throw new Error(error.response?.data.message || error.message);
+        }
+    }
 
     return (
         <>
@@ -66,13 +129,13 @@ export default function UpdateOrderPage() {
                             </div>
                             <p className="mt-3 pt-3 text-center text-xl font-bold uppercase border-t-2">Cập nhật trạng thái</p>
                             <div className="mt-3 grid grid-cols-1 lg:grid-cols-3 gap-4">
-                                <button className="bg-blue-500 py-2 font-bold text-white rounded-lg hover:shadow-md uppercase">Đang chuẩn bị</button>
-                                <button className="bg-blue-500 py-2 font-bold text-white rounded-lg hover:shadow-md uppercase">Đang giao hàng</button>
-                                <button className="bg-green-500 py-2 font-bold text-white rounded-lg hover:shadow-md uppercase">Đã hoàn thành</button>
+                                <button className="py-2 outline outline-2 outline-gray-500  font-bold text-blue-500 rounded-lg hover:shadow-lg uppercase" onClick={() => handleUpdateOrderStatus("PENDING")}>Đang chuẩn bị</button>
+                                <button className="py-2 outline outline-2 outline-gray-500  font-bold text-blue-500 rounded-lg hover:shadow-lg uppercase" onClick={() => handleUpdateOrderStatus("DELIVERING")}>Đang giao hàng</button>
+                                <button className="py-2 outline outline-2 outline-gray-500 font-bold text-green-500 rounded-lg hover:shadow-lg uppercase disabled:bg-gray-200 disabled:hover:shadow-none" disabled={orderDetail.payment.paymentStatus !== "SUCCESS"} onClick={() => handleUpdateOrderStatus("SUCCESS")}>Đã hoàn thành</button>
                             </div>
                             <div className="mt-3 grid grid-cols-1 lg:grid-cols-3 lg:gap-4">
-                                <button className="bg-red-500 py-2 font-bold text-white rounded-lg hover:shadow-md uppercase">Huỷ</button>
-                                <input type="text" name="cancelReason" placeholder="Vui lòng nhập lý do nếu huỷ" className="mt-3 lg:mt-0 h-[40px] col-span-2 border-b-2 border-gray-500" />
+                                <button className="outline outline-2 outline-gray-500 py-2 font-bold text-red-500 rounded-lg hover:shadow-md uppercase" onClick={() => handleCancelOrder()}>Huỷ</button>
+                                <input type="text" name="cancelReason" placeholder="Vui lòng nhập lý do nếu huỷ" value={cancelReason} onChange={(e) => { setCancelReason(e.target.value) }} className="mt-3 lg:mt-0 h-[40px] col-span-2 border-b-2 border-gray-500" />
                             </div>
                         </div>
                         <div className="mt-3 p-3 bg-white shadow-md">
@@ -102,8 +165,8 @@ export default function UpdateOrderPage() {
                                     <>
                                         <p className="mt-3 pt-3 text-center text-xl font-bold uppercase border-t-2">Cập nhật trạng thái</p>
                                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                            <button className="bg-red-500 py-2 font-bold text-white rounded-lg hover:shadow-md uppercase">Chưa thanh toán</button>
-                                            <button className="bg-blue-500 py-2 font-bold text-white rounded-lg hover:shadow-md uppercase">Đã thanh toán</button>
+                                            <button className="py-2 outline outline-2 outline-gray-500 font-bold text-blue-500 rounded-lg hover:shadow-lg uppercase" onClick={() => handleUpdatePaymentStatus("PENDING")}>Chưa thanh toán</button>
+                                            <button className="py-2 outline outline-2 outline-gray-500 font-bold text-green-500 rounded-lg hover:shadow-lg uppercase" onClick={() => handleUpdatePaymentStatus("SUCCESS")}>Đã thanh toán</button>
                                         </div>
                                     </>
                                     : null}

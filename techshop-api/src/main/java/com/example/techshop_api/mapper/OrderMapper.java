@@ -14,7 +14,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
+    @Mapping(target = "id", source = "order.id")
+    @Mapping(target = "userId", source = "order.user.id")
     OrderResponse toOrderResponse(Order order);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", source = "user")
     Order toOrder(User user, OrderCreationRequest request);

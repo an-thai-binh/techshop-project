@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useSearch } from '@/features/search/hooks/useSearch'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { formatPrice } from '@/utils/CurrentyFormat'
+import { formatPrice } from '@/utils/AppFormatter'
 import { useEffect, useState } from 'react'
 
 interface DropdownSearchProps {

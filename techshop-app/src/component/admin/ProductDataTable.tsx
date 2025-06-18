@@ -4,7 +4,7 @@ import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat";
+import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import ActionConfirmDialog from "./ActionConfirmDialog";

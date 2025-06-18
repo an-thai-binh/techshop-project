@@ -1,7 +1,7 @@
 import { selectCartItems } from "@/features/cart/cartSelectors"
 import { CartItemType } from "@/features/cart/types/CartItemType"
 import { useAppDispatch, useAppSelector } from "@/shared/redux/hook"
-import { formatVietNamCurrency } from "@/utils/CurrentyFormat"
+import { formatVietNamCurrency } from "@/utils/AppFormatter"
 import Image from "next/image"
 import React, { useEffect } from "react"
 import { selectOrderInformation } from "../createOrderSelectors"

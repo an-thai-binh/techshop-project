@@ -3,7 +3,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { CartItemType } from '@/features/cart/types/CartItemType'
 import Image from 'next/image'
-import { formatPrice } from '@/utils/CurrentyFormat'
+import { formatPrice } from '@/utils/AppFormatter'
 import { useAppDispatch } from '@/shared/redux/hook'
 import {
   fetchAddItemCartFromApi,
