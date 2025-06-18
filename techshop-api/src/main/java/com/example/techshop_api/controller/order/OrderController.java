@@ -5,6 +5,7 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.order.OrderDetailResponse;
 import com.example.techshop_api.dto.response.order.OrderResponse;
 import com.example.techshop_api.service.OrderService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -58,7 +59,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<OrderResponse>> store(@RequestBody OrderCreationRequest request) {
+    public ResponseEntity<ApiResponse<OrderResponse>> store(@Valid @RequestBody OrderCreationRequest request) {
         ApiResponse<OrderResponse> apiResponse = orderService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
