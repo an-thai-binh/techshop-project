@@ -65,7 +65,7 @@ public class ProductController {
             @RequestParam int size,
             @RequestParam(defaultValue = "id") String sort,
             @RequestParam(defaultValue = "desc") String direction,
-            @Valid @RequestBody ProductDisplayFilter filter
+            @Valid @ModelAttribute ProductDisplayFilter filter
             ) {
         Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
         Sort sortBy = Sort.by(sortDirection, sort);

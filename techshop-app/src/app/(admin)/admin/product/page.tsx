@@ -1,9 +1,6 @@
 'use client'
 import AdditionFloatingButton from '@/component/admin/AdditionFloatingButton'
-const ProductDataTable = dynamic(() => import('@/component/admin/ProductDataTable'), {
-  ssr: false,
-})
-import dynamic from 'next/dynamic'
+import ProductDataTable from '@/component/admin/ProductDataTable';
 import { useEffect } from 'react'
 
 export default function AdminProductPage() {

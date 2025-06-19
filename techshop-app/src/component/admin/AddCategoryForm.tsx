@@ -16,7 +16,6 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function AddCategoryForm() {
-    const token = useAppSelector(selectToken);
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>(
         {
             resolver: zodResolver(formSchema),

@@ -68,8 +68,8 @@ public class ProductService {
     }
 
     public ApiResponse<Page<ProductDisplayResponse>> indexDisplayFilter(Pageable pageable, ProductDisplayFilter filter) {
-        String productId = filter.getProductId() <= 0 ? "%%" : "%" + filter.getProductId() + "%";
-        String productName = "%" + filter.getProductName() + "%";
+        String productId = filter.getProductId() != null ? "%" + filter.getProductId() + "%" : "%%";
+        String productName = filter.getProductName() != null ? "%" + filter.getProductName() + "%" : "%%";
         double minBasePrice = Math.max(filter.getMinBasePrice(), 0);
         double maxBasePrice = filter.getMaxBasePrice() < 0 ? Double.MAX_VALUE : filter.getMaxBasePrice();
         Page<ProductDisplayResponse> productDisplayResponses = productRepository.findFilteredProductsDisplay(pageable, productId, productName, minBasePrice, maxBasePrice);

@@ -10,9 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductDisplayFilter {
-    @NotNull
-    Long productId;
-    @NotNull
+    String productId;
     String productName;
     @NotNull
     double minBasePrice;

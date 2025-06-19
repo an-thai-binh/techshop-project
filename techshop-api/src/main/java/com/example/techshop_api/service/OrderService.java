@@ -1,6 +1,7 @@
 package com.example.techshop_api.service;
 
 import com.example.techshop_api.dto.request.order.OrderCreationRequest;
+import com.example.techshop_api.dto.request.order.OrderFilter;
 import com.example.techshop_api.dto.request.order.OrderItemCreationRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.order.OrderDetailResponse;
@@ -24,6 +25,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,7 +49,25 @@ public class OrderService {
     PaymentMapper paymentMapper;
 
     public ApiResponse<Page<OrderResponse>> index(Pageable pageable) {
-        Page<Order> orders = orderRepository.findAllByStatusIsNotLike("INVALID", pageable);
+        Specification<Order> spec = Specification.where(OrderRepository.OrderSpecification.statusIsNotLike("INVALID"));
+        Page<Order> orders = orderRepository.findAll(spec, pageable);
+        Page<OrderResponse> orderResponses = orders.map(orderMapper::toOrderResponse);
+        return ApiResponse.<Page<OrderResponse>>builder()
+                .success(true)
+                .data(orderResponses)
+                .build();
+    }
+
+    public ApiResponse<Page<OrderResponse>> indexFilter(Pageable pageable, OrderFilter filter) {
+        Specification<Order> spec = Specification.where(OrderRepository.OrderSpecification.hasId(filter.getOrderId()))
+                .and(OrderRepository.OrderSpecification.hasOrderName(filter.getOrderName()))
+                .and(OrderRepository.OrderSpecification.hasStatus(filter.getStatus()))
+                .and(OrderRepository.OrderSpecification.statusIsNotLike("INVALID"))
+                .and(OrderRepository.OrderSpecification.orderTimeAfter(filter.getAfterTime()))
+                .and(OrderRepository.OrderSpecification.orderTimeBefore(filter.getBeforeTime()))
+                .and(OrderRepository.OrderSpecification.amountGreaterThanOrEqualTo(filter.getMinAmount()))
+                .and(OrderRepository.OrderSpecification.amountLessThanOrEqualTo(filter.getMaxAmount()));
+        Page<Order> orders = orderRepository.findAll(spec, pageable);
         Page<OrderResponse> orderResponses = orders.map(orderMapper::toOrderResponse);
         return ApiResponse.<Page<OrderResponse>>builder()
                 .success(true)

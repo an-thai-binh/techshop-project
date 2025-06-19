@@ -121,6 +121,8 @@ export const EndpointAPI = {
   PRODUCT_GET_ALL: '/product',
   // GET: Lấy sản phẩm hiển thị
   PRODUCT_DISPLAY_ALL: '/product/display',
+  // GET: Lấy sản phẩm hiển thị kèm lọc
+  PRODUCT_DISPLAY_FILTER: '/product/display/filter',
   // GET: Lấy sản phẩm theo danh mục
   PRODUCT_DISPLAY_BY_CATEGORY: '/product/display/getByCategory',
   // GET: Lấy chi tiết sản phẩm (admin)
@@ -183,6 +185,8 @@ export const EndpointAPI = {
   // ORDER
   // GET: Lấy danh sách đơn hàng
   ORDER_GET_ALL: '/order',
+  // GET: Lấy danh sách đơn hàng với bộ lọc
+  ORDER_GET_FILTER: '/order/filter',
   // GET: Lấy chi tiết đơn hàng
   ORDER_DETAIL: '/order/detail/',
   // POST: Tạo đơn hàng mới

@@ -1,37 +1,53 @@
 'use client'
-
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { formatDateTime, formatOrderStatus, formatVietNamCurrency } from "@/utils/AppFormatter";
-import { selectToken } from "@/features/auth/authSelectors";
-import { useAppSelector } from "@/shared/redux/hook";
 import toast from "react-hot-toast";
 import api from "@/utils/APIAxiosConfig";
 import { EndpointAPI } from "@/api/EndpointAPI";
 import { Order } from "@/types/order";
+import { FunnelIcon } from "@heroicons/react/20/solid";
+import { useSearchParams } from "next/navigation";
 
 export default function OrderDataTable() {
-    const token = useAppSelector(selectToken);
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(10);
     const [sort, setSort] = useState<string>('id');
     const [direction, setDirection] = useState<string>('desc');
     const [orders, setOrders] = useState<Order[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
+    const [reload, setReload] = useState<boolean>(false);
+    // filter
+    const [orderId, setOrderId] = useState<string>("");
+    const [orderName, setOrderName] = useState<string>("");
+    const [status, setStatus] = useState<string>(useSearchParams().get("status") ?? "");
+    const [afterTime, setAfterTime] = useState<string>("");
+    const [beforeTime, setBeforeTime] = useState<string>("");
+    const [minAmount, setMinAmount] = useState<string>("");
+    const [maxAmount, setMaxAmount] = useState<string>("");
+    const [minAmountError, setMinAmountError] = useState<string>("");
+    const [maxAmountError, setMaxAmountError] = useState<string>("");
 
     useEffect(() => {
-        if (!token) {
-            return;
-        }
         const fetchOrder = async () => {
+            if (minAmountError !== "" || maxAmountError !== "") {
+                return;
+            }
             try {
-                const response = await api.get(EndpointAPI.ORDER_GET_ALL, {
+                const response = await api.get(EndpointAPI.ORDER_GET_FILTER, {
                     params: {
                         page: page,
                         size: size,
                         sort: sort,
-                        direction: direction
+                        direction: direction,
+                        orderId: orderId,
+                        orderName: orderName,
+                        status: status,
+                        afterTime: afterTime,
+                        beforeTime: beforeTime,
+                        minAmount: minAmount,
+                        maxAmount: maxAmount
                     }
                 });
                 if (response.data.success) {
@@ -45,7 +61,7 @@ export default function OrderDataTable() {
             }
         }
         fetchOrder();
-    }, [token, page, size, sort, direction]);
+    }, [page, size, sort, direction, reload]);
 
     const columns = [
         { field: 'id', headerName: 'ID' },
@@ -98,47 +114,144 @@ export default function OrderDataTable() {
 
     return (
         <>
-            <DataGrid
-                columns={columns}
-                rows={orders}
-                rowCount={totalItems}
-                pageSizeOptions={[10, 15, 20]}
-                pagination
-                paginationMode="server"
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: size,
-                            page: page
-                        }
-                    }
-                }}
-                onPaginationModelChange={(model) => {
-                    console.log(model.page);
-                    console.log(model.pageSize);
-                    setPage(model.page);
-                    setSize(model.pageSize);
-                }}
-                sortingMode="server"
-                onSortModelChange={(model) => { // [{field: 'fieldName', sort: 'asc'}]
-                    setSort(model[0]?.field || 'id');
-                    setDirection(model[0]?.sort || 'desc');
-                }}
-                getRowHeight={() => 'auto'}
-                sx={{
-                    '& .MuiDataGrid-columnHeaderTitle': {
-                        fontFamily: 'Quicksand, sans-serif',
-                        fontSize: '16px',
-                        fontWeight: 'bold'
-                    },
-                    '& .MuiDataGrid-cell': {
-                        fontFamily: 'Quicksand, sans-serif',
-                        fontSize: '16px',
-                        display: 'flex',
-                        alignItems: 'center'
-                    }
-                }}
-            />
+            <div className="mx-3 bg-white shadow-md">
+                <div className="flex items-center pl-3 pt-3">
+                    <p className="text-xl">Lọc dữ liệu</p>
+                    <FunnelIcon className="size-5" />
+                </div>
+                <div className="grid grid-cols-1 gap-2 p-3 lg:grid-cols-2">
+                    <div>
+                        <p className="ms-1 font-semibold">ID đơn hàng</p>
+                        <input
+                            type="text"
+                            value={orderId}
+                            onChange={(e) => setOrderId(e.target.value)}
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: Nguyễn Văn A"
+                        />
+                    </div>
+                    <div>
+                        <p className="ms-1 font-semibold">Tên khách hàng</p>
+                        <input
+                            type="text"
+                            value={orderName}
+                            onChange={(e) => setOrderName(e.target.value)}
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: Nguyễn Văn A"
+                        />
+                    </div>
+                    <div>
+                        <p className="ms-1 font-semibold">Trạng thái đơn hàng</p>
+                        <select value={status} onChange={(e) => setStatus(e.target.value)} className="w-full min-h-[36px] rounded-md border-2 border-gray-300 px-3 py-1">
+                            <option value={""}>Tất cả</option>
+                            <option value={"PENDING"}>Đang chuẩn bị</option>
+                            <option value={"DELIVERING"}>Đang giao hàng</option>
+                            <option value={"SUCCESS"}>Đã hoàn thành</option>
+                            <option value={"FAILED"}>Huỷ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div className="grid grid-cols-2 gap-x-2">
+                            <div>
+                                <p className="ms-1 font-semibold">Tổng tiền thấp nhất</p>
+                                <input
+                                    type="number"
+                                    value={minAmount}
+                                    onChange={(e) => setMinAmount(e.target.value)}
+                                    className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                                    placeholder="VD: Nguyễn Văn A"
+                                />
+                                <span className="ms-2 text-sm font-medium text-red-500">{minAmountError}</span>
+                            </div>
+                            <div>
+                                <p className="ms-1 font-semibold">Tổng tiền cao nhất</p>
+                                <input
+                                    type="number"
+                                    value={maxAmount}
+                                    onChange={(e) => setMaxAmount(e.target.value)}
+                                    className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                                    placeholder="VD: Nguyễn Văn A"
+                                />
+                                <span className="ms-2 text-sm font-medium text-red-500">{maxAmountError}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p className="ms-1 font-semibold">Đặt hàng từ</p>
+                        <input
+                            type="datetime-local"
+                            value={afterTime}
+                            onChange={(e) => setAfterTime(e.target.value)}
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: 1"
+                        />
+                    </div>
+                    <div>
+                        <p className="ms-1 font-semibold">Đặt hàng trước</p>
+                        <input
+                            type="datetime-local"
+                            value={beforeTime}
+                            onChange={(e) => setBeforeTime(e.target.value)}
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: 1"
+                        />
+                    </div>
+                </div>
+                <div className="flex justify-center pb-3">
+                    <button
+                        type="button"
+                        className="bg-blue-400 px-2 py-1 font-bold text-white hover:bg-blue-500"
+                        onClick={() => setReload(prev => !prev)}
+                    >
+                        Tìm kiếm
+                    </button>
+                </div>
+            </div>
+            <div className="mx-3 my-3 h-fit bg-white shadow-md">
+                <div className="w-full">
+                    <DataGrid
+                        columns={columns}
+                        rows={orders}
+                        rowCount={totalItems}
+                        pageSizeOptions={[10, 15, 20]}
+                        pagination
+                        paginationMode="server"
+                        initialState={{
+                            pagination: {
+                                paginationModel: {
+                                    pageSize: size,
+                                    page: page
+                                }
+                            }
+                        }}
+                        onPaginationModelChange={(model) => {
+                            console.log(model.page);
+                            console.log(model.pageSize);
+                            setPage(model.page);
+                            setSize(model.pageSize);
+                        }}
+                        sortingMode="server"
+                        onSortModelChange={(model) => { // [{field: 'fieldName', sort: 'asc'}]
+                            setSort(model[0]?.field || 'id');
+                            setDirection(model[0]?.sort || 'desc');
+                        }}
+                        getRowHeight={() => 'auto'}
+                        sx={{
+                            '& .MuiDataGrid-columnHeaderTitle': {
+                                fontFamily: 'Quicksand, sans-serif',
+                                fontSize: '16px',
+                                fontWeight: 'bold'
+                            },
+                            '& .MuiDataGrid-cell': {
+                                fontFamily: 'Quicksand, sans-serif',
+                                fontSize: '16px',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }
+                        }}
+                    />
+                </div>
+            </div>
         </>
     );
 }

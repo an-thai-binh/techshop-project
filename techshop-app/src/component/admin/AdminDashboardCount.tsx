@@ -96,7 +96,7 @@ export default function AdminDashboardCount() {
                             </div>
                         </div>
                     </Link>
-                    <Link href={"/admin/order"}>
+                    <Link href={"/admin/order?status=PENDING"}>
                         <div className="w-full bg-blue-400 shadow-sm hover:shadow-lg cursor-pointer">
                             <div className="p-3 flex items-center">
                                 <div className="basis-2/3">
@@ -115,7 +115,7 @@ export default function AdminDashboardCount() {
                             </div>
                         </div>
                     </Link>
-                    <Link href={"/admin/order"}>
+                    <Link href={"/admin/order?status=DELIVERING"}>
                         <div className="w-full bg-cyan-600 shadow-sm hover:shadow-lg cursor-pointer">
                             <div className="p-3 flex items-center">
                                 <div className="basis-2/3">
@@ -134,7 +134,7 @@ export default function AdminDashboardCount() {
                             </div>
                         </div>
                     </Link>
-                    <Link href={"/admin/order"}>
+                    <Link href={"/admin/order?status=SUCCESS"}>
                         <div className="w-full bg-green-400 shadow-sm hover:shadow-lg cursor-pointer">
                             <div className="p-3 flex items-center">
                                 <div className="basis-2/3">
