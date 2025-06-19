@@ -1,6 +1,7 @@
 package com.example.techshop_api.service;
 
 import com.example.techshop_api.dto.response.ApiResponse;
+import com.example.techshop_api.dto.response.order.OrderItemDetailResponse;
 import com.example.techshop_api.dto.response.payment.PaymentResponse;
 import com.example.techshop_api.dto.response.payment.StripeCheckoutResponse;
 import com.example.techshop_api.entity.order.Order;
@@ -9,6 +10,7 @@ import com.example.techshop_api.entity.payment.Payment;
 import com.example.techshop_api.enums.ErrorCode;
 import com.example.techshop_api.exception.AppException;
 import com.example.techshop_api.mapper.PaymentMapper;
+import com.example.techshop_api.repository.OrderItemRepository;
 import com.example.techshop_api.repository.OrderRepository;
 import com.example.techshop_api.repository.PaymentRepository;
 import com.stripe.Stripe;
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,8 @@ public class PaymentService {
     final PaymentRepository paymentRepository;
     final OrderRepository orderRepository;
     final PaymentMapper paymentMapper;
+    final MailService mailService;
+    private final OrderItemRepository orderItemRepository;
 
     @Value("${stripe.secret-key}")
     String stripeSecretKey;
@@ -72,6 +77,8 @@ public class PaymentService {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.UPDATE_FAILED);
         }
+        List<OrderItemDetailResponse> orderItemList = orderItemRepository.findAllDetailByOrder(orderId);
+        mailService.sendOrderSuccess(order.getOrderEmail(), order, orderItemList, payment);
         return ApiResponse.<Void>builder()
                 .success(true)
                 .message("Set payment successfully")
@@ -171,6 +178,8 @@ public class PaymentService {
                         log.error(e.getMessage());
                         throw new AppException(ErrorCode.UPDATE_FAILED);
                     }
+                    List<OrderItemDetailResponse> orderItemList = orderItemRepository.findAllDetailByOrder(orderId);
+                    mailService.sendOrderSuccess(order.getOrderEmail(), order, orderItemList, payment);
                 }
             }
             return ApiResponse.<Void>builder()
