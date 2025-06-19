@@ -1,12 +1,14 @@
 package com.example.techshop_api.controller.product;
 
 import com.example.techshop_api.dto.request.product.ProductCreationRequest;
+import com.example.techshop_api.dto.request.product.ProductDisplayFilter;
 import com.example.techshop_api.dto.request.product.ProductUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.product.ProductDetailResponse;
 import com.example.techshop_api.dto.response.product.ProductDisplayResponse;
 import com.example.techshop_api.dto.response.product.ProductResponse;
 import com.example.techshop_api.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -54,6 +56,21 @@ public class ProductController {
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page, size, sortBy);
         ApiResponse<Page<ProductDisplayResponse>> apiResponse = productService.indexDisplay(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/display/filter")
+    public ResponseEntity<ApiResponse<Page<ProductDisplayResponse>>> indexDisplayFilter(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "desc") String direction,
+            @Valid @RequestBody ProductDisplayFilter filter
+            ) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+        ApiResponse<Page<ProductDisplayResponse>> apiResponse = productService.indexDisplayFilter(pageable, filter);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 

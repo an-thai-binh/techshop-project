@@ -1,6 +1,7 @@
 package com.example.techshop_api.service;
 
 import com.example.techshop_api.dto.request.product.ProductCreationRequest;
+import com.example.techshop_api.dto.request.product.ProductDisplayFilter;
 import com.example.techshop_api.dto.request.product.ProductUpdateRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.category.CategoryResponse;
@@ -65,6 +66,19 @@ public class ProductService {
                 .data(productDisplayResponses)
                 .build();
     }
+
+    public ApiResponse<Page<ProductDisplayResponse>> indexDisplayFilter(Pageable pageable, ProductDisplayFilter filter) {
+        String productId = filter.getProductId() <= 0 ? "%%" : "%" + filter.getProductId() + "%";
+        String productName = "%" + filter.getProductName() + "%";
+        double minBasePrice = Math.max(filter.getMinBasePrice(), 0);
+        double maxBasePrice = filter.getMaxBasePrice() < 0 ? Double.MAX_VALUE : filter.getMaxBasePrice();
+        Page<ProductDisplayResponse> productDisplayResponses = productRepository.findFilteredProductsDisplay(pageable, productId, productName, minBasePrice, maxBasePrice);
+        return ApiResponse.<Page<ProductDisplayResponse>>builder()
+                .success(true)
+                .data(productDisplayResponses)
+                .build();
+    }
+
     public ApiResponse<Page<ProductDisplayResponse>> indexCategory(Long categoryId, Pageable pageable){
         Page<ProductDisplayResponse> productDisplayResponses  = productRepository.findByCategoryId(categoryId, pageable);
         return ApiResponse.<Page<ProductDisplayResponse>>builder().success(true).data(productDisplayResponses).build();
