@@ -1,8 +1,9 @@
 'use client'
+import { EndpointAPI } from "@/api/EndpointAPI";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { Image } from "@/types/image";
-import axios from "axios";
+import api from "@/utils/APIAxiosConfig";
 import { ChangeEvent, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -29,12 +30,7 @@ export default function AddImageForm() {
         const formData = new FormData();
         formData.append("file", uploadFile);
         try {
-            const response = await axios.post("http://localhost:8080/techshop/image/file", formData, {
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const response = await api.post(EndpointAPI.IMAGE_CREATE_BY_FILE, formData);
             if (response.data.success) {
                 setImage(response.data.data);
             }
