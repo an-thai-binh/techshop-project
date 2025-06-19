@@ -92,7 +92,7 @@ export default function UpdateProductForm({ id: productId, productName, category
             }
             return;
         } catch (error: any) {
-            const errorMessage = error.response.data?.message || error.message;
+            const errorMessage = error.response?.data.message || error.message;
             setImageError("Lỗi khi tải ảnh lên: " + errorMessage);
             throw new Error("Error uploading image: " + errorMessage);
         }
@@ -114,7 +114,7 @@ export default function UpdateProductForm({ id: productId, productName, category
             }
             return;
         } catch (error: any) {
-            const errorMessage = error.response.data?.message || error.message;
+            const errorMessage = error.response?.data.message || error.message;
             setUrlError("Lỗi khi lấy ảnh: " + errorMessage);
             throw new Error("Error uploading image: " + errorMessage)
         }
@@ -128,7 +128,7 @@ export default function UpdateProductForm({ id: productId, productName, category
         }
 
         try {
-            const response = await api.put(EndpointAPI.PRODUCT_UPDATE_WITH_IMAGE, data, {
+            const response = await api.put(EndpointAPI.PRODUCT_UPDATE_WITH_IMAGE + productId, data, {
                 params: {
                     imageId: imageId
                 }
