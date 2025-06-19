@@ -18,7 +18,7 @@ export default function CollectionListGrid(_props: CollectionProductProps) {
   const [products, setProducts] = useState<ProductType[]>(_props.items)
   const [page, setPage] = useState<number>(0)
   const [totalPages, setTotalPages] = useState<number>(1)
-  const [sort, setSort] = useState<string>('createdAt')
+  const [sort, setSort] = useState<string>('id')
   const [direction, setDirection] = useState<'asc' | 'desc'>('desc')
   const pageSize = 20
   const token = useAppSelector(selectToken)
@@ -60,7 +60,7 @@ export default function CollectionListGrid(_props: CollectionProductProps) {
 
   useEffect(() => {
     fetchProducts()
-  }, [page, sort, direction, _props.category?.id, fetchProducts])
+  }, [page, sort, direction, _props.category?.id])
 
   return (
     <div className="flex size-full min-h-screen justify-center px-2">
@@ -86,10 +86,10 @@ export default function CollectionListGrid(_props: CollectionProductProps) {
                 }}
                 className="rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-700"
               >
-                <option value="createdAt-desc">Mới nhất</option>
-                <option value="createdAt-asc">Cũ nhất</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
+                <option value="id-desc">Mới nhất</option>
+                <option value="id-asc">Cũ nhất</option>
+                <option value="product_base_price-asc">Giá tăng dần</option>
+                <option value="product_base_price-desc">Giá giảm dần</option>
               </select>
             </div>
           </div>
