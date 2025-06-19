@@ -3,10 +3,19 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import DropdownSearch from '@/features/search/components/DropdownSearch'
 import React, { useState } from 'react'
 import { useUIContext } from '@/shared/context/UIContext'
+import { useRouter } from 'next/navigation'
 
 export default function InputSearchField() {
   const { state, dispatch } = useUIContext()
   const [inputSearch, setInputSearch] = useState('')
+  const router = useRouter()
+
+  const handleSearch = () => {
+    const keyword = inputSearch.trim()
+    if (!keyword) return
+    router.push(`/search?q=${encodeURIComponent(keyword)}`)
+    dispatch({ type: 'CLOSE_ALL' })
+  }
   return (
     <div
       className={`relative order-3 flex w-full items-center justify-between gap-2 rounded-md ${state.dropdownType === 'search' ? 'rounded-b-none' : ''} bg-gray-100 transition-all duration-300 dark:bg-gray-800 sm:order-2 sm:w-1/2 md:order-2 md:w-1/2 lg:order-2 lg:w-1/2`}
@@ -20,6 +29,9 @@ export default function InputSearchField() {
           placeholder="Tìm kiếm sản phẩm"
           className="peer w-full rounded-none bg-transparent px-2 py-1 font-semibold text-gray-950/50 outline-none placeholder:text-sm placeholder:font-semibold dark:text-white"
           onChange={(e) => setInputSearch(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') handleSearch()
+          }}
         />
         <div className="flex items-center rounded-md peer-focus:animate-pulse hover:bg-gray-500/50">
           <button className="p-2">
