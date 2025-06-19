@@ -1,15 +1,16 @@
 'use client'
+import { EndpointAPI } from "@/api/EndpointAPI";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
+import api from "@/utils/APIAxiosConfig";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod"
 
 const formSchema = z.object({
     categoryName: z.string().min(1, { message: "Tên thể loại không được để trống" }),
-    categoryImgUrl: z.string()
+    categoryImgUrl: z.string().nullable()
 })
 
 type FormData = z.infer<typeof formSchema>;
@@ -27,11 +28,7 @@ export default function AddCategoryForm() {
 
     const onSubmit = async (data: FormData) => {
         try {
-            const response = await axios.post("http://localhost:8080/techshop/category", data, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
+            const response = await api.post(EndpointAPI.CATEGORY_CREATE, data);
             if (response.data.success) {
                 setSuccess(true);
             }

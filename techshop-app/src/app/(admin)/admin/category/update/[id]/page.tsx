@@ -1,10 +1,11 @@
 'use client'
+import { EndpointAPI } from "@/api/EndpointAPI";
 import AdminError from "@/component/admin/AdminError";
 import UpdateCategoryForm from "@/component/admin/UpdateCategoryForm";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { Category } from "@/types/product";
-import axios from "axios";
+import api from "@/utils/APIAxiosConfig";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -20,11 +21,7 @@ export default function AddCategoryPage() {
         }
         const fetchCategory = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/techshop/category/${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
+                const response = await api.get(EndpointAPI.CATEGORY_GET_BY_ID + id);
                 if (response.data.success) {
                     setCategory(response.data.data);
                 }
