@@ -1,6 +1,7 @@
 package com.example.techshop_api.controller.order;
 
 import com.example.techshop_api.dto.request.order.OrderCreationRequest;
+import com.example.techshop_api.dto.request.order.OrderFilter;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.order.OrderDetailResponse;
 import com.example.techshop_api.dto.response.order.OrderResponse;
@@ -40,6 +41,22 @@ public class OrderController {
         Sort sortBy = Sort.by(sortDirection, sort);
         Pageable pageable = PageRequest.of(page, size, sortBy);
         ApiResponse<Page<OrderResponse>> apiResponse = orderService.index(pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/filter")
+    @PreAuthorize("hasRole('ADMIN') and hasAuthority('order:view')")
+    public ResponseEntity<ApiResponse<Page<OrderResponse>>> indexFilter(
+            @RequestParam int page,
+            @RequestParam int size,
+            @RequestParam(defaultValue = "id") String sort,
+            @RequestParam(defaultValue = "desc") String direction,
+            @ModelAttribute OrderFilter filter
+    ) {
+        Sort.Direction sortDirection = direction.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Sort sortBy = Sort.by(sortDirection, sort);
+        Pageable pageable = PageRequest.of(page, size, sortBy);
+        ApiResponse<Page<OrderResponse>> apiResponse = orderService.indexFilter(pageable, filter);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
