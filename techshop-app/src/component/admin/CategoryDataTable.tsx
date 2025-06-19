@@ -11,7 +11,7 @@ import { Category } from "@/types/product";
 import { EndpointAPI } from "@/api/EndpointAPI";
 import api from "@/utils/APIAxiosConfig";
 
-export default function ProductDataTable() {
+export default function CategoryDataTable() {
     const token = useAppSelector(selectToken);
     const [page, setPage] = useState<number>(0);
     const [size, setSize] = useState<number>(10);

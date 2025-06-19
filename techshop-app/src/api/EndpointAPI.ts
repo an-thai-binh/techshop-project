@@ -185,6 +185,8 @@ export const EndpointAPI = {
   // ORDER
   // GET: Lấy danh sách đơn hàng
   ORDER_GET_ALL: '/order',
+  // GET: Lấy danh sách đơn hàng với bộ lọc
+  ORDER_GET_FILTER: '/order/filter',
   // GET: Lấy chi tiết đơn hàng
   ORDER_DETAIL: '/order/detail/',
   // POST: Tạo đơn hàng mới

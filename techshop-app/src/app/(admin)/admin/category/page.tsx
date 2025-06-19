@@ -1,9 +1,6 @@
 'use client'
 import AdditionFloatingButton from '@/component/admin/AdditionFloatingButton'
-const CategoryDataTable = dynamic(() => import('@/component/admin/CategoryDataTable'), {
-    ssr: false,
-})
-import dynamic from 'next/dynamic'
+import CategoryDataTable from '@/component/admin/CategoryDataTable';
 import { useEffect } from 'react'
 
 export default function AdminCategoryPage() {
