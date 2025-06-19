@@ -1,15 +1,16 @@
 'use client'
 
+import { EndpointAPI } from "@/api/EndpointAPI";
 import ActionConfirmDialog from "@/component/admin/ActionConfirmDialog";
 import AdminError from "@/component/admin/AdminError";
 import ChoiceComboBox from "@/component/admin/ChoiceComboBox";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { Choice, Product } from "@/types/product";
+import api from "@/utils/APIAxiosConfig";
 import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useParams } from "next/navigation"
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -70,11 +71,7 @@ export default function AddProductVariationPage() {
         }
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/techshop/product/${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                })
+                const response = await api.get(EndpointAPI.PRODUCT_GET_BY_ID + id);
                 if (response.data.success) {
                     setProduct(response.data.data);
                 }
@@ -84,11 +81,11 @@ export default function AddProductVariationPage() {
                 throw new Error("Error fetching product: " + message);
             }
             try {
-                const response = await axios.get(`http://localhost:8080/techshop/choice/getByProduct?productId=${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
+                const response = await api.get(EndpointAPI.CHOICE_GET_BY_PRODUCT, {
+                    params: {
+                        productId: id
                     }
-                })
+                });
                 if (response.data.success) {
                     const choicesData = response.data.data;
                     setChoices(choicesData);
@@ -99,9 +96,9 @@ export default function AddProductVariationPage() {
                 throw new Error("Error fetching choices: " + message);
             }
             try {
-                const response = await axios.get(`http://localhost:8080/techshop/image/showByProduct?productId=${id}`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
+                const response = await api.get(EndpointAPI.IMAGE_GET_BY_PRODUCT, {
+                    params: {
+                        productId: id
                     }
                 })
                 if (response.data.success) {
@@ -156,11 +153,7 @@ export default function AddProductVariationPage() {
             choiceName: inputAddFormRef.current?.value.trim()
         }
         try {
-            const response = await axios.post("http://localhost:8080/techshop/choice", newChoice, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
+            const response = await api.post(EndpointAPI.CHOICE_CREATE, newChoice);
             if (response.data.success) {
                 const latestAddedChoice = {
                     id: response.data.data.id,
@@ -184,11 +177,12 @@ export default function AddProductVariationPage() {
     const handleDeleteChoice = async () => {
         setShowDeleteChoiceDialog(false);
         try {
-            const response = await axios.delete(`http://localhost:8080/techshop/choice?choiceId=${choiceId}&productId=${id}`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
+            const response = await api.delete(EndpointAPI.CHOICE_DELETE, {
+                params: {
+                    choiceId: choiceId,
+                    productId: id
                 }
-            });
+            })
             if (response.data.success) {
                 setChoices(prev => prev.filter(choice => choice.id !== choiceId));
             }
@@ -215,9 +209,8 @@ export default function AddProductVariationPage() {
         const formData = new FormData();
         formData.append("file", uploadFile);
         try {
-            const response = await axios.post("http://localhost:8080/techshop/image/file", formData, {
+            const response = await api.post(EndpointAPI.IMAGE_CREATE_BY_FILE, formData, {
                 headers: {
-                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'multipart/form-data'
                 }
             });
@@ -238,13 +231,10 @@ export default function AddProductVariationPage() {
             return;
         }
         try {
-            const response = await axios.get("http://localhost:8080/techshop/image/showByUrl", {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
+            const response = await api.get(EndpointAPI.IMAGE_GET_BY_URL, {
                 params: {
                     url: uploadUrl
-                },
+                }
             });
             if (response.data.success) {
                 return response.data.data.id;
@@ -278,11 +268,7 @@ export default function AddProductVariationPage() {
         }
 
         try {
-            const response = await axios.post("http://localhost:8080/techshop/productVariation/storeWithValues", requestData, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
-            });
+            const response = await api.post(EndpointAPI.PRODUCT_VARIATION_CREATE_WITH_VALUES, requestData);
             if (response.data.success) {
                 setSuccess(true);
             }

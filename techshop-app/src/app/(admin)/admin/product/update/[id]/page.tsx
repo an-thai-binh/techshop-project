@@ -1,10 +1,12 @@
 'use client'
+import { EndpointAPI } from '@/api/EndpointAPI'
 import AdminError from '@/component/admin/AdminError'
 import ProductVariationItem from '@/component/admin/ProductVariationItem'
 import UpdateProductForm from '@/component/admin/UpdateProductForm'
 import { selectToken } from '@/features/auth/authSelectors'
 import { useAppSelector } from '@/shared/redux/hook'
 import { ProductDetail } from '@/types/product'
+import api from '@/utils/APIAxiosConfig'
 import axios from 'axios'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -26,11 +28,7 @@ export default function UpdateProductPage() {
     }
     const fetchToken = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/techshop/product/detail/${id}`, {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        })
+        const response = await api.get(EndpointAPI.PRODUCT_GET_DETAIL + id);
         if (response.data.success) {
           setProductDetail(response.data.data)
         }
@@ -96,22 +94,22 @@ export default function UpdateProductPage() {
                 <div className="max-h-[calc(100vh-400px)] divide-y divide-gray-200 overflow-y-auto lg:max-h-[calc(100vh-300px)]">
                   {productDetail.productVariationList?.length
                     ? productDetail.productVariationList.map((productVariation) => {
-                        const matchedImage = productDetail.productImageList.find(
-                          (image) => image.image.id === productVariation.imageId,
-                        )
-                        return (
-                          <ProductVariationItem
-                            key={productVariation.id}
-                            id={productVariation.id}
-                            sku={productVariation.sku}
-                            basePrice={productDetail.productBasePrice}
-                            priceChange={productVariation.variationPriceChange}
-                            quantity={productVariation.quantity}
-                            imgUrl={matchedImage?.image.imgUrl || ''}
-                            onDeleteVariationSuccess={onDeleteVariationSuccess}
-                          />
-                        )
-                      })
+                      const matchedImage = productDetail.productImageList.find(
+                        (image) => image.image.id === productVariation.imageId,
+                      )
+                      return (
+                        <ProductVariationItem
+                          key={productVariation.id}
+                          id={productVariation.id}
+                          sku={productVariation.sku}
+                          basePrice={productDetail.productBasePrice}
+                          priceChange={productVariation.variationPriceChange}
+                          quantity={productVariation.quantity}
+                          imgUrl={matchedImage?.image.imgUrl || ''}
+                          onDeleteVariationSuccess={onDeleteVariationSuccess}
+                        />
+                      )
+                    })
                     : null}
                 </div>
               </div>

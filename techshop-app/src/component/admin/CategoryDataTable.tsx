@@ -2,13 +2,14 @@
 
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Link from "next/link";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import ActionConfirmDialog from "./ActionConfirmDialog";
 import toast from "react-hot-toast";
 import { Category } from "@/types/product";
+import { EndpointAPI } from "@/api/EndpointAPI";
+import api from "@/utils/APIAxiosConfig";
 
 export default function ProductDataTable() {
     const token = useAppSelector(selectToken);
@@ -28,17 +29,15 @@ export default function ProductDataTable() {
         }
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/techshop/category', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    },
-                    params: {
-                        page: page,
-                        size: size,
-                        sort: sort,
-                        direction: direction
-                    }
-                });
+                const response = await api.get(EndpointAPI.CATEGORY_GET_PAGINATED,
+                    {
+                        params: {
+                            page: page,
+                            size: size,
+                            sort: sort,
+                            direction: direction
+                        }
+                    });
                 if (response.data.success) {
                     setCategories(response.data.data.content);
                     setTotalItems(response.data.data.page.totalElements);
@@ -60,11 +59,7 @@ export default function ProductDataTable() {
     const handleDeleteAction = async () => {
         setShowConfirmDialog(false);
         try {
-            const response = await axios.delete(`http://localhost:8080/techshop/category/${deleteId}`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
+            const response = await api.delete(EndpointAPI.CATEGORY_DELETE + deleteId);
             if (response.data.success) {
                 setReload(prev => !prev);
             }

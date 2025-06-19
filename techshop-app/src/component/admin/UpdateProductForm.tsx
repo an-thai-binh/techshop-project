@@ -1,5 +1,4 @@
 'use client'
-import axios from "axios";
 import CategoryComboBox from "./CategoryComboBox";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { z } from "zod";
@@ -8,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppSelector } from "@/shared/redux/hook";
 import { selectToken } from "@/features/auth/authSelectors";
 import RichTextField from "../form/RichTextField";
+import { EndpointAPI } from "@/api/EndpointAPI";
+import api from "@/utils/APIAxiosConfig";
 
 const formSchema = z.object({
     categoryId: z.coerce.string(),
@@ -81,9 +82,8 @@ export default function UpdateProductForm({ id: productId, productName, category
         const formData = new FormData();
         formData.append("file", uploadFile);
         try {
-            const response = await axios.post("http://localhost:8080/techshop/image/file", formData, {
+            const response = await api.post(EndpointAPI.IMAGE_CREATE_BY_FILE, formData, {
                 headers: {
-                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'multipart/form-data'
                 }
             });
@@ -92,7 +92,7 @@ export default function UpdateProductForm({ id: productId, productName, category
             }
             return;
         } catch (error: any) {
-            const errorMessage = error.response.data?.message || error.message;
+            const errorMessage = error.response?.data.message || error.message;
             setImageError("Lỗi khi tải ảnh lên: " + errorMessage);
             throw new Error("Error uploading image: " + errorMessage);
         }
@@ -104,10 +104,7 @@ export default function UpdateProductForm({ id: productId, productName, category
             return;
         }
         try {
-            const response = await axios.get("http://localhost:8080/techshop/image/showByUrl", {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
+            const response = await api.get(EndpointAPI.IMAGE_GET_BY_URL, {
                 params: {
                     url: uploadUrl
                 },
@@ -117,7 +114,7 @@ export default function UpdateProductForm({ id: productId, productName, category
             }
             return;
         } catch (error: any) {
-            const errorMessage = error.response.data?.message || error.message;
+            const errorMessage = error.response?.data.message || error.message;
             setUrlError("Lỗi khi lấy ảnh: " + errorMessage);
             throw new Error("Error uploading image: " + errorMessage)
         }
@@ -131,10 +128,7 @@ export default function UpdateProductForm({ id: productId, productName, category
         }
 
         try {
-            const response = await axios.put(`http://localhost:8080/techshop/product/updateWithImage/${productId}`, data, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
+            const response = await api.put(EndpointAPI.PRODUCT_UPDATE_WITH_IMAGE + productId, data, {
                 params: {
                     imageId: imageId
                 }

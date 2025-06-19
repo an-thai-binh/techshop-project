@@ -30,6 +30,31 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             nativeQuery = true)
     Page<ProductDisplayResponse> findAllProductsDisplay(Pageable pageable);
 
+    @Query(
+            value = "SELECT p.id AS id, c.id AS categoryId, c.category_name AS categoryName, p.product_name AS productName, " +
+                    "p.product_description AS productDescription, p.product_base_price AS productBasePrice, i.img_url AS productImgUrl" +
+                    " FROM product p " +
+                    " LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE" +
+                    " LEFT JOIN image i ON pi.image_id = i.id  " +
+                    " JOIN category c ON p.category_id = c.id" +
+                    " WHERE CAST(p.id AS CHAR) LIKE :productId" +
+                    " AND p.product_name LIKE :productName" +
+                    " AND p.product_base_price >= :minBasePrice" +
+                    " AND p.product_base_price <= :maxBasePrice"
+            ,
+            countQuery = "SELECT COUNT(*)" +
+                    " FROM product p " +
+                    " LEFT JOIN product_image pi ON p.id = pi.product_id AND pi.is_first = TRUE" +
+                    " LEFT JOIN image i ON pi.image_id = i.id  " +
+                    " JOIN category c ON p.category_id = c.id" +
+                    " WHERE CAST(p.id AS CHAR) LIKE :productId" +
+                    " AND p.product_name LIKE :productName" +
+                    " AND p.product_base_price >= :minBasePrice" +
+                    " AND p.product_base_price <= :maxBasePrice"
+            ,
+            nativeQuery = true)
+    Page<ProductDisplayResponse> findFilteredProductsDisplay(Pageable pageable, String productId, String productName, double minBasePrice, double maxBasePrice);
+
     @Query(value = """
             SELECT 
                 p.id AS id, 

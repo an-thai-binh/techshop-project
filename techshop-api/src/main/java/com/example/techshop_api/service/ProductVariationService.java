@@ -109,6 +109,9 @@ public class ProductVariationService {
     @Transactional
     public ApiResponse<ProductVariationResponse> storeWithValues(ProductVariationWithValuesRequest request) {
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        if(product.getProductBasePrice() + request.getVariationPriceChange() < 0) {
+            throw new AppException(ErrorCode.PRODUCT_VARIATION_PRICE_CHANGE_INVALID);
+        }
         deleteDefaultVariation(product.getId());
         List<Long> choiceValueIdList = Arrays.asList(request.getChoiceValueIds()).stream().map(Long::parseLong).toList();
         List<ChoiceValue> unorderChoiceValueList = choiceValueRepository.findAllById(choiceValueIdList);
@@ -194,6 +197,9 @@ public class ProductVariationService {
     public ApiResponse<ProductVariationResponse> update(Long id, ProductVariationUpdateRequest request) {
         ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_NOT_FOUND));
+        if(product.getProductBasePrice() + request.getVariationPriceChange() < 0) {
+            throw new AppException(ErrorCode.PRODUCT_VARIATION_PRICE_CHANGE_INVALID);
+        }
         productVariationMapper.updateProductVariation(productVariation, product, request);
         try {
             productVariation = productVariationRepository.save(productVariation);
@@ -234,9 +240,21 @@ public class ProductVariationService {
     @Transactional
     public ApiResponse<Void> destroy(Long id) {
         ProductVariation productVariation = productVariationRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.PRODUCT_VARIATION_NOT_FOUND));
+        Product product = productVariation.getProduct();
+        Image image = imageRepository.findByProductId(product.getId()).orElse(null);
         try {
             inventoryRepository.deleteByProductVariation(productVariation);
             productVariationRepository.deleteById(id);
+            // thêm lại variation mặc định
+            ProductVariation defaultVariation = ProductVariation.builder()
+                    .product(product)
+                    .sku(product.getId().toString())
+                    .variationPriceChange(0)
+                    .image(image)
+                    .build();
+            Inventory inventory = inventoryMapper.toInventory(defaultVariation, 0);
+            productVariationRepository.save(defaultVariation);
+            inventoryRepository.save(inventory);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new AppException(ErrorCode.DELETE_FAILED);

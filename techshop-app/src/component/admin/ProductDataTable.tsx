@@ -2,7 +2,6 @@
 
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Link from "next/link";
 import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { selectToken } from "@/features/auth/authSelectors";
@@ -10,6 +9,9 @@ import { useAppSelector } from "@/shared/redux/hook";
 import ActionConfirmDialog from "./ActionConfirmDialog";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import api from "@/utils/APIAxiosConfig";
+import { EndpointAPI } from "@/api/EndpointAPI";
+import { FunnelIcon } from "@heroicons/react/20/solid";
 
 interface Product {
     id: string;
@@ -24,7 +26,7 @@ interface Product {
 export default function ProductDataTable() {
     const token = useAppSelector(selectToken);
     const [page, setPage] = useState<number>(0);
-    const [size, setSize] = useState<number>(10);
+    const [size, setSize] = useState<number>(5);
     const [sort, setSort] = useState<string>('id');
     const [direction, setDirection] = useState<string>('desc');
     const [reload, setReload] = useState<boolean>(false);
@@ -39,10 +41,7 @@ export default function ProductDataTable() {
         }
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/techshop/product/display', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    },
+                const response = await api.get(EndpointAPI.PRODUCT_DISPLAY_ALL, {
                     params: {
                         page: page,
                         size: size,
@@ -71,11 +70,7 @@ export default function ProductDataTable() {
     const handleDeleteAction = async () => {
         setShowConfirmDialog(false);
         try {
-            const response = await axios.delete(`http://localhost:8080/techshop/product/${deleteId}`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
+            const response = await api.delete(EndpointAPI.PRODUCT_DELETE + deleteId);
             if (response.data.success) {
                 setReload(prev => !prev);
             }
@@ -125,47 +120,99 @@ export default function ProductDataTable() {
 
     return (
         <>
-            <DataGrid
-                columns={columns}
-                rows={products}
-                rowCount={totalItems}
-                pageSizeOptions={[10, 15, 20]}
-                pagination
-                paginationMode="server"
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: size,
-                            page: page
-                        }
-                    }
-                }}
-                onPaginationModelChange={(model) => {
-                    console.log(model.page);
-                    console.log(model.pageSize);
-                    setPage(model.page);
-                    setSize(model.pageSize);
-                }}
-                sortingMode="server"
-                onSortModelChange={(model) => { // [{field: 'fieldName', sort: 'asc'}]
-                    setSort(model[0]?.field || 'id');
-                    setDirection(model[0]?.sort || 'desc');
-                }}
-                getRowHeight={() => 'auto'}
-                sx={{
-                    '& .MuiDataGrid-columnHeaderTitle': {
-                        fontFamily: 'Quicksand, sans-serif',
-                        fontSize: '16px',
-                        fontWeight: 'bold'
-                    },
-                    '& .MuiDataGrid-cell': {
-                        fontFamily: 'Quicksand, sans-serif',
-                        fontSize: '16px',
-                        display: 'flex',
-                        alignItems: 'center'
-                    }
-                }}
-            />
+            <div className="mx-3 bg-white shadow-md">
+                <div className="flex items-center pl-3 pt-3">
+                    <p className="text-xl">Lọc dữ liệu</p>
+                    <FunnelIcon className="size-5" />
+                </div>
+                <div className="grid grid-cols-1 gap-2 p-3 lg:grid-cols-2">
+                    <div>
+                        <p className="ms-1 font-semibold">ID sản phẩm</p>
+                        <input
+                            type="text"
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: 1"
+                        />
+                    </div>
+                    <div>
+                        <p className="ms-1 font-semibold">Tên sản phẩm</p>
+                        <input
+                            type="text"
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: iPhone 15"
+                        />
+                    </div>
+                    <div>
+                        <p className="ms-1 font-semibold">Giá thấp nhất</p>
+                        <input
+                            type="text"
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: 0"
+                        />
+                    </div>
+                    <div>
+                        <p className="ms-1 font-semibold">Giá cao nhất</p>
+                        <input
+                            type="text"
+                            className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
+                            placeholder="VD: 100000000"
+                        />
+                    </div>
+                </div>
+                <div className="flex justify-center pb-3">
+                    <button
+                        type="button"
+                        className="bg-blue-400 px-2 py-1 font-bold text-white hover:bg-blue-500"
+                    >
+                        Tìm kiếm
+                    </button>
+                </div>
+            </div>
+            <div className="mx-3 my-3 h-fit bg-white shadow-md">
+                <div className="w-full">
+                    <DataGrid
+                        columns={columns}
+                        rows={products}
+                        rowCount={totalItems}
+                        pageSizeOptions={[5, 10, 15]}
+                        pagination
+                        paginationMode="server"
+                        initialState={{
+                            pagination: {
+                                paginationModel: {
+                                    pageSize: size,
+                                    page: page
+                                }
+                            }
+                        }}
+                        onPaginationModelChange={(model) => {
+                            console.log(model.page);
+                            console.log(model.pageSize);
+                            setPage(model.page);
+                            setSize(model.pageSize);
+                        }}
+                        sortingMode="server"
+                        onSortModelChange={(model) => { // [{field: 'fieldName', sort: 'asc'}]
+                            setSort(model[0]?.field || 'id');
+                            setDirection(model[0]?.sort || 'desc');
+                        }}
+                        getRowHeight={() => 'auto'}
+                        sx={{
+                            '& .MuiDataGrid-columnHeaderTitle': {
+                                fontFamily: 'Quicksand, sans-serif',
+                                fontSize: '16px',
+                                fontWeight: 'bold'
+                            },
+                            '& .MuiDataGrid-cell': {
+                                fontFamily: 'Quicksand, sans-serif',
+                                fontSize: '16px',
+                                display: 'flex',
+                                alignItems: 'center'
+                            }
+                        }}
+                    />
+                </div>
+            </div>
             <ActionConfirmDialog
                 display={showConfirmDialog}
                 onClose={() => setShowConfirmDialog(false)}

@@ -41,6 +41,7 @@ public enum ErrorCode {
     REQUEST_EXTERNAL_FAILED("Request To External Resource Failed", HttpStatus.INTERNAL_SERVER_ERROR),
     PAYMENT_HAS_BEEN_SET("Payment Has Been Set", HttpStatus.CONFLICT),
     PRODUCT_OUT_OF_STOCK("Product Is Out Of Stock", HttpStatus.CONFLICT),
+    PRODUCT_VARIATION_PRICE_CHANGE_INVALID("Product Variation Price Change Invalid", HttpStatus.CONFLICT),
     UNAUTHORIZED("Unauthorized", HttpStatus.UNAUTHORIZED),
     ;
 

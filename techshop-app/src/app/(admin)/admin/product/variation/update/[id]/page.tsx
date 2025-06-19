@@ -1,13 +1,14 @@
 'use client'
 
+import { EndpointAPI } from "@/api/EndpointAPI";
 import AdminError from "@/component/admin/AdminError";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
 import { Image } from "@/types/image";
 import { Product } from "@/types/product";
+import api from "@/utils/APIAxiosConfig";
 import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useParams } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form";
@@ -64,11 +65,7 @@ export default function UpdateProductVariationPage() {
         }
         const fetchVariation = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/techshop/productVariation/${variationId}/full`, {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    }
-                });
+                const response = await api.get(EndpointAPI.PRODUCT_VARIATION_GET_BY_ID + variationId + '/full');
                 if (response.data.success) {
                     const variation: ProductVariationFull = response.data.data;
                     setProductVariation(variation);
@@ -116,9 +113,8 @@ export default function UpdateProductVariationPage() {
         const formData = new FormData();
         formData.append("file", uploadFile);
         try {
-            const response = await axios.post("http://localhost:8080/techshop/image/file", formData, {
+            const response = await api.post(EndpointAPI.IMAGE_CREATE_BY_FILE, formData, {
                 headers: {
-                    'Authorization': 'Bearer ' + token,
                     'Content-Type': 'multipart/form-data'
                 }
             });
@@ -139,13 +135,10 @@ export default function UpdateProductVariationPage() {
             return;
         }
         try {
-            const response = await axios.get("http://localhost:8080/techshop/image/showByUrl", {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
+            const response = await api.get(EndpointAPI.IMAGE_GET_BY_URL, {
                 params: {
                     url: uploadUrl
-                },
+                }
             });
             if (response.data.success) {
                 return response.data.data.id;
@@ -166,10 +159,7 @@ export default function UpdateProductVariationPage() {
         }
 
         try {
-            const response = await axios.patch(`http://localhost:8080/techshop/productVariation/${variationId}`, {}, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                },
+            const response = await api.patch(EndpointAPI.PRODUCT_VARIATION_PATCH + variationId, {}, {
                 params: {
                     variationPriceChange: data.variationPriceChange,
                     quantity: data.quantity,

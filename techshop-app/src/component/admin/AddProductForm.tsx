@@ -1,5 +1,4 @@
 'use client'
-import axios from "axios";
 import CategoryComboBox from "./CategoryComboBox";
 import { ChangeEvent, useRef, useState } from "react";
 import { z } from "zod";
@@ -8,6 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppSelector } from "@/shared/redux/hook";
 import { selectToken } from "@/features/auth/authSelectors";
 import RichTextField from "../form/RichTextField";
+import api from "@/utils/APIAxiosConfig";
+import { EndpointAPI } from "@/api/EndpointAPI";
 
 const formSchema = z.object({
   productName: z.string().min(1, { message: "Tên sản phẩm không được để trống" }),
@@ -70,9 +71,8 @@ export default function AddProductForm() {
     const formData = new FormData();
     formData.append("file", uploadFile);
     try {
-      const response = await axios.post("http://localhost:8080/techshop/image/file", formData, {
+      const response = await api.post(EndpointAPI.IMAGE_CREATE_BY_FILE, formData, {
         headers: {
-          'Authorization': 'Bearer ' + token,
           'Content-Type': 'multipart/form-data'
         }
       });
@@ -93,10 +93,7 @@ export default function AddProductForm() {
       return;
     }
     try {
-      const response = await axios.get("http://localhost:8080/techshop/image/showByUrl", {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        },
+      const response = await api.get(EndpointAPI.IMAGE_GET_BY_URL, {
         params: {
           url: uploadUrl
         },
@@ -120,15 +117,11 @@ export default function AddProductForm() {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/techshop/product/storeWithImage", data, {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        },
+      const response = await api.post(EndpointAPI.PRODUCT_CREATE_WITH_IMAGE, data, {
         params: {
           imageId: imageId
         }
       });
-
       if (response.data.success) {
         setSuccess(true);
       }

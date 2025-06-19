@@ -1,4 +1,5 @@
-import AddImageForm from '../../../../../component/admin/AddImageForm'
+import AddImageForm from "@/component/admin/AddImageForm";
+
 
 export default function AddImagePage() {
   return (

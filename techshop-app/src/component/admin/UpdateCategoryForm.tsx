@@ -1,6 +1,8 @@
 'use client'
+import { EndpointAPI } from "@/api/EndpointAPI";
 import { selectToken } from "@/features/auth/authSelectors";
 import { useAppSelector } from "@/shared/redux/hook";
+import api from "@/utils/APIAxiosConfig";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useState } from "react";
@@ -37,11 +39,7 @@ export default function UpdateCategoryForm({ id, categoryName, categoryImgUrl }:
 
     const onSubmit = async (data: FormData) => {
         try {
-            const response = await axios.put(`http://localhost:8080/techshop/category/${id}`, data, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
+            const response = await api.put(EndpointAPI.CATEGORY_UPDATE + id, data);
             if (response.data.success) {
                 setSuccess(true);
             }
