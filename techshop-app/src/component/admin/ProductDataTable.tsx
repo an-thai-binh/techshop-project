@@ -10,6 +10,8 @@ import { useAppSelector } from "@/shared/redux/hook";
 import ActionConfirmDialog from "./ActionConfirmDialog";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import api from "@/utils/APIAxiosConfig";
+import { EndpointAPI } from "@/api/EndpointAPI";
 
 interface Product {
     id: string;
@@ -39,10 +41,7 @@ export default function ProductDataTable() {
         }
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/techshop/product/display', {
-                    headers: {
-                        'Authorization': 'Bearer ' + token
-                    },
+                const response = await api.get(EndpointAPI.PRODUCT_DISPLAY_ALL, {
                     params: {
                         page: page,
                         size: size,
@@ -71,11 +70,7 @@ export default function ProductDataTable() {
     const handleDeleteAction = async () => {
         setShowConfirmDialog(false);
         try {
-            const response = await axios.delete(`http://localhost:8080/techshop/product/${deleteId}`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
+            const response = await api.delete(EndpointAPI.PRODUCT_DELETE + deleteId);
             if (response.data.success) {
                 setReload(prev => !prev);
             }

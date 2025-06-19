@@ -10,6 +10,8 @@ import axios from "axios";
 import { useAppSelector } from "@/shared/redux/hook";
 import { selectToken } from "@/features/auth/authSelectors";
 import Link from "next/link";
+import api from "@/utils/APIAxiosConfig";
+import { EndpointAPI } from "@/api/EndpointAPI";
 
 interface ProductVariationItemProps {
     id: string;
@@ -28,11 +30,7 @@ export default function ProductVariationItem({ id, sku, basePrice, priceChange, 
     const handleDeleteAction = async () => {
         setShowConfirmDialog(false);
         try {
-            const response = await axios.delete(`http://localhost:8080/techshop/productVariation/${id}`, {
-                headers: {
-                    'Authorization': 'Bearer ' + token
-                }
-            });
+            const response = await api.delete(EndpointAPI.PRODUCT_VARIATION_DELETE + id);
             if (response.data.success) {
                 onDeleteVariationSuccess(id);
             }

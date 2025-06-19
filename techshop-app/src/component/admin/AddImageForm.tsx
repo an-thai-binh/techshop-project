@@ -30,7 +30,11 @@ export default function AddImageForm() {
         const formData = new FormData();
         formData.append("file", uploadFile);
         try {
-            const response = await api.post(EndpointAPI.IMAGE_CREATE_BY_FILE, formData);
+            const response = await api.post(EndpointAPI.IMAGE_CREATE_BY_FILE, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
             if (response.data.success) {
                 setImage(response.data.data);
             }
