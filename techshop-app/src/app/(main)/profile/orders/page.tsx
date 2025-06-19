@@ -62,7 +62,10 @@ export default function OrdersPage() {
           api.get(`/order/user/${userId}`),
           api.get(`/reviews/user/${userId}/reviews`),
         ])
-        setOrders(ordersRes.data.data)
+        const filteredOrders = ordersRes.data.data.filter(
+          (order: { status: string }) => order.status !== 'INVALID',
+        )
+        setOrders(filteredOrders)
         setUserReviews(reviewsRes.data.data)
       } catch (err) {
         toast.error('Lỗi tải dữ liệu đơn hàng hoặc đánh giá.')
@@ -111,11 +114,11 @@ export default function OrdersPage() {
             <ClockIcon className="mr-1 h-4 w-4" /> Đang xử lý
           </span>
         )
-      case 'FAILED':
+      case 'FAILED (quá hạn thanh toán)':
       case 'INVALID':
         return (
           <span className={`${base} bg-red-100 text-red-700 dark:bg-red-800/30 dark:text-red-400`}>
-            <XCircleIcon className="mr-1 h-4 w-4" /> Thất bại
+            <XCircleIcon className="mr-1 h-4 w-4" /> Hủy (quá hạn thanh toán)
           </span>
         )
       default:

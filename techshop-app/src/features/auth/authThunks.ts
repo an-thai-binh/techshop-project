@@ -38,6 +38,7 @@ export const removeTokenFromCookie = createAsyncThunk<void, void, { state: RootS
     document.cookie = 'token=; Max-Age=0; Path=/; SameSite=Lax'
     dispatch(clearToken())
     toast.info('Đăng xuất thành công')
+    window.location.href = '/auth/login'
   },
 )
 export const refreshToken = createAsyncThunk(
