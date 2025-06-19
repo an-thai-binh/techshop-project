@@ -1,7 +1,7 @@
 'use client'
 
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { formatVietNamCurrency } from "@/utils/AppFormatter";
 import { selectToken } from "@/features/auth/authSelectors";
@@ -34,19 +34,64 @@ export default function ProductDataTable() {
     const [totalItems, setTotalItems] = useState<number>(0);
     const [showConfirmDialog, setShowConfirmDialog] = useState<boolean>(false);
     const [deleteId, setDeleteId] = useState<string>("");
+    // filter
+    const [productId, setProductId] = useState<string>("");
+    const [productName, setProductName] = useState<string>("");
+    const [minBasePrice, setMinBasePrice] = useState<string>("");
+    const [maxBasePrice, setMaxBasePrice] = useState<string>("");
+    const [minBasePriceError, setMinBasePriceError] = useState<string>("");
+    const [maxBasePriceError, setMaxBasePriceError] = useState<string>("");
+
+    const handleChangeMinBasePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMinBasePrice(value);
+        if (isNaN(Number(value))) {
+            setMinBasePriceError("Số không hợp lệ");
+            return;
+        }
+        if (maxBasePrice !== "" && (Number(value) > Number(maxBasePrice))) {
+            setMinBasePriceError("Không thể lớn hơn giá cao nhất");
+            return;
+        }
+        setMinBasePriceError("");
+    }
+
+    const handleChangeMaxBasePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMaxBasePrice(value);
+        if (isNaN(Number(value))) {
+            setMaxBasePriceError("Số không hợp lệ");
+            return;
+        }
+        if (minBasePrice !== "" && (Number(value) < Number(minBasePrice))) {
+            setMaxBasePriceError("Không thể nhỏ hơn giá thấp nhất");
+            return;
+        }
+        setMaxBasePriceError("");
+    }
 
     useEffect(() => {
         if (!token) {
             return;
         }
         const fetchProducts = async () => {
+            if (minBasePriceError !== "" || maxBasePriceError !== "") {
+                return;
+            }
+            console.log("Code reach here");
+            const min = minBasePrice === "" ? 0 : Number(minBasePrice);
+            const max = maxBasePrice === "" ? -1 : Number(maxBasePrice);
             try {
-                const response = await api.get(EndpointAPI.PRODUCT_DISPLAY_ALL, {
+                const response = await api.get(EndpointAPI.PRODUCT_DISPLAY_FILTER, {
                     params: {
                         page: page,
                         size: size,
                         sort: sort,
-                        direction: direction
+                        direction: direction,
+                        productId: productId,
+                        productName: productName,
+                        minBasePrice: min,
+                        maxBasePrice: max
                     }
                 });
                 if (response.data.success) {
@@ -130,6 +175,8 @@ export default function ProductDataTable() {
                         <p className="ms-1 font-semibold">ID sản phẩm</p>
                         <input
                             type="text"
+                            value={productId}
+                            onChange={(e) => setProductId(e.target.value)}
                             className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
                             placeholder="VD: 1"
                         />
@@ -138,6 +185,8 @@ export default function ProductDataTable() {
                         <p className="ms-1 font-semibold">Tên sản phẩm</p>
                         <input
                             type="text"
+                            value={productName}
+                            onChange={(e) => setProductName(e.target.value)}
                             className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
                             placeholder="VD: iPhone 15"
                         />
@@ -145,25 +194,31 @@ export default function ProductDataTable() {
                     <div>
                         <p className="ms-1 font-semibold">Giá thấp nhất</p>
                         <input
-                            type="text"
+                            type="number"
+                            value={minBasePrice}
+                            onChange={handleChangeMinBasePrice}
                             className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
                             placeholder="VD: 0"
                         />
+                        <span className="ms-2 text-sm font-medium text-red-500">{minBasePriceError}</span>
                     </div>
                     <div>
                         <p className="ms-1 font-semibold">Giá cao nhất</p>
                         <input
-                            type="text"
+                            type="number"
+                            value={maxBasePrice}
+                            onChange={handleChangeMaxBasePrice}
                             className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
                             placeholder="VD: 100000000"
                         />
+                        <span className="ms-2 text-sm font-medium text-red-500">{maxBasePriceError}</span>
                     </div>
                 </div>
                 <div className="flex justify-center pb-3">
                     <button
                         type="button"
                         className="bg-blue-400 px-2 py-1 font-bold text-white hover:bg-blue-500"
-                    >
+                        onClick={() => setReload(prev => !prev)}>
                         Tìm kiếm
                     </button>
                 </div>
