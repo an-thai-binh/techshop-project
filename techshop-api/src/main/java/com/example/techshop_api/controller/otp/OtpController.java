@@ -25,4 +25,5 @@ public class OtpController {
         ApiResponse<Void> apiResponse = otpService.generate(action, userId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
+
 }

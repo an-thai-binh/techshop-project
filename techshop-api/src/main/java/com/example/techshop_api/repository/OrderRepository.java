@@ -29,6 +29,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     long countByStatus(String status);
 
+    Page<Order> findByUserId(Long user_id, Pageable pageable);
+
     class OrderSpecification {
         public static Specification<Order> hasId(String orderId) {
             return (root, query, builder) -> {

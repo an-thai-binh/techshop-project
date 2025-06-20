@@ -39,6 +39,16 @@ public class UserSecurityController {
         return ResponseEntity.ok(userService.changePassword(id, newPassword, otp));
     }
 
+    @PatchMapping("/{id}/forgotPassword")
+    @PreAuthorize("(hasRole('ADMIN') or #id.toString() == authentication.name) and hasAuthority('user:update')")
+    public ResponseEntity<ApiResponse<Void>> forgotPassword(
+            @PathVariable Long id,
+            @RequestParam String newPassword,
+            @RequestParam String otp
+    ) {
+        return ResponseEntity.ok(userService.changePassword(id, newPassword, otp));
+    }
+
     @PatchMapping("/{id}/changeEmail")
     @PreAuthorize("(hasRole('ADMIN') or #id.toString() == authentication.name) and hasAuthority('user:update')")
     public ResponseEntity<ApiResponse<UserResponse>> changeEmail(
@@ -48,6 +58,8 @@ public class UserSecurityController {
     ) {
         return ResponseEntity.ok(userService.changeEmail(id, newEmail, otp));
     }
+
+
 
 //    @PatchMapping("/{id}/changePassword")
 //    public ResponseEntity<ApiResponse<Void>> changePassword(@PathVariable Long id, @RequestParam(name = "newPassword") String newPassword, @RequestParam String otp) {

@@ -3,7 +3,7 @@ import { cookies } from 'next/headers'
 import jwt from 'jsonwebtoken'
 import { TokenPayload } from '@/middleware'
 import { API_URL } from '@/api'
-
+import { z } from 'zod'
 interface LoginState {
   message: string
   success: boolean
@@ -73,6 +73,17 @@ export async function login(prevState: LoginState, formData: FormData): Promise<
   }
 }
 
+const RegisterSchema = z.object({
+  username: z.string().min(3, 'Tên đăng nhập phải ít nhất 3 ký tự'),
+  password: z.string().min(6, 'Mật khẩu phải ít nhất 6 ký tự'),
+  email: z.string().email('Email không hợp lệ'),
+  phoneNumber: z.string().optional(),
+  fullName: z.string().min(1, 'Họ và tên không được bỏ trống'),
+  birthYear: z.coerce.number().min(1900).max(new Date().getFullYear()).optional(),
+  gender: z.enum(['Male', 'Female', 'other'], {
+    errorMap: () => ({ message: 'Vui lòng chọn giới tính hợp lệ' }),
+  }),
+})
 // Phương thức đăng kí
 interface RegisterState {
   success: boolean
@@ -80,22 +91,33 @@ interface RegisterState {
   userId?: string
   redirectTo?: string
 }
-
 export async function register(
   prevState: RegisterState,
   formData: FormData,
 ): Promise<RegisterState> {
   const callbackUrl = formData.get('next')?.toString() || '/auth/login'
 
-  const payload = {
+  const rawData = {
     username: formData.get('username'),
     password: formData.get('password'),
     email: formData.get('email'),
     phoneNumber: formData.get('phoneNumber'),
     fullName: formData.get('fullName'),
-    birthYear: parseInt(formData.get('birthYear') as string, 10),
+    birthYear: formData.get('birthYear'),
     gender: formData.get('gender'),
   }
+
+  // B2: Validate bằng Zod
+  const result = RegisterSchema.safeParse(rawData)
+  if (!result.success) {
+    const message = result.error.errors[0]?.message || 'Dữ liệu không hợp lệ'
+    return {
+      success: false,
+      message,
+    }
+  }
+
+  const payload = result.data
 
   try {
     const res = await fetch('http://localhost:8080/techshop/auth/register', {
@@ -116,7 +138,7 @@ export async function register(
 
     const { data } = await res.json()
 
-    // Nếu có token trả về sau đăng ký
+    // Ghi cookie token nếu có
     if (data?.token) {
       ;(await cookies()).set('token', data.token, {
         httpOnly: false,
@@ -160,13 +182,12 @@ export async function forgotPassword(
   }
 
   try {
-    const res = await fetch('http://localhost:8080/techshop/auth/forgot-password', {
-      method: 'POST',
-      body: JSON.stringify({ email }),
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `http://localhost:8080/techshop/auth/forgotPassword?email=${encodeURIComponent(email)}`,
+      {
+        method: 'POST',
       },
-    })
+    )
 
     if (!res.ok) {
       const error = await res.json().catch(() => null)
