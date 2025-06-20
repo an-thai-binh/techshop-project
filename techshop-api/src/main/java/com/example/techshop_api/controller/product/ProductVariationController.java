@@ -27,7 +27,7 @@ public class ProductVariationController {
     ProductVariationService productVariationService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('product:view')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<Page<ProductVariationResponse>>> index(
             @RequestParam int page,
             @RequestParam int size,
@@ -63,6 +63,7 @@ public class ProductVariationController {
     }
 
     @PostMapping("/storeWithValues")
+    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ProductVariationResponse>> storeWithValues(@RequestBody ProductVariationWithValuesRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.storeWithValues(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);

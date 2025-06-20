@@ -60,6 +60,7 @@ public class ProductController {
     }
 
     @GetMapping("/display/filter")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<Page<ProductDisplayResponse>>> indexDisplayFilter(
             @RequestParam int page,
             @RequestParam int size,

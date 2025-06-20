@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,6 +28,7 @@ public class InventoryController {
     InventoryService inventoryService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<Page<InventoryResponse>>> index(
             @RequestParam int page,
             @RequestParam int size,
@@ -47,18 +49,21 @@ public class InventoryController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<InventoryResponse>> insert(@RequestBody InventoryCreationRequest request) {
         ApiResponse<InventoryResponse> apiResponse = inventoryService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:update')")
     public ResponseEntity<ApiResponse<InventoryResponse>> update(@PathVariable(name = "id") Long id, @RequestBody InventoryUpdateRequest request) {
         ApiResponse<InventoryResponse> apiResponse = inventoryService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:delete')")
     public ResponseEntity<ApiResponse<Void>> destroy(@PathVariable Long id) {
         ApiResponse<Void> apiResponse = inventoryService.destroy(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);

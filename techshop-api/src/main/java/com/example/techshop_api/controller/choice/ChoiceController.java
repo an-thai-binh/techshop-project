@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ChoiceController {
     ChoiceService choiceService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<Page<ChoiceResponse>>> index(
             @RequestParam int page,
             @RequestParam int size,
@@ -59,18 +61,21 @@ public class ChoiceController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('product:create')")
     public ResponseEntity<ApiResponse<ChoiceResponse>> store(@RequestBody ChoiceCreationRequest request) {
         ApiResponse<ChoiceResponse> apiResponse = choiceService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('product:update')")
     public ResponseEntity<ApiResponse<ChoiceResponse>> update(@PathVariable Long id, @RequestBody ChoiceUpdateRequest request) {
         ApiResponse<ChoiceResponse> apiResponse = choiceService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAuthority('product:delete')")
     public ResponseEntity<ApiResponse<Void>> delete(@RequestParam Long choiceId, @RequestParam Long productId) {
         ApiResponse<Void> apiResponse = choiceService.destroy(choiceId, productId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
