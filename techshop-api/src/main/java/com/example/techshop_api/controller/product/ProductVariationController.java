@@ -7,6 +7,7 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.product.ProductVariationFullResponse;
 import com.example.techshop_api.dto.response.product.ProductVariationResponse;
 import com.example.techshop_api.service.ProductVariationService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -57,21 +58,21 @@ public class ProductVariationController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('product:create')")
-    public ResponseEntity<ApiResponse<ProductVariationResponse>> store(@RequestBody ProductVariationCreationRequest request) {
+    public ResponseEntity<ApiResponse<ProductVariationResponse>> store(@Valid @RequestBody ProductVariationCreationRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PostMapping("/storeWithValues")
     @PreAuthorize("hasAuthority('product:create')")
-    public ResponseEntity<ApiResponse<ProductVariationResponse>> storeWithValues(@RequestBody ProductVariationWithValuesRequest request) {
+    public ResponseEntity<ApiResponse<ProductVariationResponse>> storeWithValues(@Valid @RequestBody ProductVariationWithValuesRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.storeWithValues(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('product:update')")
-    public ResponseEntity<ApiResponse<ProductVariationResponse>> update(@PathVariable Long id, @RequestBody ProductVariationUpdateRequest request) {
+    public ResponseEntity<ApiResponse<ProductVariationResponse>> update(@PathVariable Long id, @Valid @RequestBody ProductVariationUpdateRequest request) {
         ApiResponse<ProductVariationResponse> apiResponse = productVariationService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
