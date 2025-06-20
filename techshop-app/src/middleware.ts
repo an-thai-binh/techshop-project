@@ -30,14 +30,14 @@ export async function middleware(request: NextRequest) {
     const introspectResponse = await fetch(`${baseUrl}/auth/introspect`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: refreshToken }),
+      body: JSON.stringify({ token: token }),
     })
 
     const result = await introspectResponse.json()
     if (!result.success) {
       const res = NextResponse.redirect(new URL('/403', request.url))
-      res.cookies.set('token', '', { path: '/', expires: new Date(0) })
-      res.cookies.set('refreshToken', '', { path: '/', expires: new Date(0) })
+      // res.cookies.set('token', '', { path: '/', expires: new Date(0) })
+      // res.cookies.set('refreshToken', '', { path: '/', expires: new Date(0) })
       return res
     }
 
