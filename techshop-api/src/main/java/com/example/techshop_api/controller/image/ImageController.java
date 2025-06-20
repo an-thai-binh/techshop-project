@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +25,7 @@ public class ImageController {
     ImageService imageService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<Page<ImageResponse>>> index(
             @RequestParam int page,
             @RequestParam int size,
@@ -56,12 +58,14 @@ public class ImageController {
     }
 
     @PostMapping("/url")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<ImageResponse>> store(@RequestBody ImageCreationRequest request) {
         ApiResponse<ImageResponse> apiResponse = imageService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PostMapping("/file")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<ImageResponse>> store(@RequestParam("file") MultipartFile file) {
         ApiResponse<ImageResponse> apiResponse = imageService.store(file);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);

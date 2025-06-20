@@ -20,6 +20,7 @@ public class OtpController {
     OtpService otpService;
 
     @PostMapping("/generate")
+    // public in SecurityConfig
     public ResponseEntity<ApiResponse<Void>> generate(@RequestParam String action, @RequestParam Long userId) {
         ApiResponse<Void> apiResponse = otpService.generate(action, userId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);

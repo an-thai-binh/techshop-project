@@ -69,19 +69,21 @@ public class OrderController {
 
     @GetMapping("/detail/{id}")
     @PreAuthorize("hasAuthority('order:view')")
-    @PostAuthorize("(hasRole('ADMIN') or returnObject.body.data.userId.toString() == authentication.name)")
+    @PostAuthorize("(hasRole('ADMIN') or returnObject.body.data.userId.toString() == authentication.name) and hasAuthority('order:view')")
     public ResponseEntity<ApiResponse<OrderDetailResponse>> showDetail(@PathVariable Long id) {
         ApiResponse<OrderDetailResponse> apiResponse = orderService.showDetail(id);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('order:create')")
     public ResponseEntity<ApiResponse<OrderResponse>> store(@Valid @RequestBody OrderCreationRequest request) {
         ApiResponse<OrderResponse> apiResponse = orderService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('order:update')")
     public ResponseEntity<ApiResponse<OrderResponse>> updateStatus(@PathVariable Long id, @RequestParam String status) {
         ApiResponse<OrderResponse> apiResponse = orderService.updateStatus(id, status);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
