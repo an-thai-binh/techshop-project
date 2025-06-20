@@ -95,7 +95,7 @@ export default function ProductChoice({ productId, productDetail }: ProductChoic
   const isOutOfStock = productVariation?.quantity !== undefined && productVariation.quantity <= 0
 
   return (
-    <div className="flex w-1/2 flex-col">
+    <div className="flex w-full flex-col md:w-1/2">
       <div className="flex w-full flex-col justify-center gap-2 px-2">
         <div className="flex items-center">
           <h1 className="text-xl font-bold">{productDetail?.productName}</h1>
