@@ -37,7 +37,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class SecurityConfig {
     String[] POST_PUBLIC_ENDPOINTS = {"/auth/**", "/otp/**", "/user/verify", "/payment/stripe/webhook"};
-    String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**", "/cartItem/**"};
+    String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**", "/cartItem/**", "/user/checkEmail", "/user/checkUsername"};
     CustomJwtDecoder customJwtDecoder;
 
     @Bean

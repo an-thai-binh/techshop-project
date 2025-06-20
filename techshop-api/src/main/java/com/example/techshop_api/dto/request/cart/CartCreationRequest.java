@@ -1,5 +1,6 @@
 package com.example.techshop_api.dto.request.cart;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,5 +10,6 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CartCreationRequest {
+    @NotNull
     Long userId;
 }

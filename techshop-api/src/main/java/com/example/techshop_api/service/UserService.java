@@ -19,11 +19,14 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.util.List;
 
 @Slf4j
@@ -34,7 +37,8 @@ public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     UserMapper userMapper;
-    private final OtpService otpService;
+    OtpService otpService;
+    JavaMailSender mailSender;
 
     public ApiResponse<Page<UserResponse>> index(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
@@ -82,6 +86,20 @@ public class UserService {
     }
 
     @Transactional
+    public ApiResponse<Void> checkEmail(String email){
+        if (userRepository.findByEmail(email) != null) {
+            return ApiResponse.<Void>builder().success(false).message("Email đã tồn tại").build();
+        }
+        return ApiResponse.<Void>builder().success(true).build();
+    }
+    @Transactional
+    public ApiResponse<Void> checkUserName(String email){
+        if (userRepository.findByUsername(email) != null) {
+            return ApiResponse.<Void>builder().success(false).message("Tên đăng nhập đã tồn tại").build();
+        }
+        return ApiResponse.<Void>builder().success(true).build();
+    }
+    @Transactional
     public ApiResponse<UserResponse> update(Long id, UserUpdateRequest userUpdateRequest) {
         User user = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         userMapper.updateUser(user, userUpdateRequest);
@@ -115,7 +133,27 @@ public class UserService {
                 .message("Tài khoản đã được xác minh.")
                 .build();
     }
+    @Transactional
+    public ApiResponse<String> forgotPassword(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new AppException(ErrorCode.USER_NOT_FOUND);
+        }
+        String newPassword = generateRandomPassword(10);
 
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        user.setPassword(passwordEncoder.encode(newPassword)); // hash password
+
+        userRepository.save(user);
+
+        sendPasswordEmail(email, "Mật khẩu mới của bạn",  "Chào bạn,\n\nMật khẩu mới của bạn là: " + newPassword + "\n\nVui lòng đăng nhập và đổi lại mật khẩu.");
+        log.info("Mật khẩu mới tạo là: [{}]", newPassword);
+        return ApiResponse.<String>builder()
+                .success(true)
+                .message("Mật khẩu mới đã được gửi đến email")
+                .data("Vui lòng kiểm tra email để lấy mật khẩu mới.")
+                .build();
+    }
     @Transactional
     public ApiResponse<UserResponse> updateUserInfo(Long id, UserUpdateInfoRequest request) {
         User user = userRepository.findById(id)
@@ -209,5 +247,25 @@ public class UserService {
                 .success(true)
                 .message("Delete Successful")
                 .build();
+    }
+
+    private String generateRandomPassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%?";
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(chars.length());
+            password.append(chars.charAt(index));
+        }
+
+        return password.toString();
+    }
+    private void sendPasswordEmail(String to, String subject, String content){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(content);
+        mailSender.send(message);
     }
 }

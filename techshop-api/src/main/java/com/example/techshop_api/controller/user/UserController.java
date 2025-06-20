@@ -46,6 +46,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
+    @GetMapping("/checkEmail")
+    public ResponseEntity<ApiResponse<Void>> checkEmail(@RequestParam String email) {
+        ApiResponse<Void> apiResponse = userService.checkEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
+    @GetMapping("/checkUsername")
+    public ResponseEntity<ApiResponse<Void>> checkUserName(@RequestParam String username) {
+        ApiResponse<Void> apiResponse = userService.checkUserName(username);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
     @PostMapping
     @PreAuthorize("hasAuthority('user:create')")
     public ResponseEntity<ApiResponse<UserResponse>> store(@RequestBody UserCreationRequest request) {
