@@ -23,6 +23,12 @@ public class AuthenticationController {
     AuthenticationService authenticationService;
     UserService userService;
 
+    @PostMapping("/introspect")
+    public ResponseEntity<ApiResponse<Void>> introspect(@RequestBody UserTokenRequest request) {
+        ApiResponse<Void> apiResponse = authenticationService.introspect(request);
+        return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
+    }
+
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody UserLoginRequest request) {
         ApiResponse<AuthenticationResponse> apiResponse = authenticationService.login(request);

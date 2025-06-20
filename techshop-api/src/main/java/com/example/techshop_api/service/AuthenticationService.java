@@ -46,6 +46,21 @@ public class AuthenticationService {
                 .build();
     }
 
+    public ApiResponse<Void> introspect(UserTokenRequest request) {
+        try {
+            SignedJWT signedJWT = jwtUtil.verifyToken(request.getToken());
+            if(signedJWT == null) {
+                throw new AppException(ErrorCode.INVALID_TOKEN);
+            }
+        } catch (ParseException | JOSEException e) {
+            throw new AppException(ErrorCode.INVALID_TOKEN);
+        }
+        return ApiResponse.<Void>builder()
+                .success(true)
+                .message("Valid token")
+                .build();
+    }
+
     public ApiResponse<AuthenticationResponse> login(UserLoginRequest request) {
         User user = userRepository.findByUsernameOrEmail(request.getIdentifier(), request.getIdentifier());
         if (user == null) {

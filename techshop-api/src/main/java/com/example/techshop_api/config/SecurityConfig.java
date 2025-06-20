@@ -33,12 +33,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @EnableMethodSecurity
 public class SecurityConfig {
-    final String[] POST_PUBLIC_ENDPOINTS = {"/auth/**", "/otp/**", "/user/verify", "/payment/stripe/webhook", "/auth/refresh"};
-    final String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**", "/cartItem/**"};
-    final CustomJwtDecoder customJwtDecoder;
+    String[] POST_PUBLIC_ENDPOINTS = {"/auth/**", "/otp/**", "/user/verify", "/payment/stripe/webhook"};
+    String[] GET_PUBLIC_ENDPOINTS = {"/category/**", "/product/**", "/choice/**", "/cartItem/**"};
+    CustomJwtDecoder customJwtDecoder;
 
     @Bean
     public SecurityFilterChain filterChain(@NotNull HttpSecurity http) throws Exception {

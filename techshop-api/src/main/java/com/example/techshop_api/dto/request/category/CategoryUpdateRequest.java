@@ -1,5 +1,6 @@
 package com.example.techshop_api.dto.request.category;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CategoryUpdateRequest {
+    @NotBlank
     String categoryName;
     String categoryImgUrl;
 }
