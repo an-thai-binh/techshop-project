@@ -67,6 +67,7 @@ export default function OrdersPage() {
         )
         setOrders(filteredOrders)
         setUserReviews(reviewsRes.data.data)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         toast.error('Lỗi tải dữ liệu đơn hàng hoặc đánh giá.')
       } finally {
@@ -89,6 +90,7 @@ export default function OrdersPage() {
       try {
         const res = await api.get(`/order/detail/${orderId}`)
         setOrderDetails((prev) => ({ ...prev, [orderId]: res.data.data }))
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
         toast.error('Không thể tải chi tiết đơn hàng.')
       }

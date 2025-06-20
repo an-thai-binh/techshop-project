@@ -75,6 +75,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
+
     @PostMapping
     @PreAuthorize("hasAuthority('order:create')")
     public ResponseEntity<ApiResponse<OrderResponse>> store(@Valid @RequestBody OrderCreationRequest request) {

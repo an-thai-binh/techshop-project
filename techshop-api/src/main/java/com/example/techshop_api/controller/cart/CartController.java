@@ -6,6 +6,8 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.cart.CartResponse;
 import com.example.techshop_api.service.CartService;
 import com.example.techshop_api.utils.SecurityUtil;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -47,7 +49,7 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<CartResponse>> store(@RequestBody CartCreationRequest request) {
+    public ResponseEntity<ApiResponse<CartResponse>> store(@Valid @RequestBody CartCreationRequest request) {
         ApiResponse<CartResponse> apiResponse = cartService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }

@@ -7,6 +7,12 @@ export const fetchTokenFromCookie = createAsyncThunk<string | undefined>(
   'auth/fetchTokenFromCookie',
   async (_, { dispatch }) => {
     if (typeof document === 'undefined') throw new Error('Not in browser')
+    const refreshToken = document.cookie
+      .split(';')
+      .map((r) => r.trim())
+      .find((r) => r.startsWith('refreshToken'))
+      ?.trim()
+      .split('=')[1]
     const token = document.cookie
       .split(';')
       .map((r) => r.trim())
@@ -14,10 +20,22 @@ export const fetchTokenFromCookie = createAsyncThunk<string | undefined>(
       ?.trim()
       .split('=')[1]
     if (!token) {
-      dispatch(setToken({ token: token, isAuthenticated: false }))
+      dispatch(
+        setToken({
+          token: token,
+          isAuthenticated: false,
+          refreshToken: refreshToken,
+        }),
+      )
       throw new Error('Token is undefined')
     } else {
-      dispatch(setToken({ token: token, isAuthenticated: true }))
+      dispatch(
+        setToken({
+          token: token,
+          isAuthenticated: true,
+          refreshToken: refreshToken,
+        }),
+      )
     }
 
     return token
@@ -36,6 +54,7 @@ export const removeTokenFromCookie = createAsyncThunk<void, void, { state: RootS
       body: JSON.stringify({ token: state.auth.token }),
     })
     document.cookie = 'token=; Max-Age=0; Path=/; SameSite=Lax'
+    document.cookie = 'refreshToken=; Max-Age=0; Path=/; SameSite=Lax'
     dispatch(clearToken())
     toast.info('Đăng xuất thành công')
     window.location.href = '/auth/login'

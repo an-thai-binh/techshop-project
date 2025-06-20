@@ -53,6 +53,12 @@ public class AuthenticationController {
         ApiResponse<UserResponse> apiResponse = userService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
+    @PostMapping("/forgotPassword")
+    public ResponseEntity<ApiResponse<String>> forgotPassword(@RequestParam String email) {
+        ApiResponse<String> apiResponse = userService.forgotPassword(email);
+        return ResponseEntity.ok(apiResponse);
+    }
+
 //    @PostMapping("/refresh")
 //    public ResponseEntity<ApiResponse<AuthenticationResponse>> refresh(@CookieValue("refreshToken") String refreshToken) {
 //        UserTokenRequest request = new UserTokenRequest();

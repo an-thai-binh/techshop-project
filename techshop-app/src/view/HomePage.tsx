@@ -77,10 +77,10 @@ export default function HomePage(_props: HomeProps) {
             </div>
           </div>
         </div>
-        <HotProductSlider
-          items={_props.products.hotProducts.content}
-          category={_props.categories[0]}
-        />
+        {/*<HotProductSlider*/}
+        {/*  items={_props.products.hotProducts.content}*/}
+        {/*  category={_props.categories[0]}*/}
+        {/*/>*/}
         {/*<ProductListSlider*/}
         {/*  items={_props.products.sliderProducts.content}*/}
         {/*  category={_props.categories[1]}*/}

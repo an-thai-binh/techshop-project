@@ -107,7 +107,7 @@ export default function ProductDetailPage({ productId, productDetail }: ProductD
 
       {/* Nội dung chính */}
       <div className={'container px-2'}>
-        <div className={'flex gap-4'}>
+        <div className={'flex flex-col gap-4 md:flex-row'}>
           {/* Bên trái: hình + chính sách */}
           <div className={'flex w-1/2 flex-col space-y-4'}>
             <div className={'h-[50vh] w-full'}>
