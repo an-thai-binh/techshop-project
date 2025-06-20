@@ -122,28 +122,28 @@ public class ProductController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('product:create')")
-    public ResponseEntity<ApiResponse<ProductResponse>> store(@RequestBody ProductCreationRequest request) {
+    public ResponseEntity<ApiResponse<ProductResponse>> store(@Valid @RequestBody ProductCreationRequest request) {
         ApiResponse<ProductResponse> apiResponse = productService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PostMapping("/storeWithImage")
     @PreAuthorize("hasAuthority('product:create')")
-    public ResponseEntity<ApiResponse<ProductResponse>> storeWithImage(@RequestBody ProductCreationRequest request, @RequestParam Long imageId) {
+    public ResponseEntity<ApiResponse<ProductResponse>> storeWithImage(@Valid @RequestBody ProductCreationRequest request, @RequestParam Long imageId) {
         ApiResponse<ProductResponse> apiResponse = productService.storeWithImage(request, imageId);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('product:update')")
-    public ResponseEntity<ApiResponse<ProductResponse>> update(@PathVariable Long id, @RequestBody ProductUpdateRequest request) {
+    public ResponseEntity<ApiResponse<ProductResponse>> update(@PathVariable Long id, @Valid @RequestBody ProductUpdateRequest request) {
         ApiResponse<ProductResponse> apiResponse = productService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PutMapping("/updateWithImage/{id}")
     @PreAuthorize("hasAuthority('product:update')")
-    public ResponseEntity<ApiResponse<ProductResponse>> updateWithImage(@PathVariable Long id, @RequestBody ProductUpdateRequest request, @RequestParam Long imageId) {
+    public ResponseEntity<ApiResponse<ProductResponse>> updateWithImage(@PathVariable Long id, @Valid @RequestBody ProductUpdateRequest request, @RequestParam Long imageId) {
         ApiResponse<ProductResponse> apiResponse = productService.updateWithImage(id, request, imageId);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }

@@ -5,6 +5,7 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.request.category.CategoryCreationRequest;
 import com.example.techshop_api.dto.response.category.CategoryResponse;
 import com.example.techshop_api.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -56,14 +57,14 @@ public class CategoryController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('product:create')")
-    public ResponseEntity<ApiResponse<CategoryResponse>> insert(@RequestBody CategoryCreationRequest request) {
+    public ResponseEntity<ApiResponse<CategoryResponse>> insert(@Valid @RequestBody CategoryCreationRequest request) {
         ApiResponse<CategoryResponse> apiResponse = categoryService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('product:update')")
-    public ResponseEntity<ApiResponse<CategoryResponse>> update(@PathVariable(name = "id") Long id, @RequestBody CategoryUpdateRequest request) {
+    public ResponseEntity<ApiResponse<CategoryResponse>> update(@PathVariable(name = "id") Long id, @Valid @RequestBody CategoryUpdateRequest request) {
         ApiResponse<CategoryResponse> apiResponse = categoryService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }

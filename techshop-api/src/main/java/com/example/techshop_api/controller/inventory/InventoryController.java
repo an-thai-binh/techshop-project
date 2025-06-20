@@ -8,6 +8,7 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.category.CategoryResponse;
 import com.example.techshop_api.dto.response.inventory.InventoryResponse;
 import com.example.techshop_api.service.InventoryService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -50,14 +51,14 @@ public class InventoryController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('product:create')")
-    public ResponseEntity<ApiResponse<InventoryResponse>> insert(@RequestBody InventoryCreationRequest request) {
+    public ResponseEntity<ApiResponse<InventoryResponse>> insert(@Valid @RequestBody InventoryCreationRequest request) {
         ApiResponse<InventoryResponse> apiResponse = inventoryService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('product:update')")
-    public ResponseEntity<ApiResponse<InventoryResponse>> update(@PathVariable(name = "id") Long id, @RequestBody InventoryUpdateRequest request) {
+    public ResponseEntity<ApiResponse<InventoryResponse>> update(@PathVariable(name = "id") Long id, @Valid @RequestBody InventoryUpdateRequest request) {
         ApiResponse<InventoryResponse> apiResponse = inventoryService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }

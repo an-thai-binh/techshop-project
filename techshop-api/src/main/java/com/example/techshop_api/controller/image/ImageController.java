@@ -4,6 +4,7 @@ import com.example.techshop_api.dto.request.image.ImageCreationRequest;
 import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.image.ImageResponse;
 import com.example.techshop_api.service.ImageService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -59,7 +60,7 @@ public class ImageController {
 
     @PostMapping("/url")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<ImageResponse>> store(@RequestBody ImageCreationRequest request) {
+    public ResponseEntity<ApiResponse<ImageResponse>> store(@Valid @RequestBody ImageCreationRequest request) {
         ApiResponse<ImageResponse> apiResponse = imageService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }

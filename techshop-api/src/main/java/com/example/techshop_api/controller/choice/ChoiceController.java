@@ -6,6 +6,7 @@ import com.example.techshop_api.dto.response.ApiResponse;
 import com.example.techshop_api.dto.response.choice.ChoiceResponse;
 import com.example.techshop_api.dto.response.choice.ChoiceWithValuesResponse;
 import com.example.techshop_api.service.ChoiceService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -62,14 +63,14 @@ public class ChoiceController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('product:create')")
-    public ResponseEntity<ApiResponse<ChoiceResponse>> store(@RequestBody ChoiceCreationRequest request) {
+    public ResponseEntity<ApiResponse<ChoiceResponse>> store(@Valid @RequestBody ChoiceCreationRequest request) {
         ApiResponse<ChoiceResponse> apiResponse = choiceService.store(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('product:update')")
-    public ResponseEntity<ApiResponse<ChoiceResponse>> update(@PathVariable Long id, @RequestBody ChoiceUpdateRequest request) {
+    public ResponseEntity<ApiResponse<ChoiceResponse>> update(@PathVariable Long id,@Valid @RequestBody ChoiceUpdateRequest request) {
         ApiResponse<ChoiceResponse> apiResponse = choiceService.update(id, request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }

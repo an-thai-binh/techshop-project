@@ -8,6 +8,7 @@ import com.example.techshop_api.dto.response.auth.AuthenticationResponse;
 import com.example.techshop_api.dto.response.user.UserResponse;
 import com.example.techshop_api.service.AuthenticationService;
 import com.example.techshop_api.service.UserService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,25 +25,25 @@ public class AuthenticationController {
     UserService userService;
 
     @PostMapping("/introspect")
-    public ResponseEntity<ApiResponse<Void>> introspect(@RequestBody UserTokenRequest request) {
+    public ResponseEntity<ApiResponse<Void>> introspect(@Valid @RequestBody UserTokenRequest request) {
         ApiResponse<Void> apiResponse = authenticationService.introspect(request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody UserLoginRequest request) {
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@Valid @RequestBody UserLoginRequest request) {
         ApiResponse<AuthenticationResponse> apiResponse = authenticationService.login(request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(@RequestBody UserTokenRequest request) {
+    public ResponseEntity<ApiResponse<Void>> logout(@Valid @RequestBody UserTokenRequest request) {
         ApiResponse<Void> apiResponse = authenticationService.logout(request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<ApiResponse<AuthenticationResponse>> refresh(@RequestBody UserTokenRequest request) {
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> refresh(@Valid @RequestBody UserTokenRequest request) {
         ApiResponse<AuthenticationResponse> apiResponse = authenticationService.refresh(request);
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
