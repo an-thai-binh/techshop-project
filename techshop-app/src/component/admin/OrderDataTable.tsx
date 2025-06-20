@@ -1,6 +1,6 @@
 'use client'
 import { DataGrid, GridRenderCellParams } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { formatDateTime, formatOrderStatus, formatVietNamCurrency } from "@/utils/AppFormatter";
 import toast from "react-hot-toast";
@@ -9,6 +9,7 @@ import { EndpointAPI } from "@/api/EndpointAPI";
 import { Order } from "@/types/order";
 import { FunnelIcon } from "@heroicons/react/20/solid";
 import { useSearchParams } from "next/navigation";
+import { max } from "date-fns";
 
 export default function OrderDataTable() {
     const [page, setPage] = useState<number>(0);
@@ -28,6 +29,38 @@ export default function OrderDataTable() {
     const [maxAmount, setMaxAmount] = useState<string>("");
     const [minAmountError, setMinAmountError] = useState<string>("");
     const [maxAmountError, setMaxAmountError] = useState<string>("");
+
+    const handleChangeMinAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMinAmount(value);
+        if (isNaN(Number(value))) {
+            setMinAmountError("Số không hợp lệ");
+            return;
+        }
+        compareAmountFilter(value, maxAmount);
+    }
+
+    const handleChangeMaxAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setMaxAmount(value);
+        if (isNaN(Number(value))) {
+            setMaxAmountError("Số không hợp lệ");
+            return;
+        }
+        compareAmountFilter(minAmount, value);
+    }
+
+    const compareAmountFilter = (min: string, max: string) => {
+        if (max !== "" && min !== "") {
+            if (Number(min) > Number(max)) {
+                setMinAmountError("Không thể lớn hơn tổng cao nhất");
+                setMaxAmountError("Không thể nhỏ hơn tổng thấp nhất");
+                return;
+            }
+        }
+        setMinAmountError("");
+        setMaxAmountError("");
+    }
 
     useEffect(() => {
         const fetchOrder = async () => {
@@ -157,7 +190,7 @@ export default function OrderDataTable() {
                                 <input
                                     type="number"
                                     value={minAmount}
-                                    onChange={(e) => setMinAmount(e.target.value)}
+                                    onChange={handleChangeMinAmount}
                                     className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
                                     placeholder="VD: Nguyễn Văn A"
                                 />
@@ -168,7 +201,7 @@ export default function OrderDataTable() {
                                 <input
                                     type="number"
                                     value={maxAmount}
-                                    onChange={(e) => setMaxAmount(e.target.value)}
+                                    onChange={handleChangeMaxAmount}
                                     className="w-full rounded-md border-2 border-gray-300 px-3 py-1"
                                     placeholder="VD: Nguyễn Văn A"
                                 />

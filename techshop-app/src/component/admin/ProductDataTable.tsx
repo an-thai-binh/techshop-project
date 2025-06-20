@@ -49,11 +49,7 @@ export default function ProductDataTable() {
             setMinBasePriceError("Số không hợp lệ");
             return;
         }
-        if (maxBasePrice !== "" && (Number(value) > Number(maxBasePrice))) {
-            setMinBasePriceError("Không thể lớn hơn giá cao nhất");
-            return;
-        }
-        setMinBasePriceError("");
+        compareAmountFilter(value, maxBasePrice);
     }
 
     const handleChangeMaxBasePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,10 +59,18 @@ export default function ProductDataTable() {
             setMaxBasePriceError("Số không hợp lệ");
             return;
         }
-        if (minBasePrice !== "" && (Number(value) < Number(minBasePrice))) {
-            setMaxBasePriceError("Không thể nhỏ hơn giá thấp nhất");
-            return;
+        compareAmountFilter(minBasePrice, value);
+    }
+
+    const compareAmountFilter = (min: string, max: string) => {
+        if (max !== "" && min !== "") {
+            if (Number(min) > Number(max)) {
+                setMinBasePriceError("Không thể lớn hơn giá cao nhất");
+                setMaxBasePriceError("Không thể nhỏ hơn giá thấp nhất");
+                return;
+            }
         }
+        setMinBasePriceError("");
         setMaxBasePriceError("");
     }
 
