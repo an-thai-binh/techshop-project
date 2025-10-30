@@ -56,6 +56,10 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Cấu hình converter
+     * @return JwtAuthenticationConverter đã cấu hình
+     */
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter scopeConverter = new JwtGrantedAuthoritiesConverter();

@@ -80,7 +80,6 @@ public class AuthenticationService {
                             .build())
                     .build();
         }
-        String token = jwtUtil.generateAccessToken(user);
         AuthenticationResponse authenticationResponse = createAuthenticationResponse(user);
         return ApiResponse.<AuthenticationResponse>builder()
                 .success(true)
