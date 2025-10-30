@@ -164,7 +164,7 @@ public class ProductService {
     @Transactional
     public ApiResponse<ProductResponse> storeWithImage(ProductCreationRequest request, Long imageId) {
         Category category = categoryRepository.findById(request.getCategoryId()).orElseThrow(() -> new AppException(ErrorCode.CATEGORY_NOT_FOUND));
-        Image image = imageRepository.findById(imageId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND));
+        Image image = imageRepository.findById(imageId).orElseThrow(() -> new AppException(ErrorCode.IMAGE_NOT_FOUND)); // phải chạy ở db host
         Product product = productMapper.toProduct(category, request);
         ProductImage productImage = ProductImage.builder()
                 .product(product)

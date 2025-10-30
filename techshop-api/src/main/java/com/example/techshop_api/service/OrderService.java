@@ -87,7 +87,7 @@ public class OrderService {
     public ApiResponse<List<OrderResponse>> getOrdersByUserId(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        List<Order> orders = orderRepository.findAllByUserId(userId);
+        List<Order> orders = orderRepository.findAllByUserIdOrderByOrderTimeDesc(userId);
         List<OrderResponse> orderResponses = orders.stream()
                 .map(orderMapper::toOrderResponse)
                 .toList();
